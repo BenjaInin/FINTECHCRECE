@@ -1,0 +1,632 @@
+       {% load static %}
+<!DOCTYPE html>
+
+        <html lang="es">
+
+        <head>
+
+            <meta charset="UTF-8">
+
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <title>Login Page</title>
+
+            <link rel="icon" href="{% static '/images/logo_favicon.png' %}" type="image/png">
+            <link rel="shortcut icon" href="img/icono.ico">
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        </head>
+
+        <body>
+
+
+
+            <style>
+
+                @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        *{
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: "Montserrat", sans-serif;
+
+        }
+
+        body{
+
+            width: 100%;
+
+            height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background-color: #2b3e50;
+
+        }
+
+        .container{
+
+            width: 800px;
+
+            height: 500px;
+
+            display: flex;
+
+            position: relative;
+
+            background-color: #d3dce4ff;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow: 0 0 10px rgb(0, 0,0,0.3)
+
+        }
+
+        .container-form{
+
+            width: 100%;
+
+            overflow: hidden;
+
+        }
+
+        .container-form form{
+
+            height: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            transition: transform 0.5s ease-in;
+
+        }
+
+        .container-form h2{
+
+            font-size: 30px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .social-networks{
+
+            display: flex;
+
+            gap: 12px;
+
+            margin-bottom: 25px;
+
+        }
+
+        .social-networks ion-icon{
+
+            border: 1px solid #C9CCCB;
+
+            border-radius: 6px;
+
+            padding: 8px;
+
+            cursor: pointer;
+
+        }
+
+        .container-form span{
+
+            font-size: 12px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .container-input{
+
+            width: 300px;
+
+            height: 40px;
+
+            margin-bottom: 10px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 0 15px;
+
+            background-color: #EEEEEE;
+
+        }
+
+        .container-input input{
+
+            border: none;
+
+            outline: none;
+
+            width: 100%;
+
+            height: 100%;
+
+            background-color: inherit;
+
+        }
+
+        .container-form a{
+
+            color: black;
+
+            font-size:  14px;
+
+            margin-bottom: 20px;
+
+            margin-top: 5px;
+
+        }
+
+        .button{
+
+        
+
+            width: 170px;
+
+            height: 45px;
+
+            font-size: 15px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            margin-top: 10px;  
+
+            background-color: #2b3e50;  /* Color inicial (más oscuro) */
+
+            color: white;
+
+            transition: background-color 0.3s ease; /* Transición suave */
+
+            }
+
+        
+
+            .button:hover {
+
+                background-color: #4a6376; /* Color más claro cuando el mouse pasa sobre el botón */
+
+            }
+
+
+
+        /*Animation form*/
+
+
+
+        .sign-up{
+
+            transform: translateX(-100%);
+
+        }
+
+        .container.toggle .sign-in{
+
+            transform: translateX(100%);
+
+        }
+
+        .container.toggle .sign-up{
+
+            transform: translateX(0);
+
+        }
+
+
+
+        /*Welcome*/
+
+        .container-welcome{
+
+            position: absolute;
+
+            width: 50%;
+
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            transform: translateX(100%);
+
+            background-color: #4CAF50;
+
+            transition: transform 0.5s ease-in-out, border-radius 0.5s ease-in-out;
+
+            overflow: hidden;
+
+            border-radius: 50% 0 0 50%;
+
+        }
+
+        .container.toggle .container-welcome{
+
+            transform: translateX(0);
+
+            border-radius: 0 50% 50% 0;
+
+            background-color: #4CAF50;
+
+        }
+
+        .container-welcome .welcome{
+
+            position: absolute;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 0 50px;
+
+            color: white;
+
+            transition: transform 0.5s ease-in-out;
+
+        }
+
+        .welcome-sign-in{
+
+            transform: translateX(100%);
+
+        }
+
+        .container-welcome h3{
+
+            font-size: 40px;
+
+        }
+
+        .container-welcome p{
+
+            font-size: 14px;
+
+            text-align: center;
+
+        }
+
+        .container-welcome .button{
+
+            border: 2px solid white;
+
+            background-color: transparent;
+
+        }
+
+        .container-welcome .button:hover {
+
+            background-color:  #2b3e50; /* Color más claro cuando el mouse pasa sobre el botón */
+
+        }
+
+        .container.toggle .welcome-sign-in{
+
+            transform: translateX(0);
+
+        }
+
+        .container.toggle .welcome-sign-up{
+
+            transform: translateX(-100%);
+
+        }
+
+
+
+        .crece {
+
+            color: #4caf50;
+
+        }
+
+        .container-form .form-group-login {
+
+            /* Quitamos el margen que añade Django */
+
+            margin-bottom: 15px;
+
+            width: 300px;
+
+            text-align: left;
+
+        }
+
+
+
+        /* Etiqueta (Username: / Password:) */
+
+        .container-form .form-group-login label {
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            color: #2b3e50; /* Color de texto oscuro para labels */
+
+            display: block; /* Para que ocupen toda la línea antes del input */
+
+            margin-bottom: 4px;
+
+        }
+
+
+
+
+
+        /* Estilo base para el contenedor del input */
+
+        .container-input-modern {
+
+            /* Aquí forzamos el diseño de tu input para que sea más moderno */
+
+            background-color: #F0F4F3; /* Fondo muy claro (casi blanco/gris muy suave) */
+
+            border: 1px solid #D0D0D0; /* Borde gris sutil */
+
+            border-radius: 8px; /* Bordes redondeados */
+
+            height: 45px; /* Ligeramente más alto */
+
+            margin-bottom: 0; /* Lo gestiona form-group-login */
+
+            transition: border-color 0.3s ease;
+
+        }
+
+
+
+        /* Efecto de foco para el contenedor */
+
+        .container-input-modern:focus-within {
+
+            border-color: #4CAF50; /* Borde verde al enfocar */
+
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3); /* Sombra suave verde */
+
+        }
+
+
+
+        /* Estilo para el input dentro del contenedor (Username y Password) */
+
+        .container-input-modern input {
+
+            /* Usamos el color de fondo del contenedor */
+
+            background-color: inherit !important;
+
+            font-size: 14px;
+
+            color: #2b3e50;
+
+            /* Aseguramos que el input rellene el espacio */
+
+            padding: 0;
+
+        }
+
+
+
+            </style>
+
+            
+
+            <div class="container">
+
+                <div class="container-form">
+
+
+                    <form class="sign-in"  method="post" class="formulario">    
+
+                        <h1 class="crece">CrecetuLana</h1>
+
+                        <h2>Iniciar Sesión </h2>
+
+                        <div class="social-networks">
+
+                            <ion-icon name="logo-twitch"></ion-icon>
+
+                            <ion-icon name="logo-twitter"></ion-icon>
+
+                            <ion-icon name="logo-instagram"></ion-icon>
+
+                            <ion-icon name="logo-tiktok"></ion-icon>
+
+                        </div>
+
+                        <span>Use su correo y contraseña</span>
+
+                        {% csrf_token %}
+
+                    <!-- {{ form.as_p }}-->
+
+
+
+                        {% for field in form %}
+
+            <div class="form-group-login">
+
+                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+
+            
+
+                <div class="container-input container-input-modern">
+
+                    {% if field.name == 'username' %}
+
+                        <ion-icon name="person-outline"></ion-icon>
+
+                    {% else %}
+
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+
+                    {% endif %}
+
+                
+
+                    {{ field }}
+
+                </div>
+
+                {{ field.errors }}
+
+            </div>
+
+        {% endfor %}
+
+                        <a href="#">¿Olvidaste tu contraseña?</a>
+
+                        <button  type="submit" class="button">INICIAR SESIÓN</button>
+
+                    </form>
+
+                    {% if error %}
+
+            <div class="error">{{ error }}</div>
+
+        {% endif %}
+
+                </div>
+
+                <div class="container-form">
+
+                    <form method="post" class="sign-up">
+
+                        <h2>Registrarse</h2>
+
+                        <span>Use su correo electrónico para registrarse</span>
+
+                        
+
+                        <button class="button" >REGISTRARSE</button>
+
+                    </form>
+
+                </div>
+
+
+
+                <div class="container-welcome">
+
+                    <div class="welcome-sign-up welcome">
+
+                        <h3>¡Bienvenido!</h3>
+
+                        <p>Ingrese sus datos personales para usar las funciones del sitio</p>
+
+                        <button class="button" id="btn-sign-up">Registrarse</button>
+
+                    </div>
+
+                    <div class="welcome-sign-in welcome">
+
+                        <h3>¡Hola!</h3>
+
+                        <p>Regístrese con sus datos personales para usar las funciones del sitio</p>
+
+                        <button class="button" id="btn-sign-in">Iniciar Sesión</button>
+
+                    </div>
+
+                </div>
+            </div>
+            <script>
+
+                const container = document.querySelector(".container");
+
+        const btnSignIn = document.getElementById("btn-sign-in");
+
+        const btnSignUp = document.getElementById("btn-sign-up");
+
+
+
+        btnSignIn.addEventListener("click",()=>{
+
+        container.classList.remove("toggle");
+
+        });
+
+        btnSignUp.addEventListener("click", ()=>{
+         window.location.href = "{% url 'registrame' %}";
+        });
+
+
+            </script>
+
+            <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+            <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            {% if error_code %}
+            <script>
+            {% if error_code == 'usuario' %}
+                Swal.fire({
+                icon: "error",
+                title: "Usuario no encontrado",
+                text: "Verifica el correo, teléfono o usuario ingresado",
+                confirmButtonColor: "#2b3e50"
+                });
+            {% elif error_code == 'password' %}
+                Swal.fire({
+                icon: "error",
+                title: "Contraseña incorrecta",
+                text: "Por favor revisa tu contraseña e inténtalo de nuevo",
+                confirmButtonColor: "#2b3e50"
+                });
+            {% elif error_code == 'inhabilitado' %}
+                Swal.fire({
+                icon: "warning",
+                title: "Usuario inhabilitado",
+                text: "Tu cuenta está deshabilitada. Contacta con soporte.",
+                confirmButtonColor: "#2b3e50"
+                });
+            {% elif error_code == 'error' %}
+                Swal.fire({
+                icon: "error",
+                title: "Error inesperado",
+                text: "Ocurrió un problema durante el inicio de sesión.",
+                confirmButtonColor: "#2b3e50"
+                });
+            {% endif %}
+            </script>
+            {% endif %}
+
+        </body>
+
+        </html>

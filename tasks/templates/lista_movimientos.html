@@ -1,0 +1,364 @@
+{% load custom_filters %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Movimientos - crecetuLana</title>
+    <link rel="icon" href="{% static '/images/logo_favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #2b3e50;
+            color: white;
+            height: 100vh;
+            padding-top: 20px;
+            position: fixed;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .logo .crece {
+            color: white;
+        }
+        .logo .tu {
+            color: #4caf50;
+        }
+        .logo .lana {
+            color: white;
+        }
+        .logo-tagline {
+            font-size: 12px;
+            color: #4caf50;
+            margin-top: 5px;
+            line-height: 1.2;
+        }
+        .sidebar a {
+            padding: 12px 15px;
+            text-decoration: none;
+            color: white;
+            display: block;
+            font-size: 16px;
+        }
+        .sidebar a:hover {
+            background-color: #1b2a38;
+        }
+        .sidebar .active-link {
+            background-color: #1b2a38;
+            border-left: 4px solid #4caf50;
+            padding-left: 11px;
+        }
+        .sidebar i {
+            margin-right: 8px;
+        }
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+            width: calc(100% - 200px);
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px 40px;
+            box-shadow: 0 4px 12px rgba(43, 62, 80, 0.15);
+            max-width: 900px;
+            margin: 20px auto;
+        }
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #2b3e50;
+        }
+        .button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #3a9440;
+        }
+        table.table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table.table thead th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        table.table tbody td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        table.table tbody tr:nth-child(even) {
+            background-color: #bef2d4;
+        }
+        table.table tbody tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        .info-sumatorias-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start; /* mantiene la alineación al tope */
+            margin-top: 10px;
+            margin-bottom: 35px;
+            gap: 10px; 
+        }
+        .info-estado {
+            flex: 1;
+        }
+        .sumatorias-container {
+            max-width: 35%;
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 6px rgba(0,0,0,0.1);
+            margin-top: -110px;
+        }
+        .sumatorias-container h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #2b3e50;
+        }
+        .sumatorias-container table {
+            margin-bottom: 10px;
+        }
+        .status-box p {
+            margin: 5px 0;
+        }
+        .text-right {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <span class="crece">crece</span><span class="tu">tu</span><span class="lana">Lana</span>
+            </div>
+            <div class="logo-tagline">
+                Donde tu lana<br>nunca se queda quieta
+            </div>
+        </div>
+        <a href="{% url 'dashboard' %}"><i class="fas fa-chart-pie"></i> Resumen</a>
+        <a href="{% url 'lista_movimientos' %}" class="active-link"><i class="fas fa-list"></i> Movimientos</a>
+        <a href="{% url 'perfil' %}"><i class="far fa-user-circle"></i> Perfil</a>
+         {% if usuario.COD_PERMISOS == 99 %}<a href="{% url 'registro' %}"><i class="fas fa-marker"></i> Registrar</a>   {% endif %}
+        <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+    </div>
+
+    <div class="content">
+        <div class="card">
+            <h2>Consulta de Movimientos</h2>
+
+            {% if usuario.COD_PERMISOS == 99 %}
+            <form method="POST">
+                {% csrf_token %}
+               <label for="id_tercero">Tercero:</label>
+    <select name="id_tercero" id="id_tercero">
+      {% for t in terceros %}
+        <option value="{{ t.ID_TERCERO }}" {% if t.ID_TERCERO|stringformat:"s" == selected_id_tercero|stringformat:"s" %}selected{% endif %}>
+          {{ t.NOM_TERCERO }} {{ t.APE_PATERNO }} {{ t.APE_MATERNO }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <button type="submit">Buscar</button>
+            </form>
+            <hr>
+            {% endif %}
+
+            {% if movimientos %}
+            <h3>Estado de Cuenta</h3>
+            
+            <div class="info-sumatorias-container">
+                <div class="info-estado">
+                    <p><strong>Cliente:</strong> {{ nombre_completo }}</p>
+                    <p><strong>Periodo:</strong> {{ movimientos.0.FEC_REGISTRO|date:"Y-m-d" }} al {{ movimientos.last.FEC_REGISTRO|date:"Y-m-d" }}</p>
+                    <p><strong>Fecha de emisión:</strong> {{ now|date:"d-M-Y H:i:s" }}</p>
+                    <button id="generate-report-btn" class="button">Generar Reporte</button>
+                </div>
+
+                <div class="sumatorias-container">
+                    <h4>Sumatorias por tipo de movimiento:</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Importe</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tipo, suma in sumatorias_por_tipo.items %}
+                            <tr>
+                                <td>{{ tipo }}</td>
+                                <td class="text-right">${{ suma|floatformat:2 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="status-box">
+                        <p><strong>Suma total de depósitos:</strong> ${{ suma_depositos|floatformat:2 }}</p>
+                        <p><strong>Suma total de retiros:</strong> ${{ suma_retiros|floatformat:2 }}</p>
+                        <p><strong>Saldo final:</strong> ${{ saldo_total|floatformat:2 }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <h4>Movimientos:</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Concepto</th>
+                            <th>Retiros</th>
+                            <th>Depósitos</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for mov in movimientos %}
+                        <tr>
+                            <td>{{ mov.FEC_REGISTRO|date:"d-M-Y" }}</td>
+                            <td>{{ mov.COD_MOVIMIENTO.DESC_MOVIMIENTO }}</td>
+                            <td class="text-right">${{ mov.IMP_RETIRO|floatformat:2 }}</td>
+                            <td class="text-right">${{ mov.IMP_DEPOSITO|floatformat:2 }}</td>
+                            <td class="text-right">${{ mov.saldo_acumulado|floatformat:2 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% elif usuario.COD_PERMISOS != 99 %}
+            <p>No se encontraron movimientos para este usuario.</p>
+            {% endif %}
+        </div>
+    </div>
+
+<script>
+    document.getElementById('generate-report-btn')?.addEventListener('click', function() {
+        Swal.fire({
+            title: 'Selecciona el Mes y Año',
+            html: `
+                <style>
+                   .swal2-input,
+                        .swal2-select {
+                            width: 90% !important;
+                            display: block;
+                            margin: 5px auto 10px auto !important;
+                            border: 1px solid #4CAF50 !important;
+                            border-radius: 6px !important;
+                            padding: 8px 10px !important;
+                            font-size: 16px !important;
+                            background-color: #fff !important;
+                            color: #333 !important;
+                            box-sizing: border-box;
+                        }
+
+                        .swal2-input:focus,
+                        .swal2-select:focus {
+                            outline: none !important;
+                            border-color: #3a9440 !important;
+                            box-shadow: 0 0 5px #81c784 !important;
+                        }
+
+                        .swal2-label {
+                            display: block;
+                            font-weight: bold;
+                            text-align: left;
+                            margin: 8px 0 3px 5%;
+                            color: #333;
+                        }
+                </style>
+                <label for="month" class="swal2-label">Mes:</label>
+                <select id="month" class="swal2-select">
+                    <option value="01">Enero</option>
+                    <option value="02">Febrero</option>
+                    <option value="03">Marzo</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Mayo</option>
+                    <option value="06">Junio</option>
+                    <option value="07">Julio</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+                <br>
+                <label for="year" class="swal2-label">Año:</label>
+                <input type="number" id="year" class="swal2-input" value="${new Date().getFullYear()}" min="2000" max="2100">
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Generar Reporte',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor:  '#2b3e50',
+            cancelButtonColor: '#d33',
+            preConfirm: () => {
+                const month = document.getElementById('month').value;
+                const year = document.getElementById('year').value;
+                if (!month || !year) {
+                    Swal.showValidationMessage('Por favor, selecciona el mes y el año');
+                    return false;
+                }
+                return { month, year };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const { month, year } = result.value;
+                // Redirige con parámetros para generar el PDF
+                window.location.href = `/generar_reporte_pdf/?month=${month}&year=${year}`;
+            }
+        });
+    });
+</script>
+{% if error %}
+<script>
+  Swal.fire({
+    icon: 'warning',
+    title: 'Atención',
+    text: '{{ error }}',
+    timer: 3000,        // Duración en milisegundos
+    timerProgressBar: true,
+    showConfirmButton: false
+  });
+</script>
+{% endif %}
+</body>
+</html>
