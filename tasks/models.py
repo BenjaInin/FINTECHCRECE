@@ -16,7 +16,7 @@ class Usuario(models.Model):
     
     class Meta:
         db_table = 'CAT_USUARIOS'  
-        managed = False
+        managed = True
  
 # Modelo para CAT_TERCEROS (Tabla de terceros) 
 class CatTerceros(models.Model):
@@ -39,7 +39,7 @@ class CatTerceros(models.Model):
     
     class Meta:
         db_table = 'CAT_TERCEROS'  
-        managed = False  # Si no quieres que Django gestione la tabla
+        managed = True  
 
 #Modelo para tipo de tercero CAT_TIP_TERCERO
 class CatTipoTercero(models.Model):
@@ -59,7 +59,7 @@ class CatTipoTercero(models.Model):
 
     class Meta:
         db_table = 'CAT_TIP_TERCEROS'
-        managed = False
+        managed = True
 
 #Modelo para tipo de movimientos CAT_TIP_MOVIMIENTOS
 class CatTipMovimientos(models.Model):
@@ -79,7 +79,7 @@ class CatTipMovimientos(models.Model):
         return f"{self.COD_MOVIMIENTO} {self.DESC_MOVIMIENTO}"
     class Meta:
         db_table = 'CAT_TIP_MOVIMIENTOS'  
-        managed = False  # Si no quieres que Django gestione la tabla
+        managed = True  
 
 
 #Modelo para obtener movimientos HIS_MOVIMIENTOS
@@ -100,7 +100,7 @@ class HisMovimientos(models.Model):
         unique_together = (
             'ID_TERCERO', 'TIP_TERCERO', 'COD_MOVIMIENTO', 'FEC_REGISTRO', 'FEC_ACTUALIZACION'
         )
-        managed = False  # Django no gestionará la tabla
+        managed = True  
 
     def __str__(self):
         return f"Movimiento {self.COD_MOVIMIENTO.DESC_MOVIMIENTO} - {self.FEC_REGISTRO}"
@@ -116,6 +116,6 @@ class CatTerUsuario(models.Model):
     
     class Meta:
         db_table = 'CAT_TER_USUARIO'
-        managed = False  # Django no gestionará la tabla
+        managed = True 
     def __str__(self):
         return f"{self.COD_USUARIO} - {self.ID_TERCERO}"
