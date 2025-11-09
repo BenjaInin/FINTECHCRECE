@@ -1,0 +1,29 @@
+# Entornos virtuales
+venv/
+venv38/
+.env/
+
+# Archivos de Python compilados
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos temporales y logs
+*.log
+
+# Configuración local
+db.sqlite3
+.DS_Store
+
+# Archivos de entorno o secretos
+*.env
+
+# Archivos del editor
+.vscode/
+.idea/
+*.swp
+*.bak
+
+# Migraciones cacheadas (opcional)
+migrations/__pycache__/
