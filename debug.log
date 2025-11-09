@@ -1,0 +1,755 @@
+[2025-11-08 05:10:45,071] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 05:10:45,072] INFO tasks.views: Datos recibidos -> Nombre: , Paterno: asda, Materno: MARTINEZ, Correo: , Teléfono: 
+[2025-11-08 05:10:45,076] WARNING tasks.views: Campos incompletos detectados
+[2025-11-08 05:10:45,548] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-08 05:10:45,550] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4839
+[2025-11-08 05:15:17,555] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 05:15:17,569] INFO tasks.views: Datos recibidos -> Nombre: , Paterno: PEREZ, Materno: ARMENTA, Correo: , Teléfono: 
+[2025-11-08 05:15:17,570] WARNING tasks.views: Campos incompletos detectados
+[2025-11-08 05:15:18,436] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-08 05:15:18,537] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4839
+[2025-11-08 05:18:08,642] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 05:18:08,647] INFO tasks.views: Datos recibidos -> Nombre: MAYRA, Paterno: SAAAA, Materno: MARTINEZ, Correo: , Teléfono: 
+[2025-11-08 05:18:08,648] WARNING tasks.views: Campos incompletos detectados
+[2025-11-08 05:18:08,954] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-08 05:18:08,987] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4839
+[2025-11-08 05:19:30,226] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 05:19:30,227] INFO tasks.views: Datos recibidos -> Nombre: MAYRA, Paterno: ASDAD, Materno: MARTINEZ, Correo: bemendez@GMAIL.COM, Teléfono: 123
+[2025-11-08 05:19:30,231] WARNING tasks.views: Campos incompletos detectados
+[2025-11-08 05:19:30,440] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-08 05:19:30,448] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4839
+[2025-11-08 05:23:42,286] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 05:23:42,290] INFO tasks.views: Datos recibidos -> Nombre: MAYRA, Paterno: ASDADSA, Materno: MARTINEZ, Correo: bemendez@ASDAD.COM, Teléfono: 123211241
+[2025-11-08 05:23:42,291] WARNING tasks.views: Campos incompletos detectados
+[2025-11-08 05:23:43,433] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-08 05:23:43,439] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4839
+[2025-11-08 05:25:05,578] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 05:25:05,580] INFO tasks.views: Datos recibidos -> Nombre: MAYRA, Paterno: ASDSAD, Materno: MARTINEZ, Correo: bemendez@GFGADSAD.COM, Teléfono: 12321412321
+[2025-11-08 05:25:05,608] INFO tasks.views: COD_USUARIO generado: maasdsadma
+[2025-11-08 05:25:07,076] INFO tasks.views: Contraseña encriptada correctamente
+[2025-11-08 05:25:07,077] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 05:25:07,092] INFO tasks.views: Nuevo ID_TERCERO generado: 00010
+[2025-11-08 05:25:07,094] ERROR tasks.views: Error durante el registro: Usuario() got unexpected keyword arguments: 'NUM_TEL'
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 153, in registrame
+    usuario = Usuario.objects.create(
+        COD_USUARIO=COD_USUARIO,
+    ...<6 lines>...
+        NUM_TEL=NUM_TEL
+    )
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 677, in create
+    obj = self.model(**kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 567, in __init__
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: Usuario() got unexpected keyword arguments: 'NUM_TEL'
+[2025-11-08 05:25:07,726] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-08 05:25:07,738] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4839
+[2025-11-08 05:25:36,219] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-08 05:25:36,238] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4839
+[2025-11-08 05:25:58,188] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 05:25:58,189] INFO tasks.views: Datos recibidos -> Nombre: MAYRA, Paterno: QWEQE, Materno: MARTINEZ, Correo: bemendez@GMAIL.COM, Teléfono: 44920612314
+[2025-11-08 05:25:58,206] INFO tasks.views: COD_USUARIO generado: maqweqema
+[2025-11-08 05:25:59,555] INFO tasks.views: Contraseña encriptada correctamente
+[2025-11-08 05:25:59,555] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 05:25:59,557] INFO tasks.views: Nuevo ID_TERCERO generado: 00010
+[2025-11-08 05:25:59,558] ERROR tasks.views: Error durante el registro: Usuario() got unexpected keyword arguments: 'NUM_TEL'
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 153, in registrame
+    usuario = Usuario.objects.create(
+        COD_USUARIO=COD_USUARIO,
+    ...<6 lines>...
+        NUM_TEL=NUM_TEL
+    )
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 677, in create
+    obj = self.model(**kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 567, in __init__
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: Usuario() got unexpected keyword arguments: 'NUM_TEL'
+[2025-11-08 05:25:59,690] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-08 05:25:59,692] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4839
+[2025-11-08 05:29:32,724] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 05:29:32,729] INFO tasks.views: Datos recibidos -> Nombre: ASDASD, Paterno: ASDAD, Materno: ASDSADA, Correo: QWEQW@GMAIL.COM, Teléfono: 23213123123
+[2025-11-08 05:29:32,765] INFO tasks.views: COD_USUARIO generado: asasdadas
+[2025-11-08 05:29:34,451] INFO tasks.views: Contraseña encriptada correctamente
+[2025-11-08 05:29:34,452] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 05:29:34,455] INFO tasks.views: Nuevo ID_TERCERO generado: 00010
+[2025-11-08 05:29:34,471] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: asasdadas
+[2025-11-08 05:29:34,477] INFO tasks.views: Tercero insertado en CAT_TERCEROS con ID_TERCERO: 00010
+[2025-11-08 05:29:34,496] INFO tasks.views: Usuario 'asasdadas' registrado correctamente.
+[2025-11-08 05:29:35,217] WARNING django.request: Not Found: /login/img/icono.ico
+[2025-11-08 05:29:35,218] WARNING django.server: "GET /login/img/icono.ico HTTP/1.1" 404 4752
+[2025-11-08 11:46:59,365] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 11:46:59,376] INFO tasks.views: Datos recibidos -> Nombre: Carlos, Paterno: Sanchez, Materno: Carlo, Correo: pruebadecorreo@gmail.com, Teléfono: 555568191231
+[2025-11-08 11:46:59,384] INFO tasks.views: COD_USUARIO generado: casanchezca
+[2025-11-08 11:47:00,734] INFO tasks.views: Contraseña encriptada correctamente
+[2025-11-08 11:47:00,734] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 11:47:00,739] INFO tasks.views: Nuevo ID_TERCERO generado: 00010
+[2025-11-08 11:47:00,756] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: casanchezca
+[2025-11-08 11:47:00,766] ERROR tasks.views: Error durante el registro: (1062, "Duplicate entry '00010' for key 'PRIMARY'")
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1062, "Duplicate entry '00010' for key 'PRIMARY'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 166, in registrame
+    CatTerceros.objects.create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        ID_TERCERO=nuevo_id,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        COD_USUARIO=usuario
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 891, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 997, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 1160, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 1201, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.IntegrityError: (1062, "Duplicate entry '00010' for key 'PRIMARY'")
+[2025-11-08 11:51:31,814] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 11:51:31,816] INFO tasks.views: Datos recibidos -> Nombre: Carlos, Paterno: Perez, Materno: Sanchez, Correo: pbacorreo@gmail.com, Teléfono: 565345323
+[2025-11-08 11:51:31,852] INFO tasks.views: COD_USUARIO generado: caperezsa
+[2025-11-08 11:51:33,194] INFO tasks.views: Contraseña encriptada correctamente
+[2025-11-08 11:51:33,195] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 11:51:33,203] INFO tasks.views: Nuevo ID_TERCERO generado: 00010
+[2025-11-08 11:51:33,230] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: caperezsa
+[2025-11-08 11:51:33,259] ERROR tasks.views: Error durante el registro: (1062, "Duplicate entry '00010' for key 'PRIMARY'")
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1062, "Duplicate entry '00010' for key 'PRIMARY'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 166, in registrame
+    CatTerceros.objects.create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        ID_TERCERO=nuevo_id,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        COD_USUARIO=usuario
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 891, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 997, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 1160, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 1201, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.IntegrityError: (1062, "Duplicate entry '00010' for key 'PRIMARY'")
+[2025-11-08 11:56:26,726] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 11:56:26,733] INFO tasks.views: Datos recibidos -> Nombre: Carlos, Paterno: Perez, Materno: Sanchez, Correo: pbacorreo@gmail.com, Teléfono: 449565743
+[2025-11-08 11:56:26,747] INFO tasks.views: COD_USUARIO generado: caperezsa
+[2025-11-08 11:56:28,078] INFO tasks.views: Contraseña encriptada correctamente
+[2025-11-08 11:56:28,079] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 11:56:28,083] INFO tasks.views: Nuevo ID_TERCERO generado: 00011
+[2025-11-08 11:56:28,085] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: caperezsa
+[2025-11-08 11:56:28,096] INFO tasks.views: Tercero insertado en CAT_TERCEROS con ID_TERCERO: 00011
+[2025-11-08 11:57:05,287] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 11:57:05,291] INFO tasks.views: Datos recibidos -> Nombre: pbauser, Paterno: pbaapepa, Materno: pabapema, Correo: pbawe@gmail.com, Teléfono: 4449932123
+[2025-11-08 11:57:05,301] INFO tasks.views: COD_USUARIO generado: pbpbaapepapa
+[2025-11-08 11:57:06,877] INFO tasks.views: Contraseña encriptada correctamente
+[2025-11-08 11:57:06,879] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 11:57:06,881] INFO tasks.views: Nuevo ID_TERCERO generado: 00012
+[2025-11-08 11:57:06,884] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: pbpbaapepapa
+[2025-11-08 11:57:06,886] INFO tasks.views: Tercero insertado en CAT_TERCEROS con ID_TERCERO: 00012
+[2025-11-08 12:49:14,655] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 12:49:14,657] INFO tasks.views: Datos recibidos -> Nombre: kehila, Paterno: Sanchez, Materno: Calderon, Correo: kehilasanchez@gmail.com, Teléfono: 4496058343
+[2025-11-08 12:49:14,686] INFO tasks.views: COD_USUARIO generado: kesanchezca
+[2025-11-08 12:49:16,050] INFO tasks.views: Contraseña encriptada correctamente
+[2025-11-08 12:49:16,051] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 12:49:16,055] INFO tasks.views: Nuevo ID_TERCERO generado: 00013
+[2025-11-08 12:49:16,063] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: kesanchezca
+[2025-11-08 12:49:16,098] ERROR tasks.views: Error durante el registro: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`db_fintech`.`cat_ter_usuario`, CONSTRAINT `cat_ter_usuario_ibfk_2` FOREIGN KEY (`ID_TERCERO`) REFERENCES `CAT_TERCEROS` (`ID_TERCERO`))')
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`db_fintech`.`cat_ter_usuario`, CONSTRAINT `cat_ter_usuario_ibfk_2` FOREIGN KEY (`ID_TERCERO`) REFERENCES `CAT_TERCEROS` (`ID_TERCERO`))')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 183, in registrame
+    CatTerUsuario.objects.create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        COD_USUARIO=usuario.COD_USUARIO,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        MCA_INHABILITADO='N'
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 891, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 997, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 1160, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 1201, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.IntegrityError: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`db_fintech`.`cat_ter_usuario`, CONSTRAINT `cat_ter_usuario_ibfk_2` FOREIGN KEY (`ID_TERCERO`) REFERENCES `CAT_TERCEROS` (`ID_TERCERO`))')
+[2025-11-08 12:52:41,854] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 12:52:41,855] INFO tasks.views: Datos recibidos -> Nombre: Kehila, Paterno: Sanchez, Materno: Calderon, Correo: princess@gmail.com, Teléfono: 44909834
+[2025-11-08 12:52:41,863] INFO tasks.views: COD_USUARIO generado: kesanchezca
+[2025-11-08 12:52:43,478] INFO tasks.views: Contraseña encriptada correctamente
+[2025-11-08 12:52:43,479] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 12:52:43,502] INFO tasks.views: Nuevo ID_TERCERO generado: 00013
+[2025-11-08 12:52:43,553] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: kesanchezca
+[2025-11-08 12:52:43,559] INFO tasks.views: Tercero insertado en CAT_TERCEROS con ID_TERCERO: 00013
+[2025-11-08 13:23:22,640] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 13:23:22,646] INFO tasks.views: Datos recibidos -> Nombre: Sarai, Paterno: Sanchez, Materno: Calderon, Correo: sarai777@gmail.com, Teléfono: 565654312
+[2025-11-08 13:23:22,694] INFO tasks.views: COD_USUARIO generado: sasanchezca
+[2025-11-08 13:23:24,408] INFO tasks.views: Contraseña encriptada con bcrypt correctamente
+[2025-11-08 13:23:24,409] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 13:23:24,410] INFO tasks.views: Nuevo ID_TERCERO generado: 00014
+[2025-11-08 13:23:24,433] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: sasanchezca
+[2025-11-08 13:23:24,437] INFO tasks.views: Tercero insertado en CAT_TERCEROS y CAT_TER_USUARIO con ID_TERCERO: 00014
+[2025-11-08 14:04:03,067] INFO tasks.views: === Intento de inicio de sesión ===
+[2025-11-08 14:04:03,068] INFO tasks.views: Usuario ingresado: bmendez@gmail.com
+[2025-11-08 14:04:03,076] INFO tasks.views: Usuario encontrado: bemendez (bmendez@gmail.com)
+[2025-11-08 14:04:03,077] ERROR tasks.views: Error al verificar contraseña: Invalid salt
+[2025-11-08 14:04:37,586] INFO tasks.views: === Intento de inicio de sesión ===
+[2025-11-08 14:04:37,589] INFO tasks.views: Usuario ingresado: bmendez@gmail.com
+[2025-11-08 14:04:37,647] INFO tasks.views: Usuario encontrado: bemendez (bmendez@gmail.com)
+[2025-11-08 14:04:37,650] ERROR tasks.views: Error al verificar contraseña: Invalid salt
+[2025-11-08 14:05:49,899] INFO tasks.views: === Intento de inicio de sesión ===
+[2025-11-08 14:05:49,906] INFO tasks.views: Usuario ingresado: bemendez
+[2025-11-08 14:05:49,925] INFO tasks.views: Usuario encontrado: bemendez (bmendez@gmail.com)
+[2025-11-08 14:05:49,926] ERROR tasks.views: Error al verificar contraseña: Invalid salt
+[2025-11-08 14:06:39,164] INFO tasks.views: === Intento de inicio de sesión ===
+[2025-11-08 14:06:39,171] INFO tasks.views: Usuario ingresado: sarai777@gmail.com
+[2025-11-08 14:06:39,186] INFO tasks.views: Usuario encontrado: sasanchezc (sarai777@gmail.com)
+[2025-11-08 14:06:39,191] ERROR tasks.views: Error al verificar contraseña: Invalid salt
+[2025-11-08 14:08:19,511] INFO tasks.views: === Intento de inicio de sesión ===
+[2025-11-08 14:08:19,513] INFO tasks.views: Datos recibidos -> identificador: , longitud contraseña: 20
+[2025-11-08 14:08:19,522] WARNING tasks.views: Faltan campos en el formulario de login
+[2025-11-08 14:08:19,562] INFO tasks.views: Cargando formulario de login
+[2025-11-08 14:08:22,379] INFO tasks.views: Cargando formulario de login
+[2025-11-08 14:08:26,401] INFO tasks.views: Cargando formulario de login
+[2025-11-08 14:15:03,914] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 14:15:03,918] INFO tasks.views: Datos recibidos -> Nombre: Pedro, Paterno: Calderon, Materno: Martinez, Correo: pcalderon@gmail.com, Teléfono: 565123456
+[2025-11-08 14:15:03,935] INFO tasks.views: COD_USUARIO generado: pecalderonma
+[2025-11-08 14:15:05,643] INFO tasks.views: Contraseña encriptada con bcrypt correctamente
+[2025-11-08 14:15:05,644] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 14:15:05,647] INFO tasks.views: Nuevo ID_TERCERO generado: 00015
+[2025-11-08 14:15:05,651] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: pecalderonma
+[2025-11-08 14:15:05,654] INFO tasks.views: Tercero insertado en CAT_TERCEROS y CAT_TER_USUARIO con ID_TERCERO: 00015
+[2025-11-08 14:20:21,930] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 14:20:21,932] INFO tasks.views: Datos recibidos -> Nombre: Sarai, Paterno: Calderon, Materno: Sanchez, Correo: saraisanchez777@info.com, Teléfono: 9876543210
+[2025-11-08 14:20:21,957] INFO tasks.views: COD_USUARIO generado: sacalderonsa
+[2025-11-08 14:20:23,708] INFO tasks.views: Contraseña encriptada con bcrypt correctamente
+[2025-11-08 14:20:23,709] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 14:20:23,711] INFO tasks.views: Nuevo ID_TERCERO generado: 00016
+[2025-11-08 14:20:23,715] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: sacalderonsa
+[2025-11-08 14:20:23,719] INFO tasks.views: Tercero insertado en CAT_TERCEROS y CAT_TER_USUARIO con ID_TERCERO: 00016
+[2025-11-08 14:26:59,433] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 14:26:59,467] INFO tasks.views: Datos recibidos -> Nombre: PruebaSIS, Paterno: TEMA, Materno: DEPRUEBA, Correo: prue@gmail.com, Teléfono: 123123123
+[2025-11-08 14:26:59,560] INFO tasks.views: COD_USUARIO generado: prtemade
+[2025-11-08 14:27:01,048] INFO tasks.views: Contraseña encriptada con make_password correctamente
+[2025-11-08 14:27:01,049] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 14:27:01,053] INFO tasks.views: Nuevo ID_TERCERO generado: 00017
+[2025-11-08 14:27:01,056] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: prtemade
+[2025-11-08 14:27:01,062] INFO tasks.views: Tercero insertado en CAT_TERCEROS y CAT_TER_USUARIO con ID_TERCERO: 00017
+[2025-11-08 14:38:37,201] INFO tasks.views: === Iniciando proceso de registro de usuario ===
+[2025-11-08 14:38:37,213] INFO tasks.views: Datos recibidos -> Nombre: Alejandro, Paterno: Mendez, Materno: Armenta, Correo: amendez@gmail.com, Teléfono: 5581010175
+[2025-11-08 14:38:37,229] INFO tasks.views: COD_USUARIO generado: almendezar
+[2025-11-08 14:38:38,759] INFO tasks.views: Contraseña encriptada con make_password correctamente
+[2025-11-08 14:38:38,760] INFO tasks.views: Fecha actual del servidor: 2025-11-08
+[2025-11-08 14:38:38,764] INFO tasks.views: Nuevo ID_TERCERO generado: 00018
+[2025-11-08 14:38:38,766] INFO tasks.views: Usuario insertado en CAT_USUARIOS con COD_USUARIO: almendezar
+[2025-11-08 14:38:38,774] INFO tasks.views: Tercero insertado en CAT_TERCEROS y CAT_TER_USUARIO con ID_TERCERO: 00018
+[2025-11-08 15:21:57,978] ERROR django.request: Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\utils\dateparse.py", line 74, in parse_date
+    return datetime.date.fromisoformat(value)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+ValueError: year 0 is out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 1487, in to_python
+    parsed = parse_date(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\utils\dateparse.py", line 78, in parse_date
+    return datetime.date(**kw)
+           ~~~~~~~~~~~~~^^^^^^
+ValueError: year 0 is out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 82, in perfil
+    usuario.save()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 891, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 997, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 1129, in _save_table
+    updated = self._do_update(
+        base_qs, using, pk_val, values, update_fields, forced_update
+    )
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\base.py", line 1194, in _do_update
+    return filtered._update(values) > 0
+           ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 1278, in _update
+    return query.get_compiler(self.db).execute_sql(CURSOR)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 2003, in execute_sql
+    cursor = super().execute_sql(result_type)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1561, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\mysql\compiler.py", line 57, in as_sql
+    update_query, update_params = super().as_sql()
+                                  ~~~~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1966, in as_sql
+    val = field.get_db_prep_save(val, connection=self.connection)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 1008, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 1536, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 1531, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 1491, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“0000-00-00” value has the correct format (YYYY-MM-DD) but it is an invalid date.']
+[2025-11-08 15:21:58,017] ERROR django.server: "POST /perfil/ HTTP/1.1" 500 150485
+[2025-11-08 17:06:53,315] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-08 17:06:53,345] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4839
+[2025-11-08 17:08:52,044] ERROR django.request: Internal Server Error: /lista_movimientos/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 442, in lista_movimientos
+    return render(request, 'lista_movimientos.html', {
+        'usuario': usuario,
+    ...<10 lines>...
+        'now': now
+    })
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\template\defaulttags.py", line 199, in render
+    len_values = len(values)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 382, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1561, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 796, in as_sql
+    distinct_result, distinct_params = self.connection.ops.distinct_sql(
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        distinct_fields,
+        ^^^^^^^^^^^^^^^^
+        distinct_params,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv\Lib\site-packages\django\db\backends\base\operations.py", line 205, in distinct_sql
+    raise NotSupportedError(
+        "DISTINCT ON fields is not supported by this database backend"
+    )
+django.db.utils.NotSupportedError: DISTINCT ON fields is not supported by this database backend
+[2025-11-08 17:08:52,081] ERROR django.server: "POST /lista_movimientos/ HTTP/1.1" 500 156593
+[2025-11-08 17:22:56,174] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-11-08 17:22:56,186] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-11-08 17:22:56,188] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-11-08 17:22:56,189] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-11-08 17:22:56,189] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-11-08 17:22:56,190] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960

@@ -1,0 +1,352 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - crecetuLana</title>
+    <link rel="icon" href="{% static '/images/logo_favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #2b3e50;
+            color: white;
+            height: 100vh;
+            padding-top: 20px;
+            position: fixed;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .logo .crece {
+            color: white;
+        }
+        .logo .tu {
+            color: #4caf50;
+        }
+        .logo .lana {
+            color: white;
+        }
+        .logo-tagline {
+            font-size: 12px;
+            color: #4caf50;
+            margin-top: 5px;
+            line-height: 1.2;
+        }
+        .sidebar a {
+            padding: 12px 15px;
+            text-decoration: none;
+            color: white;
+            display: block;
+            font-size: 16px;
+        }
+        .sidebar a:hover {
+            background-color: #1b2a38;
+        }
+        .sidebar .active-link {
+            background-color: #1b2a38; /* Resaltar la página activa */
+            border-left: 4px solid #4caf50;
+            padding-left: 11px;
+        }
+        .sidebar i {
+            margin-right: 8px;
+        }
+        .disponible-prestamo {
+            position: absolute;
+            bottom: 28px;
+            left: 15px;
+            color: white;
+        }
+        .disponible-prestamo h3 {
+            margin: 0;
+            font-size: 11px;
+            color: #40e0d0;
+        }
+        .disponible-prestamo .importe {
+            font-size: 18px;
+            margin-top: 5px;
+            color: white;
+        }
+        .disponible-prestamo .leyenda {
+            font-size: 11px;
+            color: #a9c1d9;
+        }
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+            width: calc(100% - 200px);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h2 {
+            margin: 0;
+        }
+        .summary-cards {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            flex-wrap: nowrap;
+        }
+        .summary-card {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+            border-radius: 8px;
+            width: calc(25% - 15px);
+            margin-bottom: 20px;
+        }
+        .card-content {
+            display: flex;
+            align-items: center;
+        }
+        .wallet-icon, .piggy-bank-icon, .chart-icon, .trophy-icon {
+            font-size: 24px;
+            padding: 8px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .wallet-icon {
+            color: #4a90e2;
+            background-color: #e6f2ff;
+        }
+        .piggy-bank-icon {
+            color: #4caf50;
+            background-color: #e6ffed;
+        }
+        .chart-icon {
+            color: #4a90e2;
+            background-color: #e6f2ff;
+        }
+        .trophy-icon {
+            color: #ffd700;
+            background-color: rgba(255, 215, 0, 0.2);
+        }
+        .rewards-card {
+            background-color: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+        }
+        .card-text {
+            flex-grow: 1;
+        }
+        .card-text h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .card-text p {
+            margin: 3px 0 0;
+            font-size: 12px;
+            color: #666;
+        }
+        .chart-container {
+            display: flex;
+            margin-top: 50px;
+        }
+        #chart-area {
+            width: 75%;
+            height: 400px;
+        }
+        .info-panel {
+            width: 25%;
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-left: 20px;
+        }
+        .info-panel h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #2b3e50;
+        }
+        .info-item {
+            margin-bottom: 10px;
+        }
+        .info-item .label {
+            font-weight: bold;
+            color: #4a90e2;
+        }
+        .info-item .value {
+            float: right;
+        }
+        .legend-text {
+            font-size: 12px;
+            color: #555;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% csrf_token %}
+<div class="sidebar">
+    <div class="logo-container">
+        <div class="logo">
+            <span class="crece">crece</span><span class="tu">tu</span><span class="lana">Lana</span>
+        </div>
+        <div class="logo-tagline">
+            Donde tu lana<br>
+            nunca se queda quieta
+        </div>
+    </div>
+    <a href="{% url 'dashboard' %}" class="active-link"><i class="fas fa-chart-pie"></i> Resumen</a>
+    <a href="{% url 'lista_movimientos' %}"><i class="fas fa-list"></i> Movimientos</a>
+    <a href="{% url 'perfil' %}"><i class="far fa-user-circle"></i> Perfil</a>
+     {% if usuario.COD_PERMISOS == 99 %}<a href="{% url 'registro' %}"><i class="fas fa-marker"></i> Registrar</a>   {% endif %}
+    <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+
+    <div class="disponible-prestamo">
+        <h3>Disponible para préstamo:</h3>
+        <div class="importe">${{ prestamo_disponible|floatformat:2 }}</div>
+        <div class="leyenda">Tasa del 4% Mensual</div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="header">
+        <h2>Bienvenido {{ nombre }} {{ ape_paterno }} {{ ape_materno }}</h2>
+        
+    
+        {% if error %}
+            <p style="color:red;">{{ error }}</p>
+        {% endif %}
+     
+    </div>
+  
+    <div class="summary-cards">
+        <div class="summary-card">
+            <div class="card-content">
+                <i class="fas fa-wallet wallet-icon"></i>
+                <div class="card-text">
+                    <h3>${{ valor_cuenta|floatformat:2 }}</h3>
+                    <p>Valor de tu cuenta</p>
+                </div>
+            </div>
+        </div>
+        <div class="summary-card" style="background-color: #e6ffed; border: 1px solid #4caf50;">
+            <div class="card-content">
+                <i class="fas fa-piggy-bank piggy-bank-icon"></i>
+                <div class="card-text">
+                    <h3 style="color: #4caf50;">${{ disponible_retiro|floatformat:2 }}</h3>
+                    <p style="color: #4caf50;">Ganado</p>
+                </div>
+            </div>
+        </div>
+        <div class="summary-card">
+            <div class="card-content">
+                <i class="fas fa-chart-line chart-icon"></i>
+                <div class="card-text">
+                    <h3 style="color: #4a90e2;">4%</h3>
+                    <p>Tasa promedio</p>
+                </div>
+            </div>
+        </div>
+        <div class="summary-card rewards-card">
+            <div class="card-content">
+                <i class="fas fa-trophy trophy-icon"></i>
+                <div class="card-text">
+                    <h3 style="color: #00adf1ff;">Basico</h3>
+                    <p>Nivel de recompensas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div id="chart-area"><div id="aportaciones-chart" style="width:100%; height:400px;"></div>  <div class="legend-text">
+            Esta gráfica es una proyección comparativa del rendimiento que se tendría si en un futuro siempre se re-invierten los pagos con los intereses generados por el rendimiento, por lo que siempre es recomendable no retirar los rendimientos ganados para que se vuelvan a re-invertir.
+        </div> </div>
+        <div class="info-panel">
+            <h3>Información Financiera</h3>
+            <div class="info-item">
+                <span class="label">USD/MXN:</span>
+                <span class="value">$20.15</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Oro (onza):</span>
+                <span class="value">$1,892.30</span>
+            </div>
+            <div class="info-item">
+                <span class="label">APPLE:</span>
+                <span class="value">$175.43</span>
+            </div>
+            <div class="info-item">
+                <span class="label">AMAZON:</span>
+                <span class="value">$3,245.67</span>
+            </div>
+            <div class="info-item">
+                <span class="label">GOOGLE:</span>
+                <span class="value">$2,789.12</span>
+            </div>
+        </div>
+        
+    </div>
+   
+</div>
+
+
+<!-- Datos JSON pasados desde Django -->
+<script id="aportaciones-data" type="application/json">
+    {{ aportaciones|escapejs }}
+</script>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const aportacionesDataElement = document.getElementById('aportaciones-data');
+
+        if (aportacionesDataElement) {
+            // Parsear los datos de JSON
+            const aportacionesData = JSON.parse(aportacionesDataElement.textContent);
+
+            // Crear el gráfico Highcharts
+            Highcharts.chart('aportaciones-chart', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Rendimiento financiero'
+                },
+                xAxis: {
+                    categories: [
+                        'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+                    ]
+                },
+                yAxis: {
+                    title: {
+                        text: 'Monto ($)'
+                    }
+                },
+                series: [{
+                    name: 'Aportaciones',
+                    data: aportacionesData,
+                    color: '#4caf50'
+                }]
+            });
+        }
+    });
+</script>
+
+
+</body>
+</html>

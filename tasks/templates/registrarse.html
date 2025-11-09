@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Registro</title>
+  <link rel="icon" href="{% static 'images/logo_favicon.png' %}" type="image/png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-dark': '#2b3e50',
+            'accent-green': '#4CAF50',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    .icon-input { position: relative; }
+    .icon-input ion-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4b5563;
+    }
+    .icon-input input { padding-left: 40px !important; }
+    .container-input-modern {
+    background-color: #D0D0D0; /* Fondo gris muy suave */
+    border: 1px solid  #F0F4F3; /* Borde gris sutil */
+}
+  </style>
+</head>
+
+<body class="font-sans bg-gray-100">
+
+  <div class="flex min-h-screen">
+    <!-- PANEL IZQUIERDO con imagen -->
+   <div class="w-1/3 bg-primary-dark flex flex-col items-center justify-start p-10 pt-5">
+    <img src="{% static 'images/registrame.png' %}" 
+        alt="Regístrate Ahora" 
+        class="w-11/12 h-auto rounded-xl object-contain">
+          <!-- Mensaje alentador -->
+   <h4 class="text-3xl font-bold mb-4 text-center text-white">
+    ¡Empieza a ahorrar hoy y construye tu futuro!
+  </h4>
+  <!-- Beneficios -->
+  <ul class="text-lg list-disc list-inside space-y-2 max-w-xs text-center text-white">
+    <li>✔️ Multiplica tus ahorros con intereses competitivos.</li>
+    <li>✔️ Accede a préstamos rápidos y seguros.</li>
+    <li>✔️ Controla y optimiza tu dinero de forma fácil.</li>
+    <li>✔️ Únete a una comunidad que crece contigo.</li>
+  </ul>
+  </div>
+
+    <!-- PANEL DERECHO con formulario -->
+    <div class="w-2/3 flex items-center justify-center bg-gray-200">
+      <div class="w-full max-w-xl p-4 rounded-xl shadow-lg border border-gray-200  container-input-modern">
+        <h3 class="text-2xl font-bold text-center text-gray-800 mb-6">Crea tu nueva cuenta</h3>
+         <!-- Llamado a la acción -->
+            <p class="mt-6 text-xl font-semibold text-center">
+              ¡Regístrate ahora y comienza a crecer tu lana!
+            </p>
+        <form method="POST" action="{% url 'registrame' %}" class="space-y-4">
+          {% csrf_token %}
+
+          <div class="icon-input">
+            <ion-icon name="person-outline"></ion-icon>
+            <input type="text" name="NOM_TERCERO" placeholder="Ingresa tu nombre" required
+              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
+          </div>
+
+          <div class="icon-input">
+            <ion-icon name="person-outline"></ion-icon>
+            <input type="text" name="APE_PATERNO" placeholder="Ingresa tu apellido paterno" required
+              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
+          </div>
+
+          <div class="icon-input">
+            <ion-icon name="person-outline"></ion-icon>
+            <input type="text" name="APE_MATERNO" placeholder="Ingresa tu apellido materno" required
+              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
+          </div>
+
+          <div class="icon-input">
+            <ion-icon name="mail-outline"></ion-icon>
+            <input type="email" name="CORREO_USUARIO" placeholder="Ingresa tu correo" required
+              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
+          </div>
+
+          <div class="icon-input">
+            <ion-icon name="call-outline"></ion-icon>
+            <input type="text" name="TELEFONO_USUARIO" placeholder="Ingresa tu número telefónico" required
+              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
+          </div>
+
+          <div class="icon-input">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input type="password" name="COD_PASS" placeholder="Ingresa tu contraseña" required
+              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
+          </div>
+
+          <button type="submit"
+                  class="w-full py-3 bg-accent-green text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark transition">
+              Registrarme
+          </button>
+
+          <p class="text-center text-sm text-gray-500 mt-4">
+            ¿Ya tienes una cuenta?
+            <a href="{% url 'login' %}" class="text-primary-dark font-semibold hover:underline">Inicia Sesión</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- SweetAlert2 mensajes -->
+  {% if messages %}
+  <script>
+    {% for message in messages %}
+      Swal.fire({
+        title: "{% if message.tags == 'success' %}¡Registro Exitoso!{% else %}Atención{% endif %}",
+        text: "{{ message }}",
+        icon: "{% if message.tags == 'success' %}success{% else %}warning{% endif %}",
+        confirmButtonColor: "#4CAF50",
+        confirmButtonText: "Aceptar"
+      });
+    {% endfor %}
+  </script>
+  {% endif %}
+</body>
+</html>

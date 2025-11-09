@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Movimientos - Sistema Financiero</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+        .color-fila:nth-child(even) {
+            background-color: #e6f2ff;
+        }
+        .texto-derecha {
+            text-align: right;
+        }
+        .texto-izquierda {
+            text-align: left;
+        }
+        .sumatorias-table {
+            width: 50%;
+            margin-left: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Consulta de Movimientos</h2>
+    {% if user_info.cod_permisos == '99' %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="id_tercero">ID Tercero:</label>
+        <input type="text" id="id_tercero" name="id_tercero" required><br><br>
+        <label for="tip_tercero">Tipo de Tercero:</label>
+        <input type="text" id="tip_tercero" name="tip_tercero" required><br><br>
+        <input type="submit" value="Consultar">
+    </form>
+    {% endif %}
+    
+    {% if movimientos %}
+    <h3>Estado de Cuenta1</h3>
+    <p><strong>Cliente:</strong> {{ nombre_completo }}</p>
+    <p><strong>Periodo:</strong> {{ movimientos.0.fec_registro|date:"d M Y" }} - {{ movimientos.last.fec_registro|date:"d M Y" }}</p>
+    <p><strong>Fecha de emisión:</strong> {{ fecha_emision }}</p>
+    
+    <table>
+        <tr>
+            <th>Fecha</th>
+            <th>Concepto</th>
+            <th>Retiros</th>
+            <th>Depósitos</th>
+            <th>Saldo</th>
+        </tr>
+        {% for mov in movimientos %}
+        <tr class="color-fila">
+            <td>{{ mov.fec_registro|date:"d M Y" }}</td>
+            <td>{{ mov.cod_movimiento }}</td>
+            <td class="texto-derecha">{{ mov.imp_retiro|floatformat:2 }}</td>
+            <td class="texto-derecha">{{ mov.imp_deposito|floatformat:2 }}</td>
+            <td class="texto-derecha">{{ mov.saldo|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h4>Sumatorias por tipo de movimiento:</h4>
+    <table class="sumatorias-table">
+        <tr>
+            <th class="texto-izquierda">Concepto</th>
+            <th class="texto-derecha">Importe</th>
+        </tr>
+        {% for tipo, suma in sumatorias_por_tipo.items %}
+        <tr class="color-fila">
+            <td class="texto-izquierda">{{ tipo }}</td>
+            <td class="texto-derecha">{{ suma|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p><strong>Suma total de depósitos:</strong> {{ suma_depositos|floatformat:2 }}</p>
+    <p><strong>Suma total de retiros:</strong> {{ suma_retiros|floatformat:2 }}</p>
+    <p><strong>Saldo final:</strong> {{ saldo_total|floatformat:2 }}</p>
+    {% else %}
+    <p>No se encontraron movimientos para este usuario.</p>
+    {% endif %}
+    
+    <br>
+    <a href="{% url 'dashboard' %}">Volver al Dashboard</a>
+</body>
+</html>
