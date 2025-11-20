@@ -25,79 +25,104 @@
       display: flex;
       background-color: #f7f7f7;
     }
-    .sidebar {
-      width: 200px;
-      background-color: #2b3e50;
-      color: white;
-      height: 100vh;
-      padding-top: 20px;
-      position: fixed;
-      z-index: 10;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    }
-    .logo-container {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo {
-      font-family: "Montserrat", sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-    }
-    .logo .crece {
-      color: white;
-    }
-    .logo .tu {
-      color: #4caf50;
-    }
-    .logo .lana {
-      color: white;
-    }
-    .logo-tagline {
-      font-size: 12px;
-      color: #4caf50;
-      margin-top: 5px;
-      line-height: 1.2;
-    }
-    .sidebar a {
-      padding: 12px 15px;
-      text-decoration: none;
-      color: white;
-      display: block;
-      font-size: 16px;
-      transition: background-color 0.2s;
-    }
-    .sidebar a:hover {
-      background-color: #1b2a38;
-    }
-    .sidebar .active-link {
-      background-color: #1b2a38;
-      border-left: 4px solid #4caf50;
-      padding-left: 11px;
-    }
-    .sidebar i {
-      margin-right: 8px;
-    }
-    .disponible-prestamo {
-      position: absolute;
-      bottom: 28px;
-      left: 15px;
-      color: white;
-    }
-    .disponible-prestamo h3 {
-      margin: 0;
-      font-size: 11px;
-      color: #40e0d0;
-    }
-    .disponible-prestamo .importe {
-      font-size: 18px;
-      margin-top: 5px;
-      color: white;
-    }
-    .disponible-prestamo .leyenda {
-      font-size: 11px;
-      color: #a9c1d9;
-    }
+        /* ------------------------------ SIDEBAR ---------------------------- */
+        .sidebar {
+            width: 200px;
+            background-color: #2b3e50;
+            color: white;
+            height: 100vh;
+            padding-top: 20px;
+            position: fixed;
+        }
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;   /* <<< ESTA LÍNEA ES LA QUE SOLUCIONA TODO */
+            gap: 10px;
+            padding-left: 15px;        /* igual que todos los botones del menú */
+        }
+        .sidebar-bottom a.logout-link {
+            display: block;
+            width: auto;
+            text-align: left !important;
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .logo .crece { color: white; }
+        .logo .tu { color: #4caf50; }
+        .logo .lana { color: white; }
+
+        .logo-tagline {
+            font-size: 12px;
+            color: #4caf50;
+            margin-top: 5px;
+            line-height: 1.2;
+        }
+
+        .sidebar a {
+            padding: 12px 15px;
+            text-decoration: none;
+            color: white;
+            display: block;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        /* ACTIVO – Resumen verde */
+        .sidebar a.active-link {
+            background: #4caf50 !important;
+            border-left: 4px solid #fffbd4ff;
+            padding-left: 11px;
+        }
+
+        .sidebar a.active-link:hover {
+            background: linear-gradient(90deg, #4caf50, #ccb7ddff);
+        }
+
+        /* Hover normal */
+        .sidebar a:hover {
+            background-color: #1b2a38;
+        }
+
+        .sidebar i { margin-right: 8px; }
+
+        /* CERRAR SESIÓN – TEXTO ROJO */
+        .logout-link {
+            color: #e74c3c !important;
+            font-weight: bold;
+        }
+        .logout-link:hover {
+            color: #ffefef !important;
+            background-color: transparent !important;
+        }
+
+        /* Disponible para préstamo (DEBE IR HASTA ABAJO) */
+        .disponible-prestamo h3 {
+            margin: 0;
+            font-size: 11px;
+            color: #40e0d0;
+        }
+        .disponible-prestamo .importe {
+            font-size: 18px;
+            margin-top: 5px;
+        }
+        .disponible-prestamo .leyenda {
+            font-size: 11px;
+            color: #a9c1d9;
+        }
     .content {
       margin-left: 200px;
       padding: 20px;
@@ -308,35 +333,46 @@
   </style>
 </head>
 <body>
-  <!-- Sidebar -->
-  <div class="sidebar">
+  <!-- ========================== SIDEBAR ========================== -->
+<div class="sidebar">
     <div class="logo-container">
-      <div class="logo">
-        <span class="crece">crece</span
-        ><span class="tu">tu</span><span class="lana">Lana</span>
-      </div>
-      <div class="logo-tagline">
-        Donde tu lana<br />
-        nunca se queda quieta
-      </div>
+        <div class="logo">
+            <span class="crece">crece</span><span class="tu">tu</span><span class="lana">Lana</span>
+        </div>
+        <div class="logo-tagline">Donde tu lana<br>nunca se queda quieta</div>
     </div>
-    <a href="{% url 'dashboard' %}"><i class="fas fa-chart-pie"></i> Resumen</a>
-    <a href="{% url 'lista_movimientos' %}"><i class="fas fa-list"></i> Movimientos</a>
-    <a href="{% url 'perfil' %}" class="active-link"
-      ><i class="far fa-user-circle"></i> Perfil</a
-    >
+
+    <a href="{% url 'dashboard' %}" >
+        <i class="fas fa-chart-pie"></i> Resumen
+    </a>
+
+    <a href="{% url 'lista_movimientos' %}">
+        <i class="fas fa-list"></i> Movimientos
+    </a>
+
+    <a href="{% url 'perfil' %}"class="active-link">
+        <i class="far fa-user-circle"></i> Perfil
+    </a>
+
     {% if usuario.COD_PERMISOS == 99 %}
-    <a href="{% url 'registro' %}"><i class="fas fa-marker"></i> Registrar</a>
+    <a href="{% url 'registro' %}" >
+        <i class="fas fa-marker"></i> Registrar
+    </a>
     {% endif %}
-    <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
 
-    <div class="disponible-prestamo">
-      <h3>Disponible para préstamo:</h3>
-      <div class="importe">${{ prestamo_disponible|default:"0.00"|floatformat:2 }}</div>
-      <div class="leyenda">Tasa del 4% Mensual</div>
+    <!-- BLOQUE FIJADO ABAJO  -->
+    <div class="sidebar-bottom">
+        <div class="disponible-prestamo">
+            <h3>Disponible para préstamo:</h3>
+            <div class="importe">${{ prestamo_disponible|floatformat:2 }}</div>
+            <div class="leyenda">Tasa del 4% Mensual</div>
+        </div>
+
+        <a href="{% url 'logout' %}" class="logout-link">
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </a>
     </div>
-  </div>
-
+</div>
   <!-- Contenido -->
   <div class="content">
     <div class="card">

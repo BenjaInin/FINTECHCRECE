@@ -8,239 +8,364 @@
     <link rel="icon" href="{% static '/images/logo_favicon.png' %}" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Highcharts -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-        .sidebar {
-            width: 200px;
-            background-color: #2b3e50;
-            color: white;
-            height: 100vh;
-            padding-top: 20px;
-            position: fixed;
-        }
-        .logo-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-        }
-        .logo .crece {
-            color: white;
-        }
-        .logo .tu {
-            color: #4caf50;
-        }
-        .logo .lana {
-            color: white;
-        }
-        .logo-tagline {
-            font-size: 12px;
-            color: #4caf50;
-            margin-top: 5px;
-            line-height: 1.2;
-        }
-        .sidebar a {
-            padding: 12px 15px;
-            text-decoration: none;
-            color: white;
-            display: block;
-            font-size: 16px;
-        }
-        .sidebar a:hover {
-            background-color: #1b2a38;
-        }
-        .sidebar .active-link {
-            background-color: #1b2a38; /* Resaltar la página activa */
-            border-left: 4px solid #4caf50;
-            padding-left: 11px;
-        }
-        .sidebar i {
-            margin-right: 8px;
-        }
-        .disponible-prestamo {
-            position: absolute;
-            bottom: 28px;
-            left: 15px;
-            color: white;
-        }
-        .disponible-prestamo h3 {
-            margin: 0;
-            font-size: 11px;
-            color: #40e0d0;
-        }
-        .disponible-prestamo .importe {
-            font-size: 18px;
-            margin-top: 5px;
-            color: white;
-        }
-        .disponible-prestamo .leyenda {
-            font-size: 11px;
-            color: #a9c1d9;
-        }
-        .content {
-            margin-left: 200px;
-            padding: 20px;
-            width: calc(100% - 200px);
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header h2 {
-            margin: 0;
-        }
-        .summary-cards {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            flex-wrap: nowrap;
-        }
-        .summary-card {
-            background-color: #f4f4f4;
-            border: 1px solid #ddd;
-            padding: 15px;
-            text-align: left;
-            border-radius: 8px;
-            width: calc(25% - 15px);
-            margin-bottom: 20px;
-        }
-        .card-content {
-            display: flex;
-            align-items: center;
-        }
-        .wallet-icon, .piggy-bank-icon, .chart-icon, .trophy-icon {
-            font-size: 24px;
-            padding: 8px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        .wallet-icon {
-            color: #4a90e2;
-            background-color: #e6f2ff;
-        }
-        .piggy-bank-icon {
-            color: #4caf50;
-            background-color: #e6ffed;
-        }
-        .chart-icon {
-            color: #4a90e2;
-            background-color: #e6f2ff;
-        }
-        .trophy-icon {
-            color: #ffd700;
-            background-color: rgba(255, 215, 0, 0.2);
-        }
-        .rewards-card {
-            background-color: rgba(255, 215, 0, 0.1);
-            border: 1px solid #ffd700;
-        }
-        .card-text {
-            flex-grow: 1;
-        }
-        .card-text h3 {
-            margin: 0;
-            font-size: 18px;
-        }
-        .card-text p {
-            margin: 3px 0 0;
-            font-size: 12px;
-            color: #666;
-        }
-        .chart-container {
-            display: flex;
-            margin-top: 50px;
-        }
-        #chart-area {
-            width: 75%;
-            height: 400px;
-        }
-        .info-panel {
-            width: 25%;
-            background-color: #f4f4f4;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            margin-left: 20px;
-        }
-        .info-panel h3 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            color: #2b3e50;
-        }
-        .info-item {
-            margin-bottom: 10px;
-        }
-        .info-item .label {
-            font-weight: bold;
-            color: #4a90e2;
-        }
-        .info-item .value {
-            float: right;
-        }
-        .legend-text {
-            font-size: 12px;
-            color: #555;
-            margin-top: 20px;
-        }
-    </style>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        background-color: #f2f3f5 !important; 
+    }
+
+    /* ------------------------------ SIDEBAR ---------------------------- */
+    .sidebar {
+        width: 200px;
+        background-color: #2b3e50;
+        color: white;
+        height: 100vh;
+        padding-top: 20px;
+        position: fixed;
+    }
+    .sidebar-bottom {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;   /* <<< ESTA LÍNEA ES LA QUE SOLUCIONA TODO */
+        gap: 10px;
+        padding-left: 15px;        /* igual que todos los botones del menú */
+    }
+    .sidebar-bottom a.logout-link {
+        display: block;
+        width: auto;
+        text-align: left !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+    .logo-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .logo {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+    }
+    .logo .crece { color: white; }
+    .logo .tu { color: #4caf50; }
+    .logo .lana { color: white; }
+
+    .logo-tagline {
+        font-size: 12px;
+        color: #4caf50;
+        margin-top: 5px;
+        line-height: 1.2;
+    }
+
+    .sidebar a {
+        padding: 12px 15px;
+        text-decoration: none;
+        color: white;
+        display: block;
+        font-size: 16px;
+        transition: 0.2s;
+    }
+
+    /* ACTIVO – Resumen verde */
+    .sidebar a.active-link {
+        background: #4caf50 !important;
+        border-left: 4px solid #d4ffd4;
+        padding-left: 11px;
+    }
+
+    .sidebar a.active-link:hover {
+        background: linear-gradient(90deg, #4caf50, #6fde6f);
+    }
+
+    /* Hover normal */
+    .sidebar a:hover {
+        background-color: #1b2a38;
+    }
+
+    .sidebar i { margin-right: 8px; }
+
+    /* CERRAR SESIÓN – TEXTO ROJO */
+    .logout-link {
+        color: #e74c3c !important;
+        font-weight: bold;
+    }
+    .logout-link:hover {
+        color: #ffefef !important;
+        background-color: transparent !important;
+    }
+
+    /* Disponible para préstamo (DEBE IR HASTA ABAJO) */
+    .disponible-prestamo h3 {
+        margin: 0;
+        font-size: 11px;
+        color: #40e0d0;
+    }
+    .disponible-prestamo .importe {
+        font-size: 18px;
+        margin-top: 5px;
+    }
+    .disponible-prestamo .leyenda {
+        font-size: 11px;
+        color: #a9c1d9;
+    }
+
+    /* ------------------------------ CONTENT ---------------------------- */
+    .content {
+        margin-left: 200px;
+        padding: 20px;
+        width: calc(100% - 200px);
+    }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc; /* opcional para separar visualmente */
+}
+
+.main-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #4caf50; /* verde */
+    margin: 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: #777; /* gris */
+    font-weight: 500;
+    text-transform: uppercase; /* si quieres estilo como en la imagen */
+}
+
+.profile-pic {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid #4caf50; /* borde verde */
+    object-fit: cover;
+}
+
+    .header img {
+        width: 60px;
+        height: 60px;
+        border-radius: 20%;
+        object-fit: cover;
+        border: 2px solid #4caf50;
+    }
+   /* ------------------ SUMMARY CARDS ------------------ */
+    .summary-cards {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        gap: 20px;  /* ← Espacio entre tarjetas */
+    }
+
+    .summary-card {
+        background-color: #ffffff;      /* Fondo blanco */
+        padding: 18px;
+        border-radius: 10px;
+        width: 100%;
+        border: 1px solid #e2e2e2;      /* Borde suave */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.06); /* Sombra ligera elegante */
+    }
+
+    /* Contenido interno */
+    .card-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* Ajuste de iconos — se mantiene igual */
+    .wallet-icon {
+        color: #4a90e2;
+        background: #e6f2ff;
+        font-size: 24px;
+        padding: 8px;
+        border-radius: 50%;
+    }
+    .piggy-bank-icon {
+        color: #4caf50;
+        background: #e6ffed;
+        font-size: 24px;
+        padding: 8px;
+        border-radius: 50%;
+    }
+    .chart-icon {
+        color: #4a90e2;
+        background: #e6f2ff;
+        font-size: 24px;
+        padding: 8px;
+        border-radius: 50%;
+    }
+    .trophy-icon {
+        color: #ffd700;
+        background: rgba(255, 215, 0, 0.2);
+        font-size: 24px;
+        padding: 8px;
+        border-radius: 50%;
+    }
+
+    /* Tarjeta de recompensas (dorado) */
+    .rewards-card {
+        background: #fff8d6;
+        border: 1px solid #ffd700;
+    }
+
+    /* Textos */
+    .card-text h3 {
+        margin: 0;
+        font-size: 20px;
+    }
+    .card-text p {
+        margin: 3px 0 0;
+        font-size: 13px;
+        color: #777777;
+    }
+
+    /* ------------------ CHART ------------------ */
+    .chart-container {
+        display: flex;
+        margin-top: 50px;
+    }
+    #chart-area { width: 75%; height: 400px; }
+
+    /* ------------------ INFO PANEL ------------------ */
+    .info-panel {
+        width: 25%;
+        background: #ffffff; /* fondo blanco */
+        border: 1px solid #ffffffff;
+        border-radius: 10px;
+        padding: 15px;
+        margin-left: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
+
+    .info-panel h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #000; /* título en negro */
+        font-size: 16px;
+    }
+
+    /* Bloques de datos */
+    .info-item { 
+        margin-bottom: 12px;
+        padding: 5px 8px;
+        background: #f9f9f9;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #000; /* texto en negro */
+    }
+
+    /* Label de divisa */
+    .info-item .label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Valor: por defecto negro */
+    .info-item .value {
+        font-weight: bold;
+    }
+
+    /* Valor positivo/subida → verde */
+    .info-item .value-up {
+        color: #4caf50;
+    }
+
+    /* Valor negativo/baja → rojo */
+    .info-item .value-down {
+        color: #e74c3c;
+    }
+
+</style>
 </head>
+
 <body>
-    {% csrf_token %}
+{% csrf_token %}
+
+<!-- ========================== SIDEBAR ========================== -->
 <div class="sidebar">
     <div class="logo-container">
         <div class="logo">
             <span class="crece">crece</span><span class="tu">tu</span><span class="lana">Lana</span>
         </div>
-        <div class="logo-tagline">
-            Donde tu lana<br>
-            nunca se queda quieta
-        </div>
+        <div class="logo-tagline">Donde tu lana<br>nunca se queda quieta</div>
     </div>
-    <a href="{% url 'dashboard' %}" class="active-link"><i class="fas fa-chart-pie"></i> Resumen</a>
-    <a href="{% url 'lista_movimientos' %}"><i class="fas fa-list"></i> Movimientos</a>
-    <a href="{% url 'perfil' %}"><i class="far fa-user-circle"></i> Perfil</a>
-     {% if usuario.COD_PERMISOS == 99 %}<a href="{% url 'registro' %}"><i class="fas fa-marker"></i> Registrar</a>   {% endif %}
-    <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
 
-    <div class="disponible-prestamo">
-        <h3>Disponible para préstamo:</h3>
-        <div class="importe">${{ prestamo_disponible|floatformat:2 }}</div>
-        <div class="leyenda">Tasa del 4% Mensual</div>
+    <a href="{% url 'dashboard' %}" class="active-link">
+        <i class="fas fa-chart-pie"></i> Resumen
+    </a>
+
+    <a href="{% url 'lista_movimientos' %}">
+        <i class="fas fa-list"></i> Movimientos
+    </a>
+
+    <a href="{% url 'perfil' %}">
+        <i class="far fa-user-circle"></i> Perfil
+    </a>
+
+    {% if usuario.COD_PERMISOS == 99 %}
+    <a href="{% url 'registro' %}">
+        <i class="fas fa-marker"></i> Registrar
+    </a>
+    {% endif %}
+
+    <!-- BLOQUE FIJADO ABAJO  -->
+    <div class="sidebar-bottom">
+        <div class="disponible-prestamo">
+            <h3>Disponible para préstamo:</h3>
+            <div class="importe">${{ prestamo_disponible|floatformat:2 }}</div>
+            <div class="leyenda">Tasa del 4% Mensual</div>
+        </div>
+
+        <a href="{% url 'logout' %}" class="logout-link">
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </a>
     </div>
 </div>
+
+<!-- ========================== CONTENT ========================== -->
 <div class="content">
+
     <div class="header">
-        <h2>Bienvenido {{ nombre }} {{ ape_paterno }} {{ ape_materno }}</h2>    
-    <!-- Foto de perfil -->
-    {% if usuario.FOTO_PERFIL %}
-        <div style="text-align:center; margin: 15px 0;">
-            <img src="{{ usuario.FOTO_PERFIL.url }}" alt="Foto de perfil"
-                 style="width: 60px; height: 60px; border-radius: 20%; object-fit: cover; border: 2px solid #4caf50;">
-        </div>
-    {% else %}
-        <div style="text-align:center; margin: 15px 0;">
-            <img src="{% static 'images/default-avatar.png' %}" alt="Foto de perfil"
-                 style="width: 60px; height: 60px; border-radius: 20%; object-fit: cover; border: 2px solid #4caf50;">
-        </div>
-    {% endif %}
-     <!-- Foto de perfil --> 
-        {% if error %}
-            <p style="color:red;">{{ error }}</p>
-        {% endif %} 
+    <h1 class="main-title">Resumen de Cuenta</h1>
+    <div class="user-info">
+    <span class="username">{{ nombre }} {{ ape_paterno }} {{ ape_materno }}</span>
+        {% if usuario.FOTO_PERFIL %}
+            <a href="{% url 'perfil' %}">
+                <img src="{{ usuario.FOTO_PERFIL.url }}" alt="Foto de perfil" class="profile-pic">
+            </a>
+        {% else %}
+            <a href="{% url 'perfil' %}">
+                <img src="{% static 'images/default-avatar.png' %}" alt="Foto de perfil" class="profile-pic">
+            </a>
+        {% endif %}
     </div>
+</div>
+
+    <!-- ========================== CARDS ========================== -->
     <div class="summary-cards">
         <div class="summary-card">
             <div class="card-content">
@@ -251,101 +376,121 @@
                 </div>
             </div>
         </div>
-        <div class="summary-card" style="background-color: #e6ffed; border: 1px solid #4caf50;">
+
+        <div class="summary-card" style="border: 1px solid #4caf50; background: #e6ffed;">
             <div class="card-content">
                 <i class="fas fa-piggy-bank piggy-bank-icon"></i>
                 <div class="card-text">
-                    <h3 style="color: #4caf50;">${{ disponible_retiro|floatformat:2 }}</h3>
-                    <p style="color: #4caf50;">Ganado</p>
+                    <h3 style="color:#4caf50">${{ disponible_retiro|floatformat:2 }}</h3>
+                    <p style="color:#4caf50">Ganado</p>
                 </div>
             </div>
         </div>
+
         <div class="summary-card">
             <div class="card-content">
                 <i class="fas fa-chart-line chart-icon"></i>
                 <div class="card-text">
-                    <h3 style="color: #4a90e2;">4%</h3>
+                    <h3 style="color:#4a90e2">4%</h3>
                     <p>Tasa promedio</p>
                 </div>
             </div>
         </div>
+
         <div class="summary-card rewards-card">
             <div class="card-content">
                 <i class="fas fa-trophy trophy-icon"></i>
                 <div class="card-text">
-                    <h3 style="color: #00adf1ff;">Basico</h3>
+                    <h3 style="color:#00adf1">Básico</h3>
                     <p>Nivel de recompensas</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- ========================== CHART ========================== -->
     <div class="chart-container">
-        <div id="chart-area"><div id="aportaciones-chart" style="width:100%; height:400px;"></div>  <div class="legend-text">
-            Esta gráfica es una proyección comparativa del rendimiento que se tendría si en un futuro siempre se re-invierten los pagos con los intereses generados por el rendimiento, por lo que siempre es recomendable no retirar los rendimientos ganados para que se vuelvan a re-invertir.
-        </div> </div>
+        <div id="chart-area">
+            <div id="aportaciones-chart" style="width:100%; height:400px;"></div>
+
+            <div class="legend-text">
+                Esta gráfica es una proyección comparativa del rendimiento futuro reinvirtiendo los intereses.
+            </div>
+        </div>
+
         <div class="info-panel">
-            <h3>Información Financiera</h3>
+            <h3>Mercados y Divisas</h3>
+
             <div class="info-item">
                 <span class="label">USD/MXN:</span>
-                <span class="value">$20.15</span>
+                <span class="value value-up">$20.15</span>
             </div>
+
             <div class="info-item">
                 <span class="label">Oro (onza):</span>
-                <span class="value">$1,892.30</span>
+                <span class="value value-up">$1,892.30</span>
             </div>
+
             <div class="info-item">
                 <span class="label">APPLE:</span>
-                <span class="value">$175.43</span>
+                <span class="value value-down">$175.43</span>
             </div>
+
             <div class="info-item">
                 <span class="label">AMAZON:</span>
-                <span class="value">$3,245.67</span>
+                <span class="value value-up">$3,245.67</span>
             </div>
+
             <div class="info-item">
                 <span class="label">GOOGLE:</span>
-                <span class="value">$2,789.12</span>
+                <span class="value value-down">$2,789.12</span>
             </div>
-        </div>      
-    </div>  
+        </div>
+    </div>
+
 </div>
-<!-- Datos JSON pasados desde Django -->
+
+<!-- DATA JSON -->
 <script id="aportaciones-data" type="application/json">
     {{ aportaciones|escapejs }}
 </script>
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-        const aportacionesDataElement = document.getElementById('aportaciones-data');
 
-        if (aportacionesDataElement) {
-            // Parsear los datos de JSON
-            const aportacionesData = JSON.parse(aportacionesDataElement.textContent);
+<!-- ========================== CHART SCRIPT ========================== -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const aportacionesData = JSON.parse(document.getElementById("aportaciones-data").textContent);
 
-            // Crear el gráfico Highcharts
-            Highcharts.chart('aportaciones-chart', {
-                chart: {
-                    type: 'line'
-                },
-                title: {
-                    text: 'Rendimiento financiero'
-                },
-                xAxis: {
-                    categories: [
-                        'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
-                    ]
-                },
-                yAxis: {
-                    title: {
-                        text: 'Monto ($)'
-                    }
-                },
-                series: [{
-                    name: 'Aportaciones',
-                    data: aportacionesData,
-                    color: '#4caf50'
-                }]
-            });
-        }
+    Highcharts.chart('aportaciones-chart', {
+        chart: { type: 'area' },
+
+        title: { text: 'Rendimiento financiero' },
+
+        xAxis: {
+            categories: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
+        },
+
+        yAxis: {
+            title: { text: 'Monto ($)' }
+        },
+
+        series: [{
+            name: 'Aportaciones',
+            data: aportacionesData,
+            color: '#4caf50',
+            lineWidth: 3,
+
+            /* RELLENO VERDE DEGRADADO (como tu imagen) */
+            fillColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                stops: [
+                    [0, 'rgba(76, 175, 80, 0.45)'],
+                    [1, 'rgba(76, 175, 80, 0)']
+                ]
+            }
+        }]
     });
+});
 </script>
+
 </body>
 </html>
