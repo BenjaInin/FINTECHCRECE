@@ -29,6 +29,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 from django.contrib import messages
 from django.db import transaction
 from django.contrib import messages
+from django.http import JsonResponse
 import os
 
 
@@ -43,55 +44,70 @@ def home(request):
 
 # ------------------------------------- FUNCION PERFIL ----------------------------------------------
 def perfil(request):
-    """
-    Muestra el perfil del usuario logueado y permite actualizar su correo o foto.
-    """
-    # Verificar si hay usuario en sesión
-    list(messages.get_messages(request))  
+      # Verificar si hay usuario en sesión
     user_id = request.session.get('user_id')
     if not user_id:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({'success': False, 'message': 'Debes iniciar sesión para acceder al perfil.'})
         messages.error(request, "Debes iniciar sesión para acceder al perfil.")
         return redirect('login')
 
     try:
-        # Obtener los objetos relacionados
         usuario = Usuario.objects.get(COD_USUARIO=user_id)
         tercero = CatTerceros.objects.get(COD_USUARIO=usuario.COD_USUARIO)
-
     except Usuario.DoesNotExist:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({'success': False, 'message': 'Usuario no encontrado.'})
         messages.error(request, "No se encontró el usuario.")
         return redirect('login')
     except CatTerceros.DoesNotExist:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({'success': False, 'message': 'Información del tercero no encontrada.'})
         messages.error(request, "No se encontró la información del tercero.")
         return redirect('dashboard')
 
-    # Si se envía el formulario (POST)
+    # Manejar POST
     if request.method == 'POST':
         nuevo_correo = request.POST.get('correo', '').strip()
+        cambios_realizados = False
+        mensajes = []
 
-        # Actualizar correo
+        # Actualizar correo si cambió
         if nuevo_correo and nuevo_correo != usuario.CORREO:
             usuario.CORREO = nuevo_correo
-            messages.success(request, "Correo actualizado correctamente.")
+            cambios_realizados = True
+            mensajes.append("Correo actualizado correctamente.")
 
-        # Actualizar foto (si tienes ese campo en tu modelo Usuario)
-        if 'foto_perfil' in request.FILES:
-            usuario.FOTO_PERFIL = request.FILES['foto_perfil']
-            messages.success(request, "Foto de perfil actualizada correctamente.")
+        # Actualizar foto de perfil si se subió
+        if 'FOTO_PERFIL' in request.FILES:
+            usuario.FOTO_PERFIL = request.FILES['FOTO_PERFIL']
+            cambios_realizados = True
+            mensajes.append("Foto de perfil actualizada correctamente.")
 
-        # Guardar cambios
-        usuario.save()
+        if cambios_realizados:
+            usuario.save()
+            response_data = {'success': True, 'messages': mensajes}
+        else:
+            response_data = {'success': False, 'message': 'No se realizaron cambios.'}
 
-        # Redirigir después de guardar para evitar reenvío del formulario
+        # Retornar JSON si es AJAX
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse(response_data)
+
+        # Si no es AJAX, redirigir
+        if cambios_realizados:
+            messages.success(request, "Cambios guardados correctamente.")
+        else:
+            messages.info(request, "No se realizaron cambios.")
         return redirect('perfil')
 
-    # Pasar datos al template
+    # GET: enviar datos al template
     contexto = {
         'usuario': usuario,
         'nombre': tercero.NOM_TERCERO,
         'ape_paterno': tercero.APE_PATERNO,
         'ape_materno': tercero.APE_MATERNO,
-        # Puedes incluir otras variables como prestamo_disponible si las tienes
+        # 'prestamo_disponible': ... si tienes ese dato
     }
 
     return render(request, 'perfil.html', contexto)
@@ -104,7 +120,7 @@ def registrame(request):
         try:
             logger.info("=== Iniciando proceso de registro de usuario ===")
 
-            # 1️⃣ Obtener datos del formulario
+            # Obtener datos del formulario
             NOM_TERCERO = request.POST.get('NOM_TERCERO', '').strip()
             APE_PATERNO = request.POST.get('APE_PATERNO', '').strip()
             APE_MATERNO = request.POST.get('APE_MATERNO', '').strip()
@@ -114,13 +130,13 @@ def registrame(request):
         
             logger.info(f"Datos recibidos -> Nombre: {NOM_TERCERO}, Paterno: {APE_PATERNO}, Materno: {APE_MATERNO}, Correo: {CORREO}, Teléfono: {NUM_TEL}")
 
-            # 2️⃣ Validaciones
+            #Validaciones
             if not all([NOM_TERCERO, APE_PATERNO, APE_MATERNO, CORREO, NUM_TEL, COD_PASS]):
                 logger.warning("Campos incompletos detectados")
                 messages.error(request, "Por favor completa todos los campos.")
                 return redirect('registrame')
 
-            # 3️⃣ Generar COD_USUARIO
+            # Generar COD_USUARIO
             COD_USUARIO = (NOM_TERCERO[:2] + APE_PATERNO + APE_MATERNO[:2]).lower()
             contador = 1
             original = COD_USUARIO
@@ -129,15 +145,15 @@ def registrame(request):
                 contador += 1
             logger.info(f"COD_USUARIO generado: {COD_USUARIO}")
 
-           # 4️⃣ Encriptar contraseña con make_password (Django estándar)
+           # Encriptar contraseña con make_password (Django estándar)
             COD_PASS_HASH = make_password(COD_PASS)
             logger.info("Contraseña encriptada con make_password correctamente")
 
-            # 5️⃣ Fecha actual
+            # Fecha actual
             FEC_ACTUALIZACION = timezone.now().date()
             logger.info(f"Fecha actual del servidor: {FEC_ACTUALIZACION}")
 
-            # 6️⃣ Nuevo ID_TERCERO consecutivo
+            # Nuevo ID_TERCERO consecutivo
             ultimo = CatTerceros.objects.all().values_list('ID_TERCERO', flat=True)
             if ultimo:
                 try:
@@ -151,7 +167,7 @@ def registrame(request):
                 nuevo_id = '00001'
             logger.info(f"Nuevo ID_TERCERO generado: {nuevo_id}")
 
-            # 7️⃣ Inserción en tablas
+            # Inserción en tablas
             with transaction.atomic():
                 # CAT_USUARIOS
                 usuario = Usuario.objects.create(
@@ -188,7 +204,7 @@ def registrame(request):
                 )
                 logger.info(f"Tercero insertado en CAT_TERCEROS y CAT_TER_USUARIO con ID_TERCERO: {nuevo_id}")
 
-            # ✅ Mensaje de éxito con SweetAlert
+            # Mensaje de éxito con SweetAlert
             messages.success(request, "¡Bienvenido! Has sido registrado en CRECE LANA 🎉")
             return redirect('registrame')
 
@@ -200,7 +216,7 @@ def registrame(request):
     return render(request, 'registrarse.html')
 # ------------------------------------- FUNCION REGISTRO ----------------------------------------------
 def registro(request):
-     # 🔹 Limpiar mensajes pendientes (para evitar mensajes de vistas previas)
+     # Limpiar mensajes pendientes (para evitar mensajes de vistas previas)
     list(messages.get_messages(request))  
 
       # Obtener listas para los selects del formulario
@@ -243,7 +259,7 @@ def registro(request):
             )
 
             messages.success(request, "Movimiento registrado correctamente ")
-            return redirect('lista_movimientos')
+            return redirect('registro')
 
         except Exception as e:
             messages.error(request, f"Error al registrar el movimiento: {str(e)}")
@@ -254,9 +270,6 @@ def registro(request):
         'movimientos': movimientos,
         'tiptercero': tiptercero
     })
-
-# -------------------------------------------------------------------------------------------------------
-
 #-------------------------------------Funcion Dashboard----------------------------------------------
 def dashboard(request):
     user_id = request.session.get('user_id')  # Obtener el COD_USUARIO desde la sesión
@@ -312,7 +325,6 @@ def dashboard(request):
             return render(request, 'dashboard.html', {'error': 'No se encontró información del tercero.'})
     else:
         return redirect('login')
-   
 #----------------------------------------Funcion login------------------------------------------------
 def login_view(request):
     list(messages.get_messages(request))  # Limpia mensajes previos
@@ -333,37 +345,37 @@ def login_view(request):
                     or Usuario.objects.filter(NUM_TEL=identificador).first()
                 )
 
-                # 🟥 Caso 1: usuario no encontrado
+                # Caso 1: usuario no encontrado
                 if not user:
-                    print("❌ No se encontró ningún usuario con ese identificador.")
+                    print("No se encontró ningún usuario con ese identificador.")
                     return render(request, 'login.html', {'form': form, 'error_code': 'usuario'})
 
-                print(f"✅ Usuario encontrado: {user.COD_USUARIO} ({user.CORREO})")
+                print(f"Usuario encontrado: {user.COD_USUARIO} ({user.CORREO})")
 
-                # 🟥 Caso 2: usuario inhabilitado
+                # Caso 2: usuario inhabilitado
                 if user.MCA_INHABILITADO == 'S':
-                    print("🚫 Usuario inhabilitado.")
+                    print("Usuario inhabilitado.")
                     return render(request, 'login.html', {'form': form, 'error_code': 'inhabilitado'})
 
-                # 🟩 Caso 3: contraseña correcta
+                # Caso 3: contraseña correcta
                 if check_password(password, user.COD_PASS):
-                    print("🔓 Contraseña verificada correctamente.")
+                    print("Contraseña verificada correctamente.")
                     request.session['user_id'] = user.COD_USUARIO
                     return redirect('dashboard')
 
-                # 🟨 Caso 4: compatibilidad por si el password está sin encriptar
+                # Caso 4: compatibilidad por si el password está sin encriptar
                 elif user.COD_PASS == password:
-                    print("⚙️ Contraseña coincide sin encriptar (modo compatibilidad).")
+                    print("Contraseña coincide sin encriptar (modo compatibilidad).")
                     request.session['user_id'] = user.COD_USUARIO
                     return redirect('dashboard')
 
-                # 🟥 Caso 5: contraseña incorrecta
+                # Caso 5: contraseña incorrecta
                 else:
-                    print("❌ Contraseña incorrecta.")
+                    print(" Contraseña incorrecta.")
                     return render(request, 'login.html', {'form': form, 'error_code': 'password'})
 
             except Exception as e:
-                print("💥 Error durante el login:", str(e))
+                print(" Error durante el login:", str(e))
                 return render(request, 'login.html', {
                     'form': form,
                     'error_code': 'error',
@@ -373,10 +385,6 @@ def login_view(request):
         form = LoginForm()
 
     return render(request, 'login.html', {'form': form})
-
- # 🔹 Limpiar mensajes previos
-    list(messages.get_messages(request))  # Esto vacía los mensajes pendientes
-
 
 #--------------------------FUNCIONES DE DATE Y MONTOS---------------------------------------------------
 def format_date(date):
@@ -388,6 +396,7 @@ def format_money(amount):
 
 #-------------------------------Funcion Lista Movimientos-------------------------------------------------
 def lista_movimientos(request):
+    list(messages.get_messages(request))  # Esto vacía los mensajes pendientes
     user_id = request.session.get('user_id')
     if not user_id:
         return redirect('login')
@@ -461,7 +470,8 @@ def lista_movimientos(request):
         return redirect('login')
     except CatTerceros.DoesNotExist:
         return render(request, 'lista_movimientos.html', {'error': 'No se encontró información del tercero.'})
-#V-----------------------------Salir logout----------------------------------------------------------------
+
+#-----------------------------Salir logout----------------------------------------------------------------
 
 def logout_view(request):
     request.session.flush()  # Elimina toda la información de la sesión
@@ -525,7 +535,8 @@ def get_aportaciones_por_mes(id_tercero, tip_tercero):
             aportaciones_mes[i] = aportaciones_mes[i - 1]
 
     return aportaciones_mes
-
+ # Limpiar mensajes previos
+    list(messages.get_messages(request))  # Esto vacía los mensajes pendientes
 #-------------------------------Funcion rendimiento por mes---------------------------------------------- 
 def get_rendimientos_por_mes(id_tercero, tip_tercero):
     # Filtramos los movimientos que corresponden a rendimientos (COD_MOVIMIENTO = 1 o 5)
@@ -557,7 +568,8 @@ def get_rendimientos_por_mes(id_tercero, tip_tercero):
             rendimientos_mes[i] = rendimientos_mes[i - 1]
 
     return rendimientos_mes
-
+ # Limpiar mensajes previos
+    list(messages.get_messages(request))  # Esto vacía los mensajes pendientes
 #-----------------------------Funcion disponible retiro--------------------------------    
 def get_disponible_retiro(id_tercero, tip_tercero):
     # Filtrar los movimientos de tipo 5 para el tercero y tipo de tercero dados
@@ -573,7 +585,8 @@ def get_disponible_retiro(id_tercero, tip_tercero):
     # Si no hay resultados, devolver 0
     return disponible_retiro if disponible_retiro else 0 
 
-
+ # Limpiar mensajes previos
+    list(messages.get_messages(request))  # Esto vacía los mensajes pendientes
 #------------------Funcion para generar reporte-----------------
 def generar_reporte_pdf(request):
     user_id = request.session.get('user_id')
@@ -690,6 +703,5 @@ def generar_reporte_pdf(request):
     except CatTerceros.DoesNotExist:
         return HttpResponse("No se encontró información del tercero", status=404)
     
-
 
     

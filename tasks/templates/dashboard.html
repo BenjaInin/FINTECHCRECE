@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -222,18 +221,26 @@
         <div class="leyenda">Tasa del 4% Mensual</div>
     </div>
 </div>
-
 <div class="content">
     <div class="header">
-        <h2>Bienvenido {{ nombre }} {{ ape_paterno }} {{ ape_materno }}</h2>
-        
-    
+        <h2>Bienvenido {{ nombre }} {{ ape_paterno }} {{ ape_materno }}</h2>    
+    <!-- Foto de perfil -->
+    {% if usuario.FOTO_PERFIL %}
+        <div style="text-align:center; margin: 15px 0;">
+            <img src="{{ usuario.FOTO_PERFIL.url }}" alt="Foto de perfil"
+                 style="width: 60px; height: 60px; border-radius: 20%; object-fit: cover; border: 2px solid #4caf50;">
+        </div>
+    {% else %}
+        <div style="text-align:center; margin: 15px 0;">
+            <img src="{% static 'images/default-avatar.png' %}" alt="Foto de perfil"
+                 style="width: 60px; height: 60px; border-radius: 20%; object-fit: cover; border: 2px solid #4caf50;">
+        </div>
+    {% endif %}
+     <!-- Foto de perfil --> 
         {% if error %}
             <p style="color:red;">{{ error }}</p>
-        {% endif %}
-     
+        {% endif %} 
     </div>
-  
     <div class="summary-cards">
         <div class="summary-card">
             <div class="card-content">
@@ -272,7 +279,6 @@
             </div>
         </div>
     </div>
-
     <div class="chart-container">
         <div id="chart-area"><div id="aportaciones-chart" style="width:100%; height:400px;"></div>  <div class="legend-text">
             Esta gráfica es una proyección comparativa del rendimiento que se tendría si en un futuro siempre se re-invierten los pagos con los intereses generados por el rendimiento, por lo que siempre es recomendable no retirar los rendimientos ganados para que se vuelvan a re-invertir.
@@ -299,18 +305,13 @@
                 <span class="label">GOOGLE:</span>
                 <span class="value">$2,789.12</span>
             </div>
-        </div>
-        
-    </div>
-   
+        </div>      
+    </div>  
 </div>
-
-
 <!-- Datos JSON pasados desde Django -->
 <script id="aportaciones-data" type="application/json">
     {{ aportaciones|escapejs }}
 </script>
-
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function () {
         const aportacionesDataElement = document.getElementById('aportaciones-data');
@@ -346,7 +347,5 @@
         }
     });
 </script>
-
-
 </body>
 </html>

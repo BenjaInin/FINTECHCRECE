@@ -6,24 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Movimientos - crecetuLana</title>
-     <link rel="icon" href="{% static '/images/logo_favicon.png' %}" type="image/png">
+    <link rel="icon" href="{% static '/images/logo_favicon.png' %}" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                }
-            }
-        }
-    </script>
 
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             background-color: #f7f9fb;
             margin: 0;
@@ -34,7 +22,7 @@
             color: white;
             height: 100vh;
             position: fixed;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
             padding-top: 20px;
         }
         .logo-container {
@@ -69,7 +57,73 @@
             padding: 20px;
             width: calc(100% - 200px);
         }
+
+        /* --- Formulario --- */
+        .card {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            max-width: 900px;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(43,62,80,0.15);
+        }
+        h2, h1 {
+            color: #2b3e50;
+        }
+        form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        form select, form input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        /* --- Campos de monto dinámicos --- */
+        #depositField input {
+            background-color: #d1fae5; /* verde claro */
+            border: 1px solid #4caf50;
+        }
+        #withdrawalField input {
+            background-color: #fee2e2; /* rojo claro */
+            border: 1px solid #f87171;
+        }
+
         .input-hidden { display: none; }
+
+        /* --- Datos automáticos --- */
+        .auto-data {
+            background-color: #e0f2fe; /* azul claro */
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid #bae6fd;
+            margin-bottom: 10px;
+            list-style: none;
+        }
+        .auto-data li {
+            margin: 5px 0;
+            color: #1e293b;
+        }
+
+        /* --- Botón --- */
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #3a9440;
+        }
     </style>
 </head>
 
@@ -77,7 +131,7 @@
 <div class="sidebar">
     <div class="logo-container">
         <div class="logo"><span class="crece">crece</span><span class="tu">tu</span><span class="lana">Lana</span></div>
-        <p class="text-xs text-green-400 mt-1">Tu dinero en movimiento</p>
+        <p class="text-xs" style="color:#4caf50;margin-top:5px;">Tu dinero en movimiento</p>
     </div>
 
     <a href="{% url 'dashboard' %}"><i class="fas fa-chart-pie"></i> Resumen</a>
@@ -86,88 +140,74 @@
     <a href="{% url 'registro' %}" class="active-link"><i class="fas fa-marker"></i> Registrar</a>
     <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
 
-    <div class="disponible-prestamo text-white text-sm">
-        <p class="text-teal-400 font-semibold">Disponible para préstamo:</p>
-        <p class="text-lg font-bold">${{ prestamo_disponible|floatformat:2 }}</p>
-        <p class="text-gray-400 text-xs">Tasa del 4% Mensual</p>
+    <div class="disponible-prestamo" style="color:white;">
+        <p style="color:#14b8a6;font-weight:600;">Disponible para préstamo:</p>
+        <p style="font-weight:bold;font-size:1.2em;">${{ prestamo_disponible|floatformat:2 }}</p>
+        <p style="color:#9ca3af;font-size:0.8em;">Tasa del 4% Mensual</p>
     </div>
 </div>
 
 <div class="content">
-    <h2 class="text-xl font-bold text-gray-800 mb-6"><i class="fas fa-marker text-green-600 mr-2"></i>Registro de Movimiento Financiero</h2>
+    <div class="card">
+        <h2><i class="fas fa-marker"></i> Registro de Movimiento Financiero</h2>
 
-    <div class="bg-white p-8 shadow-lg rounded-xl max-w-3xl mx-auto border border-gray-100">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Nueva Transacción</h1>
+        <form id="movementForm" method="post">
+            {% csrf_token %}
 
-        <form id="movementForm" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {% csrf_token %}  
             <!-- Tercero -->
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Tercero (Cliente) <span class="text-red-500">*</span></label>
-                <select id="id_tercero" name="ID_TERCERO" class="form-select border rounded-lg p-2 w-full" required>
-                    <option value="" disabled selected>Seleccione el cliente</option>
-                    {% for t in terceros %}
-                        <option value="{{ t.ID_TERCERO }}">{{ t.NOM_TERCERO }} {{ t.APE_PATERNO }} {{ t.APE_MATERNO }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+            <label>Tercero (Cliente) <span style="color:red">*</span></label>
+            <select name="ID_TERCERO" required>
+                <option value="" disabled selected>Seleccione el cliente</option>
+                {% for t in terceros %}
+                    <option value="{{ t.ID_TERCERO }}">{{ t.NOM_TERCERO }} {{ t.APE_PATERNO }} {{ t.APE_MATERNO }}</option>
+                {% endfor %}
+            </select>
 
             <!-- Tipo de Tercero -->
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Tipo de Tercero <span class="text-red-500">*</span></label>
-                <select id="tip_tercero" name="TIP_TERCERO" class="form-select border rounded-lg p-2 w-full" required>
-                    <option value="" disabled selected>Seleccione el tipo</option>
-                     {% for a in tiptercero %}
-                        <option value="{{ a.TIP_TERCERO }}" >{{ a.DESC_TIP_TERCERO }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+            <label>Tipo de Tercero <span style="color:red">*</span></label>
+            <select name="TIP_TERCERO" required>
+                <option value="" disabled selected>Seleccione el tipo</option>
+                {% for a in tiptercero %}
+                    <option value="{{ a.TIP_TERCERO }}">{{ a.DESC_TIP_TERCERO }}</option>
+                {% endfor %}
+            </select>
 
             <!-- Movimiento -->
-            <div class="md:col-span-2">
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Movimiento a Realizar <span class="text-red-500">*</span></label>
-                <select id="cod_movimiento" name="COD_MOVIMIENTO" class="form-select border rounded-lg p-2 w-full" required onchange="handleMovementChange()">
-                    <option value="" disabled selected>Seleccione el tipo de movimiento</option>
-                    {% for m in movimientos %}
-                        <option value="{{ m.COD_MOVIMIENTO }}" data-tip-movimiento="{{ m.TIP_MOVIMIENTO }}">{{ m.DESC_MOVIMIENTO }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+            <label>Movimiento a Realizar <span style="color:red">*</span></label>
+            <select id="cod_movimiento" name="COD_MOVIMIENTO" required onchange="handleMovementChange()">
+                <option value="" disabled selected>Seleccione el tipo de movimiento</option>
+                {% for m in movimientos %}
+                    <option value="{{ m.COD_MOVIMIENTO }}" data-tip-movimiento="{{ m.TIP_MOVIMIENTO }}">{{ m.DESC_MOVIMIENTO }}</option>
+                {% endfor %}
+            </select>
 
             <!-- Campos de monto -->
-            <div id="depositField" class="input-hidden md:col-span-2">
-                <label for="imp_deposito" class="block text-sm font-semibold text-gray-700 mb-1">Importe de Depósito (MXN)</label>
-                <input type="number" step="0.01" min="0.01" id="imp_deposito" name="IMP_DEPOSITO" class="border rounded-lg p-2 w-full bg-green-50" disabled>
+            <div id="depositField" class="input-hidden">
+                <label>Importe de Depósito (MXN)</label>
+                <input type="number" step="0.01" min="0.01" id="imp_deposito" name="IMP_DEPOSITO" disabled>
             </div>
 
-            <div id="withdrawalField" class="input-hidden md:col-span-2">
-                <label for="imp_retiro" class="block text-sm font-semibold text-gray-700 mb-1">Importe de Retiro (MXN)</label>
-                <input type="number" step="0.01" min="0.01" id="imp_retiro" name="IMP_RETIRO" class="border rounded-lg p-2 w-full bg-red-50" disabled>
+            <div id="withdrawalField" class="input-hidden">
+                <label>Importe de Retiro (MXN)</label>
+                <input type="number" step="0.01" min="0.01" id="imp_retiro" name="IMP_RETIRO" disabled>
             </div>
 
             <!-- Datos automáticos -->
-            <div class="md:col-span-2 mt-2">
-                <p class="font-semibold text-gray-600">Datos Automáticos:</p>
-                <ul class="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg border mt-1">
-                    <li><b>FEC_REGISTRO:</b> <span id="auto_fec_registro"></span></li>
-                    <li><b>FEC_ACTUALIZACION:</b> <span id="auto_fec_actualizacion"></span></li>
-                    <li><b>MCA_INHABILITADO:</b> N</li>
-                    <li><b>COD_USUARIO:</b> <span id="auto_cod_usuario">{{ usuario.COD_USUARIO }}</span></li>
-                </ul>
-            </div>
+            <p><b>Datos Automáticos:</b></p>
+            <ul class="auto-data">
+                <li>FEC_REGISTRO: <span id="auto_fec_registro"></span></li>
+                <li>FEC_ACTUALIZACION: <span id="auto_fec_actualizacion"></span></li>
+                <li>MCA_INHABILITADO: N</li>
+                <li>COD_USUARIO: {{ usuario.COD_USUARIO }}</li>
+            </ul>
 
             <!-- Botón -->
-            <div class="md:col-span-2 mt-4">
-                <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition">
-                    <i class="fas fa-save mr-2"></i> Registrar Movimiento
-                </button>
-            </div>
+            <button type="submit"><i class="fas fa-save"></i> Registrar Movimiento</button>
         </form>
     </div>
 </div>
 
 <script>
-    // --- Inicialización ---
     function formatDate(date) {
         const y = date.getFullYear();
         const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -177,13 +217,11 @@
 
     window.onload = function() {
         const now = new Date();
-        const today = formatDate(now);
-        document.getElementById('auto_fec_registro').textContent = today;
-        document.getElementById('auto_fec_actualizacion').textContent = today;
-        handleMovementChange(); // inicia con campos ocultos
+        document.getElementById('auto_fec_registro').textContent = formatDate(now);
+        document.getElementById('auto_fec_actualizacion').textContent = formatDate(now);
+        handleMovementChange();
     };
 
-    // --- Lógica Depósito/Retiro ---
     function handleMovementChange() {
         const select = document.getElementById('cod_movimiento');
         const opt = select.options[select.selectedIndex];
@@ -204,13 +242,14 @@
         if (tipo === 'D') {
             depositField.classList.remove('input-hidden');
             depInput.disabled = false;
-            depInput.setAttribute('required', 'required');
+            depInput.setAttribute('required','required');
         } else if (tipo === 'R') {
             withdrawalField.classList.remove('input-hidden');
             retInput.disabled = false;
-            retInput.setAttribute('required', 'required');
+            retInput.setAttribute('required','required');
         }
     }
 </script>
+
 </body>
 </html>

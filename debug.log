@@ -753,3 +753,346 @@ django.db.utils.NotSupportedError: DISTINCT ON fields is not supported by this d
 [2025-11-08 17:22:56,189] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
 [2025-11-08 17:22:56,189] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
 [2025-11-08 17:22:56,190] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-11-14 18:06:07,940] WARNING django.request: Not Found: /login/img/icono.ico
+[2025-11-14 18:06:07,942] WARNING django.server: "GET /login/img/icono.ico HTTP/1.1" 404 3837
+[2025-11-16 17:46:39,779] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-16 17:46:39,782] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3924
+[2025-11-16 17:47:00,299] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-16 17:47:00,347] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3924
+[2025-11-16 17:49:05,272] ERROR django.request: Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\dateparse.py", line 74, in parse_date
+    return datetime.date.fromisoformat(value)
+ValueError: year 0 is out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1420, in to_python
+    parsed = parse_date(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\dateparse.py", line 78, in parse_date
+    return datetime.date(**kw)
+ValueError: year 0 is out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 83, in perfil
+    usuario.save()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 814, in save
+    self.save_base(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 877, in save_base
+    updated = self._save_table(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 990, in _save_table
+    updated = self._do_update(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 1054, in _do_update
+    return filtered._update(values) > 0
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\query.py", line 1233, in _update
+    return query.get_compiler(self.db).execute_sql(CURSOR)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1984, in execute_sql
+    cursor = super().execute_sql(result_type)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1549, in execute_sql
+    sql, params = self.as_sql()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\mysql\compiler.py", line 57, in as_sql
+    update_query, update_params = super().as_sql()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1947, in as_sql
+    val = field.get_db_prep_save(val, connection=self.connection)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 954, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1469, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1464, in get_prep_value
+    return self.to_python(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1424, in to_python
+    raise exceptions.ValidationError(
+django.core.exceptions.ValidationError: ['“0000-00-00” value has the correct format (YYYY-MM-DD) but it is an invalid date.']
+[2025-11-16 17:49:05,299] ERROR django.server: "POST /perfil/ HTTP/1.1" 500 145775
+[2025-11-16 17:49:05,611] WARNING django.request: Not Found: /favicon.ico
+[2025-11-16 17:49:05,613] WARNING django.server: "GET /favicon.ico HTTP/1.1" 404 3813
+[2025-11-19 20:37:08,584] ERROR django.request: Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\dateparse.py", line 74, in parse_date
+    return datetime.date.fromisoformat(value)
+ValueError: year 0 is out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1420, in to_python
+    parsed = parse_date(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\dateparse.py", line 78, in parse_date
+    return datetime.date(**kw)
+ValueError: year 0 is out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 83, in perfil
+    usuario.save()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 814, in save
+    self.save_base(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 877, in save_base
+    updated = self._save_table(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 990, in _save_table
+    updated = self._do_update(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 1054, in _do_update
+    return filtered._update(values) > 0
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\query.py", line 1233, in _update
+    return query.get_compiler(self.db).execute_sql(CURSOR)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1984, in execute_sql
+    cursor = super().execute_sql(result_type)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1549, in execute_sql
+    sql, params = self.as_sql()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\mysql\compiler.py", line 57, in as_sql
+    update_query, update_params = super().as_sql()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1947, in as_sql
+    val = field.get_db_prep_save(val, connection=self.connection)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 954, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1469, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1464, in get_prep_value
+    return self.to_python(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1424, in to_python
+    raise exceptions.ValidationError(
+django.core.exceptions.ValidationError: ['“0000-00-00” value has the correct format (YYYY-MM-DD) but it is an invalid date.']
+[2025-11-19 20:37:08,605] ERROR django.server: "POST /perfil/ HTTP/1.1" 500 145792
+[2025-11-19 21:46:12,458] ERROR django.request: Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\mysql\base.py", line 75, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'CAT_USUARIOS.FOTO_PERFIL' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 58, in perfil
+    usuario = Usuario.objects.get(COD_USUARIO=user_id)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\query.py", line 635, in get
+    num = len(clone)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\query.py", line 382, in __len__
+    self._fetch_all()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\query.py", line 1886, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\mysql\base.py", line 75, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'CAT_USUARIOS.FOTO_PERFIL' in 'field list'")
+[2025-11-19 21:46:12,514] ERROR django.server: "GET /perfil/ HTTP/1.1" 500 202142
+[2025-11-19 21:48:46,941] ERROR django.request: Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\dateparse.py", line 74, in parse_date
+    return datetime.date.fromisoformat(value)
+ValueError: year 0 is out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1420, in to_python
+    parsed = parse_date(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\dateparse.py", line 78, in parse_date
+    return datetime.date(**kw)
+ValueError: year 0 is out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 83, in perfil
+    usuario.save()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 814, in save
+    self.save_base(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 877, in save_base
+    updated = self._save_table(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 990, in _save_table
+    updated = self._do_update(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 1054, in _do_update
+    return filtered._update(values) > 0
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\query.py", line 1233, in _update
+    return query.get_compiler(self.db).execute_sql(CURSOR)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1984, in execute_sql
+    cursor = super().execute_sql(result_type)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1549, in execute_sql
+    sql, params = self.as_sql()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\mysql\compiler.py", line 57, in as_sql
+    update_query, update_params = super().as_sql()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1947, in as_sql
+    val = field.get_db_prep_save(val, connection=self.connection)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 954, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1469, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1464, in get_prep_value
+    return self.to_python(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1424, in to_python
+    raise exceptions.ValidationError(
+django.core.exceptions.ValidationError: ['“0000-00-00” value has the correct format (YYYY-MM-DD) but it is an invalid date.']
+[2025-11-19 21:48:46,969] ERROR django.server: "POST /perfil/ HTTP/1.1" 500 146569
+[2025-11-19 21:55:49,302] ERROR django.request: Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\dateparse.py", line 74, in parse_date
+    return datetime.date.fromisoformat(value)
+ValueError: year 0 is out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1420, in to_python
+    parsed = parse_date(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\dateparse.py", line 78, in parse_date
+    return datetime.date(**kw)
+ValueError: year 0 is out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 83, in perfil
+    usuario.save()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 814, in save
+    self.save_base(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 877, in save_base
+    updated = self._save_table(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 990, in _save_table
+    updated = self._do_update(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\base.py", line 1054, in _do_update
+    return filtered._update(values) > 0
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\query.py", line 1233, in _update
+    return query.get_compiler(self.db).execute_sql(CURSOR)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1984, in execute_sql
+    cursor = super().execute_sql(result_type)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1549, in execute_sql
+    sql, params = self.as_sql()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\backends\mysql\compiler.py", line 57, in as_sql
+    update_query, update_params = super().as_sql()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\sql\compiler.py", line 1947, in as_sql
+    val = field.get_db_prep_save(val, connection=self.connection)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 954, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1469, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1464, in get_prep_value
+    return self.to_python(value)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\fields\__init__.py", line 1424, in to_python
+    raise exceptions.ValidationError(
+django.core.exceptions.ValidationError: ['“0000-00-00” value has the correct format (YYYY-MM-DD) but it is an invalid date.']
+[2025-11-19 21:55:49,334] ERROR django.server: "POST /perfil/ HTTP/1.1" 500 146569
+[2025-11-19 23:33:36,327] ERROR django.request: Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 82, in perfil
+    return JsonResponse(response_data)
+NameError: name 'JsonResponse' is not defined
+[2025-11-19 23:33:36,332] ERROR django.server: "POST /perfil/ HTTP/1.1" 500 72891
+[2025-11-19 23:33:43,715] ERROR django.request: Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 82, in perfil
+    return JsonResponse(response_data)
+NameError: name 'JsonResponse' is not defined
+[2025-11-19 23:33:43,718] ERROR django.server: "POST /perfil/ HTTP/1.1" 500 72846
+[2025-11-19 23:33:51,523] ERROR django.request: Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 82, in perfil
+    return JsonResponse(response_data)
+NameError: name 'JsonResponse' is not defined
+[2025-11-19 23:33:51,526] ERROR django.server: "POST /perfil/ HTTP/1.1" 500 72885
+[2025-11-19 23:36:43,268] ERROR django.request: Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 82, in perfil
+    return JsonResponse(response_data)
+NameError: name 'JsonResponse' is not defined
+[2025-11-19 23:36:43,276] ERROR django.server: "POST /perfil/ HTTP/1.1" 500 73037
+[2025-11-19 23:36:51,788] ERROR django.request: Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 82, in perfil
+    return JsonResponse(response_data)
+NameError: name 'JsonResponse' is not defined
+[2025-11-19 23:36:51,791] ERROR django.server: "POST /perfil/ HTTP/1.1" 500 73031

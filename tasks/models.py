@@ -1,4 +1,13 @@
 from django.db import models
+from django.utils import timezone
+import uuid
+
+def user_directory_path(instance, filename):
+    # Genera nombre único y crea carpeta por usuario
+    extension = filename.split('.')[-1]
+    filename = f"foto_{uuid.uuid4()}.{extension}"
+    return f"fotos_perfil/{instance.COD_USUARIO}/{filename}"
+
 
 # Modelo para generar acceso.
 class Usuario(models.Model):
@@ -7,10 +16,10 @@ class Usuario(models.Model):
     CORREO = models.CharField(max_length=50)
     COD_PERMISOS = models.IntegerField()
     COD_PASS = models.CharField(max_length=125)
-    FEC_ACTUALIZACION = models.DateField(max_length=50)
+    FEC_ACTUALIZACION = models.DateField(default=timezone.now)
     MCA_INHABILITADO = models.CharField(max_length=1)
-    NUM_TEL = models.CharField(max_length=20, null=True, blank=True)
-
+    NUM_TEL = models.CharField(max_length=20, null=True, blank=True) 
+    FOTO_PERFIL = models.ImageField(upload_to=user_directory_path,null=True,blank=True)
     def __str__(self):
         return self.COD_USUARIO
     
@@ -119,3 +128,4 @@ class CatTerUsuario(models.Model):
         managed = True 
     def __str__(self):
         return f"{self.COD_USUARIO} - {self.ID_TERCERO}"
+    

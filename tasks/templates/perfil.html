@@ -1,338 +1,534 @@
-    {% load static %}
+{% load static %}
 
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Perfil de Usuario - CrecetuLana</title>
-         <link rel="icon" href="{% static '/images/logo_favicon.png' %}" type="image/png">
-        <!-- Se mantiene el FontAwesome 5 que usas para consistencia -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <!-- Se añade FontAwesome 6 para los iconos de edición más modernos (lápiz, guardar, cámara) -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-        
-        <!-- Incluir Tailwind CSS para usar sus clases en el contenido, manteniendo la estructura general con tu CSS -->
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-            // Configuración mínima de Tailwind para el color principal
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        colors: {
-                            'primary': '#4caf50', // Verde de marca
-                            'dark-bg': '#2b3e50', // Fondo de la sidebar
-                        },
-                        fontFamily: {
-                            sans: ['Arial', 'sans-serif'],
-                            montserrat: ['Montserrat', 'sans-serif'],
-                        },
-                    }
-                }
-            }
-        </script>
-        
-        <!-- Tu bloque de estilos personalizados (adaptado para la página de Perfil) -->
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                background-color: #f7f7f7; /* Color de fondo ligero */
-            }
-            .sidebar {
-                width: 200px;
-                background-color: #2b3e50;
-                color: white;
-                height: 100vh;
-                padding-top: 20px;
-                position: fixed;
-                z-index: 10;
-                box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-            }
-            .logo-container {
-                text-align: center;
-                margin-bottom: 20px;
-            }
-            .logo {
-                font-family: 'Montserrat', sans-serif;
-                font-size: 24px;
-                font-weight: 700;
-            }
-            .logo .crece { color: white; }
-            .logo .tu { color: #4caf50; }
-            .logo .lana { color: white; }
-            .logo-tagline {
-                font-size: 12px;
-                color: #4caf50;
-                margin-top: 5px;
-                line-height: 1.2;
-            }
-            .sidebar a {
-                padding: 12px 15px;
-                text-decoration: none;
-                color: white;
-                display: block;
-                font-size: 16px;
-                transition: background-color 0.2s;
-            }
-            .sidebar a:hover {
-                background-color: #1b2a38;
-            }
-            .sidebar .active-link {
-                background-color: #1b2a38; /* Resaltar la página activa */
-                border-left: 4px solid #4caf50;
-                padding-left: 11px;
-            }
-            .sidebar i {
-                margin-right: 8px;
-            }
-            .disponible-prestamo {
-                position: absolute;
-                bottom: 28px;
-                left: 15px;
-                color: white;
-            }
-            .disponible-prestamo h3 {
-                margin: 0;
-                font-size: 11px;
-                color: #40e0d0;
-            }
-            .disponible-prestamo .importe {
-                font-size: 18px;
-                margin-top: 5px;
-                color: white;
-            }
-            .disponible-prestamo .leyenda {
-                font-size: 11px;
-                color: #a9c1d9;
-            }
-            .content {
-                margin-left: 200px;
-                padding: 20px;
-                width: calc(100% - 200px);
-                min-height: 100vh;
-            }
-            /* Clase para ocultar elementos con JS */
-            .hidden-js { display: none; }
-        </style>
-    </head>
-    <body>
-        
-        <!-- 1. Sidebar (Adaptado a tu estructura y CSS) -->
-        <div class="sidebar">
-            <div class="logo-container">
-                <div class="logo">
-                    <span class="crece">crece</span><span class="tu">tu</span><span class="lana">Lana</span>
-                </div>
-                <div class="logo-tagline">
-                    Donde tu lana<br>
-                    nunca se queda quieta
-                </div>
-            </div>
-            <a href="{% url 'dashboard' %}"><i class="fas fa-chart-pie"></i> Resumen</a>
-            <a href="{% url 'lista_movimientos' %}"><i class="fas fa-list"></i> Movimientos</a>
-            <!-- Clase activa para el perfil -->
-            <a href="{% url 'perfil' %}" class="active-link"><i class="far fa-user-circle"></i> Perfil</a>
-             {% if usuario.COD_PERMISOS == 99 %}<a href="{% url 'registro' %}"><i class="fas fa-marker"></i> Registrar</a>   {% endif %}
-            <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perfil de Usuario - CrecetuLana</title>
+  <link rel="icon" href="{% static '/images/logo_favicon.png' %}" type="image/png" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    /* Tus estilos previos */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      background-color: #f7f7f7;
+    }
+    .sidebar {
+      width: 200px;
+      background-color: #2b3e50;
+      color: white;
+      height: 100vh;
+      padding-top: 20px;
+      position: fixed;
+      z-index: 10;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo {
+      font-family: "Montserrat", sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .logo .crece {
+      color: white;
+    }
+    .logo .tu {
+      color: #4caf50;
+    }
+    .logo .lana {
+      color: white;
+    }
+    .logo-tagline {
+      font-size: 12px;
+      color: #4caf50;
+      margin-top: 5px;
+      line-height: 1.2;
+    }
+    .sidebar a {
+      padding: 12px 15px;
+      text-decoration: none;
+      color: white;
+      display: block;
+      font-size: 16px;
+      transition: background-color 0.2s;
+    }
+    .sidebar a:hover {
+      background-color: #1b2a38;
+    }
+    .sidebar .active-link {
+      background-color: #1b2a38;
+      border-left: 4px solid #4caf50;
+      padding-left: 11px;
+    }
+    .sidebar i {
+      margin-right: 8px;
+    }
+    .disponible-prestamo {
+      position: absolute;
+      bottom: 28px;
+      left: 15px;
+      color: white;
+    }
+    .disponible-prestamo h3 {
+      margin: 0;
+      font-size: 11px;
+      color: #40e0d0;
+    }
+    .disponible-prestamo .importe {
+      font-size: 18px;
+      margin-top: 5px;
+      color: white;
+    }
+    .disponible-prestamo .leyenda {
+      font-size: 11px;
+      color: #a9c1d9;
+    }
+    .content {
+      margin-left: 200px;
+      padding: 20px;
+      width: calc(100% - 200px);
+      min-height: 100vh;
+    }
+    .hidden-js {
+      display: none;
+    }
 
-            <div class="disponible-prestamo">
-                <h3>Disponible para préstamo:</h3>
-                <!-- Se utiliza |floatformat:2 para asegurar dos decimales -->
-                <div class="importe">${{ prestamo_disponible|default:"0.00"|floatformat:2 }}</div>
-                <div class="leyenda">Tasa del 4% Mensual</div>
-            </div>
+    /* Nuevo CSS para sustituir Tailwind */
+
+    /* Contenedor blanco con sombra */
+    .card {
+      max-width: 768px; /* max-w-4xl ~ 64rem */
+      margin-left: auto;
+      margin-right: auto;
+      background: white;
+      border-radius: 0.75rem; /* rounded-xl */
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
+      padding: 1.5rem 2.5rem; /* p-6 sm:p-10 */
+    }
+
+    @media(min-width: 640px) {
+      .card {
+        padding: 2.5rem; /* sm:p-10 */
+      }
+    }
+
+    h2 {
+      font-size: 1.875rem; /* text-3xl */
+      font-weight: 800; /* font-extrabold */
+      color: #1f2937; /* text-gray-800 */
+      margin-bottom: 2rem; /* mb-8 */
+      border-bottom: 1px solid #e5e7eb; /* border-b */
+      padding-bottom: 1rem; /* pb-4 */
+    }
+
+    /* Foto perfil y cámara */
+    .profile-photo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2.5rem; /* mb-10 */
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 2rem; /* pb-8 */
+    }
+    .profile-photo-container h3 {
+      font-size: 1.125rem; /* text-lg */
+      font-weight: 600; /* font-semibold */
+      color: #4b5563; /* text-gray-700 */
+      margin-bottom: 1rem; /* mb-4 */
+    }
+    .profile-photo-wrapper {
+      position: relative;
+      width: 8rem; /* w-32 = 128px */
+      height: 8rem; /* h-32 */
+      margin-bottom: 1rem; /* mb-4 */
+    }
+    #profile-img-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 9999px; /* rounded-full */
+      border: 4px solid #4caf50; /* border-primary */
+      box-shadow: 0 10px 15px -3px rgb(76 175 80 / 0.7),
+        0 4px 6px -4px rgb(76 175 80 / 0.5);
+    }
+    label[for="foto_perfil_input"] {
+      position: absolute;
+      bottom: 0.25rem; /* 1 */
+      right: 0.25rem; /* 1 */
+      padding: 0.5rem; /* 2 */
+      background-color: #4caf50;
+      border-radius: 9999px;
+      cursor: pointer;
+      color: white;
+      transition: background-color 0.15s;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    label[for="foto_perfil_input"]:hover {
+      background-color: #388e3c;
+    }
+
+    .profile-photo-container p {
+      font-size: 0.875rem; /* text-sm */
+      color: #6b7280; /* text-gray-500 */
+      margin: 0;
+    }
+
+    /* Datos personales */
+    .form-section > div {
+      margin-bottom: 1.5rem; /* space-y-6 equiv */
+    }
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+    .user-code,
+    .user-fullname {
+      font-size: 1.125rem; /* text-lg */
+      font-weight: 600; /* font-semibold */
+      color: #1f2937; /* text-gray-800 */
+      padding: 0.5rem; /* p-2 */
+      background-color: #f3f4f6; /* bg-gray-100 */
+      border-radius: 0.375rem; /* rounded-md */
+      border: 1px solid #e5e7eb; /* border-gray-200 */
+      margin: 0;
+    }
+
+    /* Correo editable */
+    .email-edit-container {
+      display: flex;
+      align-items: center;
+    }
+    #correo_display {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: #1f2937;
+      padding: 0.5rem;
+      display: block;
+      border: 1px solid transparent;
+      border-radius: 0.375rem;
+      transition: background-color 0.2s;
+      flex-grow: 1;
+      cursor: default;
+    }
+    #correo_display:hover {
+      background-color: #f9fafb;
+    }
+    #correo_input {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: #1f2937;
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      outline: none;
+      flex-grow: 1;
+    }
+    #correo_input:focus {
+      border-color: #4caf50;
+      box-shadow: 0 0 0 3px rgb(76 175 80 / 0.5);
+    }
+
+    /* Botón editar correo */
+    #edit_toggle_btn {
+      margin-left: 1rem;
+      padding: 0.75rem;
+      border-radius: 9999px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.15s;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
+    }
+    #edit_toggle_btn:hover {
+      background-color: #388e3c;
+    }
+    #edit_toggle_btn i {
+      font-size: 1rem;
+    }
+
+    /* Botón guardar cambios */
+    #save_button_area {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: flex-end;
+    }
+    #save_button_area.hidden-js {
+      display: none;
+    }
+    #save_button_area button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #4caf50;
+      color: white;
+      font-weight: 700;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 15px -3px rgb(76 175 80 / 0.7),
+        0 4px 6px -4px rgb(76 175 80 / 0.5);
+      transition: background-color 0.2s, transform 0.2s;
+    }
+    #save_button_area button:hover {
+      background-color: #388e3c;
+      transform: scale(1.05);
+    }
+    #save_button_area button i {
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo-container">
+      <div class="logo">
+        <span class="crece">crece</span
+        ><span class="tu">tu</span><span class="lana">Lana</span>
+      </div>
+      <div class="logo-tagline">
+        Donde tu lana<br />
+        nunca se queda quieta
+      </div>
+    </div>
+    <a href="{% url 'dashboard' %}"><i class="fas fa-chart-pie"></i> Resumen</a>
+    <a href="{% url 'lista_movimientos' %}"><i class="fas fa-list"></i> Movimientos</a>
+    <a href="{% url 'perfil' %}" class="active-link"
+      ><i class="far fa-user-circle"></i> Perfil</a
+    >
+    {% if usuario.COD_PERMISOS == 99 %}
+    <a href="{% url 'registro' %}"><i class="fas fa-marker"></i> Registrar</a>
+    {% endif %}
+    <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+
+    <div class="disponible-prestamo">
+      <h3>Disponible para préstamo:</h3>
+      <div class="importe">${{ prestamo_disponible|default:"0.00"|floatformat:2 }}</div>
+      <div class="leyenda">Tasa del 4% Mensual</div>
+    </div>
+  </div>
+
+  <!-- Contenido -->
+  <div class="content">
+    <div class="card">
+      <h2>Configuración de Perfil</h2>
+
+      <!-- Formulario -->
+      <form
+        id="perfilForm"
+        method="POST"
+        action="{% url 'perfil' %}"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+
+        <!-- Foto de perfil -->
+        <div class="profile-photo-container">
+          <h3>Foto de Perfil</h3>
+          <div class="profile-photo-wrapper">
+            <img
+              id="profile-img-preview"
+              src="{% if usuario.FOTO_PERFIL %}{{ usuario.FOTO_PERFIL.url }}{% else %}https://placehold.co/128x128/eeeeee/2b3e50?text={{ usuario.COD_USUARIO|slice:":1" }}{% endif %}"
+              alt="Foto de Perfil"
+            />
+            <label for="foto_perfil_input" title="Cambiar foto de perfil"
+              ><i class="fas fa-camera"></i
+            ></label>
+            <input
+              type="file"
+              name="FOTO_PERFIL"
+              id="foto_perfil_input"
+              accept="image/*"
+              class="hidden-js"
+              onchange="previewImage(event); toggleSaveButton(true);"
+            />
+          </div>
+          <p>Haz clic en la cámara para subir una nueva imagen.</p>
         </div>
 
-        <!-- 2. Contenido Principal (Usando tu clase .content) -->
-        <div class="content">
-            {% csrf_token %}
-
-            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 sm:p-10">
-                
-                <h2 class="text-3xl font-extrabold text-gray-800 mb-8 border-b pb-4">Configuración de Perfil</h2>
-                
-                <!-- Mensajes de Django -->
-                {% if messages %}
-                    <div class="mb-6">
-                        {% for message in messages %}
-                            <!-- Se usan clases de Tailwind para dar color a los mensajes -->
-                            <div class="p-4 rounded-lg text-white font-semibold mb-2 
-                                {% if message.tags == 'success' %}bg-primary{% elif message.tags == 'error' %}bg-red-500{% else %}bg-blue-500{% endif %}" role="alert">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-                <!-- Formulario de Edición (Incluye Correo y Foto) -->
-                <form id="perfilForm" method="POST" action="{% url 'perfil' %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-
-                    <!-- SECCIÓN DE FOTO DE PERFIL -->
-                    <div class="flex flex-col items-center mb-10 border-b pb-8">
-                        <h3 class="text-lg font-semibold text-gray-700 mb-4">Foto de Perfil</h3>
-                        <div class="relative w-32 h-32 mb-4">
-                            <!-- Imagen actual del usuario -->
-                            <img id="profile-img-preview"
-                                class="w-full h-full object-cover rounded-full border-4 border-primary shadow-lg"
-                                src="{% if usuario.FOTO_PERFIL %}{{ usuario.FOTO_PERFIL.url }}{% else %}https://placehold.co/128x128/eeeeee/2b3e50?text={{ usuario.COD_USUARIO|slice:":1" }}{% endif %}" 
-                                alt="Foto de Perfil">
-
-                            <!-- Botón para subir la foto (Icono de Cámara Font Awesome 6) -->
-                            <label for="foto_perfil_input" class="absolute bottom-0 right-0 p-2 bg-primary rounded-full cursor-pointer text-white hover:bg-green-600 transition duration-150 shadow-md">
-                                <i class="fas fa-camera text-sm"></i>
-                            </label>
-                            <input type="file" name="foto_perfil" id="foto_perfil_input" accept="image/*" class="hidden" onchange="previewImage(event); toggleSaveButton(true);">
-                        </div>
-                        <p class="text-sm text-gray-500">Haz clic en la cámara para subir una nueva imagen.</p>
-                    </div>
-
-
-                    <!-- SECCIÓN DE DATOS PERSONALES -->
-                    <div class="space-y-6">
-                        <!-- Campo no editable: Código de Usuario -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-500">Código de Usuario</label>
-                            <p class="text-lg font-semibold text-gray-800 p-2 bg-gray-100 rounded-md border border-gray-200">
-                                {{ usuario.COD_USUARIO }}
-                            </p>
-                        </div>
-
-                        <!-- Campo no editable: Nombre Completo -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-500">Nombre Completo</label>
-                            <p class="text-lg font-semibold text-gray-800 p-2 bg-gray-100 rounded-md border border-gray-200">
-                                {{ nombre }} {{ ape_paterno }} {{ ape_materno }}
-                            </p>
-                        </div>
-
-                        <!-- Campo Editable: Correo Electrónico -->
-                        <div class="relative flex items-center">
-                            <div class="flex-1">
-                                <label for="correo_input" class="block text-sm font-medium text-gray-500">Correo Electrónico</label>
-                                
-                                <!-- Modo Lectura -->
-                                <span id="correo_display" class="text-lg font-medium text-gray-800 p-2 block border border-transparent rounded-md transition duration-200 hover:bg-gray-50">
-                                    {{ usuario.CORREO|default:"No especificado" }}
-                                </span>
-                                
-                                <!-- Modo Edición (Oculto por defecto) -->
-                                <input type="email" id="correo_input" name="correo" value="{{ usuario.CORREO|default:"" }}"
-                                    class="hidden-js w-full p-2 border border-gray-300 rounded-lg focus:border-primary focus:ring-primary transition duration-150"
-                                    placeholder="Introduce tu nuevo correo">
-                            </div>
-                            
-                            <!-- Botón de Edición/Cancelar (Icono de Lápiz/Cancelar Font Awesome 6) -->
-                            <button type="button" id="edit_toggle_btn" onclick="toggleEditMode()"
-                                    class="ml-4 p-3 rounded-full bg-primary text-white hover:bg-green-600 transition duration-150 shadow-md flex items-center justify-center"
-                                    title="Editar Correo">
-                                <i id="edit_icon" class="fas fa-pencil-alt"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Botón de Guardar Cambios (Inicialmente oculto) -->
-                    <div id="save_button_area" class="mt-10 pt-6 border-t hidden-js flex justify-end">
-                        <button type="submit"
-                                class="flex items-center space-x-2 px-6 py-3 bg-primary text-white font-bold rounded-lg shadow-lg hover:bg-green-600 transition duration-200 transform hover:scale-105">
-                            <i class="fas fa-save"></i>
-                            <span>Guardar Cambios</span>
-                        </button>
-                    </div>
-                </form>
-
+        <!-- Datos personales -->
+        <div class="form-section">
+          <div>
+            <label>Código de Usuario</label>
+            <p class="user-code">{{ usuario.COD_USUARIO }}</p>
+          </div>
+          <div>
+            <label>Nombre Completo</label>
+            <p class="user-fullname">{{ nombre }} {{ ape_paterno }} {{ ape_materno }}</p>
+          </div>
+          <div class="email-edit-container">
+            <div style="flex-grow:1;">
+              <label for="correo_input">Correo Electrónico</label>
+              <span
+                id="correo_display"
+                >{{ usuario.CORREO|default:"No especificado" }}</span
+              >
+              <input
+                type="email"
+                id="correo_input"
+                name="correo"
+                value="{{ usuario.CORREO|default:'' }}"
+                class="hidden-js"
+                placeholder="Introduce tu nuevo correo"
+              />
             </div>
+            <button
+              type="button"
+              id="edit_toggle_btn"
+              onclick="toggleEditMode()"
+              title="Editar Correo"
+            >
+              <i id="edit_icon" class="fas fa-pencil-alt"></i>
+            </button>
+          </div>
         </div>
 
-        <!-- 3. Lógica JavaScript para Interacción (sin cambios) -->
-        <script>
-            // Estado de la edición
-            let isEditing = false;
-            const correoDisplay = document.getElementById('correo_display');
-            const correoInput = document.getElementById('correo_input');
-            const editToggleBtn = document.getElementById('edit_toggle_btn');
-            const editIcon = document.getElementById('edit_icon');
-            const saveButtonArea = document.getElementById('save_button_area');
+        <!-- Botón de guardar -->
+        <div id="save_button_area" class="hidden-js">
+          <button type="submit">
+            <i class="fas fa-save"></i>
+            <span>Guardar Cambios</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-            // Función para alternar el modo de edición (solo para el correo)
-            function toggleEditMode() {
-                isEditing = !isEditing;
+  <script>
+    let isEditing = false;
+    const correoDisplay = document.getElementById("correo_display");
+    const correoInput = document.getElementById("correo_input");
+    const editToggleBtn = document.getElementById("edit_toggle_btn");
+    const editIcon = document.getElementById("edit_icon");
+    const saveButtonArea = document.getElementById("save_button_area");
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-                if (isEditing) {
-                    // Modo Edición
-                    correoDisplay.classList.add('hidden-js');
-                    correoInput.classList.remove('hidden-js');
-                    correoInput.focus();
-                    editIcon.classList.remove('fa-pencil-alt');
-                    editIcon.classList.add('fa-times'); // Cambiar a icono de cancelar
-                    editToggleBtn.title = "Cancelar Edición";
-                    toggleSaveButton(true); // Mostrar botón de guardar
-                } else {
-                    // Modo Lectura
-                    correoDisplay.classList.remove('hidden-js');
-                    correoInput.classList.add('hidden-js');
-                    // Restaurar el valor mostrado (o el valor original)
-                    correoDisplay.textContent = correoInput.value || 'No especificado'; 
-                    editIcon.classList.remove('fa-times');
-                    editIcon.classList.add('fa-pencil-alt'); // Cambiar a icono de lápiz
-                    editToggleBtn.title = "Editar Correo";
-                    
-                    // Ocultar botón de guardar si no hay foto seleccionada y el correo no ha cambiado
-                    const fotoSeleccionada = document.getElementById('foto_perfil_input').files.length > 0;
-                    const valorOriginal = '{{ usuario.CORREO|default:"" }}';
-                    const valorActual = correoInput.value;
-                    
-                    if (!fotoSeleccionada && valorActual === valorOriginal) {
-                        toggleSaveButton(false);
-                    }
-                }
-            }
+    function toggleEditMode() {
+      isEditing = !isEditing;
+      const fotoSeleccionada =
+        document.getElementById("foto_perfil_input").files.length > 0;
+      const valorOriginal = "{{ usuario.CORREO|default:'' }}";
+      const valorActual = correoInput.value;
 
-            // Función para mostrar/ocultar el botón de guardar
-            function toggleSaveButton(show) {
-                if (show) {
-                    saveButtonArea.classList.remove('hidden-js');
-                } else {
-                    saveButtonArea.classList.add('hidden-js');
-                }
-            }
+      if (isEditing) {
+        correoDisplay.classList.add("hidden-js");
+        correoInput.classList.remove("hidden-js");
+        correoInput.focus();
+        editIcon.classList.replace("fa-pencil-alt", "fa-times");
+        editToggleBtn.title = "Cancelar Edición";
+        toggleSaveButton(true);
+      } else {
+        correoDisplay.classList.remove("hidden-js");
+        correoInput.classList.add("hidden-js");
+        correoDisplay.textContent = correoInput.value || "No especificado";
+        editIcon.classList.replace("fa-times", "fa-pencil-alt");
+        editToggleBtn.title = "Editar Correo";
+        if (!fotoSeleccionada && valorActual === valorOriginal) toggleSaveButton(false);
+      }
+    }
 
-            // Función para previsualizar la imagen y mostrar el botón de guardar
-            function previewImage(event) {
-                const reader = new FileReader();
-                reader.onload = function(){
-                    const output = document.getElementById('profile-img-preview');
-                    output.src = reader.result;
-                }
-                reader.readAsDataURL(event.target.files[0]);
-            }
+    function toggleSaveButton(show) {
+      if (show) saveButtonArea.classList.remove("hidden-js");
+      else saveButtonArea.classList.add("hidden-js");
+    }
 
-            // Event listener para el correo, para mostrar el botón de guardar si el valor cambia
-            correoInput.addEventListener('input', () => {
-                const valorOriginal = '{{ usuario.CORREO|default:"" }}';
-                const valorActual = correoInput.value;
-                const fotoSeleccionada = document.getElementById('foto_perfil_input').files.length > 0;
-                
-                // Mostrar si el correo es diferente al original O si hay una foto seleccionada
-                if (valorActual !== valorOriginal || fotoSeleccionada) {
-                    toggleSaveButton(true);
-                } else {
-                    toggleSaveButton(false);
-                }
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        document.getElementById("profile-img-preview").src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+      toggleSaveButton(true);
+    }
+
+    correoInput.addEventListener("input", () => {
+      const valorOriginal = "{{ usuario.CORREO|default:'' }}";
+      const valorActual = correoInput.value;
+      const fotoSeleccionada =
+        document.getElementById("foto_perfil_input").files.length > 0;
+      toggleSaveButton(valorActual !== valorOriginal || fotoSeleccionada);
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (correoInput.value) correoDisplay.textContent = correoInput.value;
+    });
+
+    // Envío del formulario vía AJAX con SweetAlert2
+    document.getElementById("perfilForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+
+      fetch("{% url 'perfil' %}", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRFToken": csrftoken,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            Swal.fire({
+              icon: "success",
+              title: "¡Guardado!",
+              html: data.messages.join("<br>"),
+              confirmButtonColor: "#4caf50",
             });
-            
-            // Inicialización: asegurarse de que el input esté oculto al cargar la página
-            document.addEventListener('DOMContentLoaded', () => {
-                if (correoInput.value) {
-                    correoDisplay.textContent = correoInput.value;
-                }
+            correoDisplay.textContent = correoInput.value || "No especificado";
+            correoDisplay.classList.remove("hidden-js");
+            correoInput.classList.add("hidden-js");
+            editIcon.classList.replace("fa-times", "fa-pencil-alt");
+            editToggleBtn.title = "Editar Correo";
+            toggleSaveButton(false);
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              html: data.messages ? data.messages.join("<br>") : data.message,
+              confirmButtonColor: "#ef4444",
             });
-
-        </script>
-
-    </body>
-    </html>
+          }
+        })
+        .catch(() => {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Ocurrió un error al guardar.",
+            confirmButtonColor: "#ef4444",
+          });
+        });
+    });
+  </script>
+</body>
+</html>
