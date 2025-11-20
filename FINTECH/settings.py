@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'FINTECH.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'DB_FINTECH',
+        'NAME':'BenjaminmendezAr$DB_FINTECH',
         'USER':'BenjaminMendezAr',
         'PASSWORD':'Benjamin12a',
         'HOST':'BenjaminMendezArmenta.mysql.pythonanywhere-services.com',
