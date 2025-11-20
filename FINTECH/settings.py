@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'BenjaminmendezAr$DB_FINTECH',
         'USER':'BenjaminMendezAr',
-        'PASSWORD':'Benjamin12a',
+        'PASSWORD':'Benjamin12a1',
         'HOST':'BenjaminMendezArmenta.mysql.pythonanywhere-services.com',
         'PORT':'3306'
     }
