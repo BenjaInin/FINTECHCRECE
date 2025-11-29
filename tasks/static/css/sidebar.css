@@ -1,0 +1,263 @@
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f3f5 !important;
+}
+
+/* El contenedor general se comporta normal (NO usar flex aquí) */
+.main-container {
+    width: 100%;
+}
+
+/* =========================================================
+   SIDEBAR ESCRITORIO
+   ========================================================= */
+.sidebar-desktop {
+    display: block; /* por defecto se muestra */
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #2b3e50;
+    color: white;
+    height: 100vh;
+    padding-top: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.logo .crece { color: white; }
+.logo .tu { color: #4caf50; }
+.logo .lana { color: white; }
+
+.logo-tagline {
+    font-size: 12px;
+    color: #4caf50;
+    margin-top: 5px;
+    line-height: 1.2;
+}
+
+.sidebar a {
+    padding: 12px 15px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-size: 16px;
+    transition: .2s;
+}
+
+.sidebar a:hover {
+    background-color: #1b2a38;
+}
+
+.sidebar a.active-link {
+    background: #4caf50 !important;
+    border-left: 4px solid #d4ffd4;
+    padding-left: 11px;
+}
+
+/* Parte inferior fija del sidebar */
+.sidebar-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-left: 15px;
+}
+
+/* Préstamo en escritorio */
+.disponible-prestamo h3 {
+    margin: 0;
+    font-size: 11px;
+    color: #40e0d0;
+}
+.disponible-prestamo .importe {
+    font-size: 18px;
+    margin-top: 5px;
+}
+.disponible-prestamo .leyenda {
+    font-size: 11px;
+    color: #a9c1d9;
+}
+
+/* Logout escritorio */
+.logout-link {
+    color: #e74c3c !important;
+    font-weight: bold;
+}
+.logout-link:hover {
+    background: transparent !important;
+    color: #ffefef !important;
+}
+
+/* =========================================================
+   CONTENIDO ESCRITORIO
+   ========================================================= */
+.page-content,
+.content {
+    margin-left: 200px; /* espacio para sidebar */
+    padding: 20px;
+    box-sizing: border-box;
+    width: calc(100% - 200px); /* ancho total menos sidebar */
+}
+
+
+/* =========================================================
+   MÓVIL — OCULTAR sidebar escritorio
+   ========================================================= */
+.mobile-header,
+.mobile-footer {
+    display: none;
+}
+
+/* =========================================================
+   MODO MÓVIL ( ≤ 768px )
+   ========================================================= */
+@media (max-width: 768px) {
+
+    /* Sidebar OFF completamente */
+    .sidebar-desktop {
+        display: none !important;
+    }
+
+    /* HEADER MÓVIL */
+    .mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #1d2e3f;
+        padding: 12px 18px;
+        color: white;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 40px;
+        z-index: 1000;
+        box-shadow: 0 3px 5px rgba(0,0,0,0.25);
+    }
+
+    .mobile-header .mobile-logo {
+        font-size: 25px;
+        font-weight: 900;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .mobile-logo .crece { color: white; }
+    .mobile-logo .tu { color: #4caf50; }
+    .mobile-logo .lana { color: white; }
+
+    .mobile-logout {
+        background: #e74c3c;
+        color: white;
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 20px;
+        position: relative;
+        right: 60px;
+    }
+
+    /* CONTENIDO ADAPTADO */
+    .page-content,
+    .content {
+        margin: 80px 0 150px !important;
+        width: 100% !important;
+        padding: 15px !important;
+    }
+
+    /* CARD estilo App */
+    .summary-card {
+        background: white;
+        border-radius: 14px;
+        padding: 15px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        margin-bottom: 15px;
+    }
+
+    .summary-card.highlight {
+        border: 2px solid #4caf50;
+        background: #f1fff1;
+    }
+
+    /* FOOTER MÓVIL */
+    .mobile-footer {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #1d2e3f;
+        z-index: 1000;
+        box-shadow: 0 -3px 5px rgba(0,0,0,0.25);
+    }
+
+    .mobile-prestamo {
+        background: #0f1a25;
+        padding: 10px 15px;
+        text-align: center;
+    }
+
+    .mobile-prestamo h3 {
+        margin: 0;
+        font-size: 12px;
+        color: #40e0d0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .mobile-prestamo .importe {
+        font-size: 22px;
+        font-weight: 700;
+        color: white;
+        margin-top: 3px;
+    }
+
+    /* NAV INFERIOR */
+    .mobile-nav {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 8px 0;
+        background: #1d2e3f;
+    }
+
+    .mobile-nav a {
+        flex: 1;
+        text-align: center;
+        text-decoration: none;
+        color: #d5dfe8;
+        font-size: 11px;
+        opacity: 0.7;
+    }
+
+    .mobile-nav a i {
+        font-size: 25px;
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .mobile-nav a.active-link {
+        color: #45d36c;
+        opacity: 1;
+        font-weight: bold;
+    }
+}

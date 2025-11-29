@@ -128,4 +128,14 @@ class CatTerUsuario(models.Model):
         managed = True 
     def __str__(self):
         return f"{self.COD_USUARIO} - {self.ID_TERCERO}"
-    
+
+#Modelo para obtener tipo de cambio dolar
+class TipoCambio(models.Model):
+    valor = models.DecimalField(max_digits=10, decimal_places=4)
+    fecha = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'tipocambio'  # nombre claro y fijo de la tabla
+        
+    def __str__(self):
+        return f"{self.valor} ({self.fecha})"

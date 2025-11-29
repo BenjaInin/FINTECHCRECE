@@ -1,0 +1,78 @@
+{% load static %}
+<div class="sidebar-desktop">
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <span class="crece">crece</span><span class="tu">tu</span><span class="lana">Lana</span>
+            </div>
+            <div class="logo-tagline">Donde tu lana<br>nunca se queda quieta</div>
+        </div>
+
+        <div class="sidebar-nav">
+            <a href="{% url 'dashboard' %}" class="active-link">
+                <i class="fas fa-chart-pie"></i> Resumen
+            </a>
+            <a href="{% url 'lista_movimientos' %}">
+                <i class="fas fa-list"></i> Movimientos
+            </a>
+            <a href="{% url 'perfil' %}">
+                <i class="far fa-user-circle"></i> Perfil
+            </a>
+            {% if usuario.COD_PERMISOS == 99 %}
+            <a href="{% url 'registro' %}">
+                <i class="fas fa-marker"></i> Registrar
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="disponible-prestamo">
+                <h3>Disponible para préstamo:</h3>
+                <div class="importe">${{ prestamo_disponible|floatformat:2 }}</div>
+                <div class="leyenda">Tasa del 4% Mensual</div>
+            </div>
+
+            <a href="{% url 'logout' %}" class="logout-link">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </a>
+        </div>
+    </div>
+</div>
+<!-- NAV MÓVIL (Header + Footer) -->
+<div class="mobile-header">
+    <div class="mobile-logo">
+        <span class="crece">crece</span><span class="tu">tu</span><span class="lana">Lana</span>
+    </div>
+    <a href="{% url 'logout' %}" class="mobile-logout">
+        <i class="fas fa-sign-out-alt"></i>
+    </a>
+</div>
+
+<div class="mobile-footer">
+    <div class="mobile-prestamo">
+        <h3>Disponible para préstamo:</h3>
+        <div class="importe">${{ prestamo_disponible|floatformat:2 }}</div>
+    </div>
+
+    <nav class="mobile-nav">
+        <a href="{% url 'dashboard' %}" class="{% if request.path == '/dashboard/' %}active-link{% endif %}">
+            <i class="fas fa-chart-pie"></i>
+            Resumen
+        </a>
+        <a href="{% url 'lista_movimientos' %}">
+            <i class="fas fa-list"></i>
+            Movimientos
+        </a>
+        <a href="{% url 'perfil' %}">
+            <i class="far fa-user-circle"></i>
+            Perfil
+        </a>
+
+        {% if usuario.COD_PERMISOS == 99 %}
+        <a href="{% url 'registro' %}">
+            <i class="fas fa-marker"></i>
+            Registro
+        </a>
+        {% endif %}
+    </nav>
+</div>

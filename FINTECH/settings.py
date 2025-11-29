@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,8 +26,7 @@ SECRET_KEY = 'django-insecure-jubrn%12#17vqnf&h1t!k%vz2=j_xx+#3n1wyl^skhbb@3$5aj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['benjaminmendezarmenta.pythonanywhere.com', 'www.benjaminmendezarmenta.pythonanywhere.com']
-
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'FINTECH.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'BenjaminMendezAr$DB_FINTECH',
-        'USER':'BenjaminMendezAr',
-        'PASSWORD':'Benjamin12a',
-        'HOST':'BenjaminMendezArmenta.mysql.pythonanywhere-services.com',
+        'NAME':'DB_FINTECH',
+        'USER':'root',
+        'PASSWORD':'',
+        'HOST':'localhost',
         'PORT':'3306'
     }
 }
@@ -174,5 +174,14 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
         },
+    },
+}
+
+#Actualiar tipo de cambio 
+
+CELERY_BEAT_SCHEDULE = {
+    'actualizar-tipo-cambio-banxico': {
+        'task': 'app.tasks.actualizar_tipo_cambio',
+        'schedule': crontab(hour=17, minute=1),
     },
 }

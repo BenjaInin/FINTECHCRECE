@@ -30,6 +30,8 @@ from django.contrib import messages
 from django.db import transaction
 from django.contrib import messages
 from django.http import JsonResponse
+from django.shortcuts import render
+from tasks.models import TipoCambio
 import os
 
 
@@ -41,7 +43,8 @@ def home(request):
     """
     return render(request, 'home.html')
 # -------------------------------------------------------------------------------------------------------
-
+def config(request):
+    return render(request, 'config.html')
 # ------------------------------------- FUNCION PERFIL ----------------------------------------------
 def perfil(request):
       # Verificar si hay usuario en sesión
@@ -273,7 +276,6 @@ def registro(request):
 #-------------------------------------Funcion Dashboard----------------------------------------------
 def dashboard(request):
     user_id = request.session.get('user_id')  # Obtener el COD_USUARIO desde la sesión
-    
     if user_id:
         try:
             # Obtener el objeto Usuario con el COD_USUARIO desde la sesión
@@ -305,6 +307,9 @@ def dashboard(request):
             # Obtener el valor de disponible_retiro
             disponible_retiro = get_disponible_retiro(tercero.ID_TERCERO, tercero.TIP_TERCERO)
 
+            # Obtener el último tipo de cambio
+            tipo_cambio = TipoCambio.objects.order_by('-fecha').first()  # último registrado
+
             # Pasar los datos al template
             return render(request, 'dashboard.html', {
                 'usuario': usuario,
@@ -316,7 +321,8 @@ def dashboard(request):
                 'prestamo_disponible': prestamo_disponible,  # Pasar el préstamo disponible
                 'aportaciones': aportaciones_json,
                 'rendimientos': rendimientos_json,
-                'disponible_retiro': disponible_retiro
+                'disponible_retiro': disponible_retiro,
+                'tipo_cambio_usd': tipo_cambio.valor if tipo_cambio else "N/D"  # Mostrar tipo de cambio
             })
         
         except Usuario.DoesNotExist:
@@ -704,4 +710,4 @@ def generar_reporte_pdf(request):
         return HttpResponse("No se encontró información del tercero", status=404)
     
 
-    
+ 

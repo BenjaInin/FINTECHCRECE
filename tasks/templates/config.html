@@ -1,0 +1,61 @@
+<!-- templates/config.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Configuración</title>
+
+    <!-- CSS global -->
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* ======== ESTILOS PROPIOS DE ESTA PÁGINA ======== */
+
+        /* En escritorio la página se comporta normal */
+        .main-container {
+            width: 100%;
+        }
+
+        .page-content {
+            margin-left: 200px; /* Sidebar de escritorio */
+            padding: 20px;
+            width: calc(100% - 200px);
+        }
+
+        /* ======== MODO MÓVIL ======== */
+        @media (max-width: 768px) {
+
+            /* El sidebar se oculta desde sidebar.css */
+            .main-container {
+                display: block !important; /* Evita que el sidebar fuerce columnas */
+            }
+
+            .page-content {
+                margin: 80px 0 150px !important; /* espacio para header y footer móviles */
+                width: 100% !important;
+                padding: 15px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <!-- SIDEBAR COMPLETO (automáticamente responsive) -->
+        {% include 'includes/sidebar.html' %}
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <div class="page-content">
+            <h1>Configuración</h1>
+            <p>Esta es la nueva página donde implementamos el sidebar responsive.</p>
+            <p>Desde aquí puedes agregar tus opciones de configuración.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
