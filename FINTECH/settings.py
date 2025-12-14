@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-jubrn%12#17vqnf&h1t!k%vz2=j_xx+#3n1wyl^skhbb@3$5aj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['benjaminmendezarmenta.pythonanywhere.com', 'www.benjaminmendezarmenta.pythonanywhere.com']
 
 
 # Application definition
@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'FINTECH.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'DB_FINTECH',
-        'USER':'root',
-        'PASSWORD':'',
-        'HOST':'localhost',
+        'NAME':'BenjaminMendezAr$DB_FINTECH',
+        'USER':'BenjaminMendezAr',
+        'PASSWORD':'Benjamin12a',
+        'HOST':'BenjaminMendezArmenta.mysql.pythonanywhere-services.com',
         'PORT':'3306'
     }
 }
