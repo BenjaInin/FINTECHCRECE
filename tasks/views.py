@@ -1,20 +1,16 @@
 import logging
 import bcrypt  # type: ignore
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import render, redirect
 from .forms import LoginForm, RegisterForm
 from .models import Usuario, CatTerceros, CatTipMovimientos,CatTipoTercero,CatTerUsuario
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .forms import MovimientoForm
-from datetime import datetime
 from .models import HisMovimientos, CatTerceros
-from django.db.models import Sum, Case, When, Value
-from django.db import models
+from django.db.models import Sum
+from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
 from django.db.models.functions import ExtractMonth, ExtractYear
 import json
 from reportlab.lib.pagesizes import letter
@@ -32,6 +28,10 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import render
 from tasks.models import TipoCambio
+from django.core.mail import send_mail
+from django.urls import reverse
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
 import os
 
 
@@ -276,6 +276,7 @@ def registro(request):
 #-------------------------------------Funcion Dashboard----------------------------------------------
 def dashboard(request):
     user_id = request.session.get('user_id')  # Obtener el COD_USUARIO desde la sesión
+
     if user_id:
         try:
             # Obtener el objeto Usuario con el COD_USUARIO desde la sesión
@@ -283,7 +284,29 @@ def dashboard(request):
             
             # Obtener el objeto CatTerceros asociado al usuario logueado
             tercero = CatTerceros.objects.get(COD_USUARIO=usuario.COD_USUARIO)
-            
+
+            # -------Selector de año (sin afectar tu lógica anterior)
+            from datetime import datetime
+            anio_actual = datetime.now().year
+            anio_seleccionado = request.GET.get("anio", anio_actual)
+
+            try:
+                anio_seleccionado = int(anio_seleccionado)
+            except:
+                anio_seleccionado = anio_actual
+
+            # Años disponibles por movimientos reales
+            anos_disponibles_query = (
+                HisMovimientos.objects
+                .filter(ID_TERCERO=tercero.ID_TERCERO, TIP_TERCERO=tercero.TIP_TERCERO)
+                .dates('FEC_REGISTRO', 'year')
+            )
+
+            anos_disponibles = sorted(list(set([d.year for d in anos_disponibles_query])), reverse=True)
+
+            if not anos_disponibles:
+                anos_disponibles = [anio_actual]
+
             # Obtener el valor de la cuenta usando la función get_valor_cuenta
             valor_cuenta = get_valor_cuenta(tercero.ID_TERCERO, tercero.TIP_TERCERO)
             
@@ -293,12 +316,27 @@ def dashboard(request):
             else:
                 prestamo_disponible = 0
             
+            # Pasamos el año para tus funciones (si lo necesitan)
+            # Si tus funciones no aceptan año, no pasa nada: siguen igual.
             # Convertir las listas de aportaciones y rendimientos a JSON
-            aportaciones = get_aportaciones_por_mes(tercero.ID_TERCERO, tercero.TIP_TERCERO)
-            rendimientos = get_rendimientos_por_mes(tercero.ID_TERCERO, tercero.TIP_TERCERO)
+            try:
+                aportaciones = get_aportaciones_por_mes(tercero.ID_TERCERO, tercero.TIP_TERCERO, anio_seleccionado)
+            except:
+                aportaciones = get_aportaciones_por_mes(tercero.ID_TERCERO, tercero.TIP_TERCERO)
+
+            try:
+                rendimientos = get_rendimientos_por_mes(tercero.ID_TERCERO, tercero.TIP_TERCERO, anio_seleccionado)
+            except:
+                rendimientos = get_rendimientos_por_mes(tercero.ID_TERCERO, tercero.TIP_TERCERO)
 
             aportaciones_float = [float(a) if a is not None else 0 for a in aportaciones]
             rendimientos_float = [float(r) if r is not None else 0 for r in rendimientos]
+
+            # Ultimos movimientos
+            ultimos_movimientos = get_ultimos_movimientos(tercero.ID_TERCERO, tercero.TIP_TERCERO)
+            
+            # OBTENER SALDO DEL PRÉSTAMO usando el tercero ya obtenido
+            saldo_prestamo = get_saldo_prestamo(tercero.ID_TERCERO, tercero.TIP_TERCERO)
 
             # Convertir las listas a JSON
             aportaciones_json = json.dumps(aportaciones_float)
@@ -318,11 +356,15 @@ def dashboard(request):
                 'ape_paterno': tercero.APE_PATERNO,
                 'ape_materno': tercero.APE_MATERNO,
                 'valor_cuenta': valor_cuenta,
-                'prestamo_disponible': prestamo_disponible,  # Pasar el préstamo disponible
+                'prestamo_disponible': prestamo_disponible,
                 'aportaciones': aportaciones_json,
                 'rendimientos': rendimientos_json,
                 'disponible_retiro': disponible_retiro,
-                'tipo_cambio_usd': tipo_cambio.valor if tipo_cambio else "N/D"  # Mostrar tipo de cambio
+                'ultimos_movimientos': ultimos_movimientos,
+                "saldo_prestamo": saldo_prestamo,
+                'tipo_cambio_usd': tipo_cambio.valor if tipo_cambio else "N/D",
+                'anio_seleccionado': anio_seleccionado,
+                'anos_disponibles': anos_disponibles,
             })
         
         except Usuario.DoesNotExist:
@@ -331,6 +373,7 @@ def dashboard(request):
             return render(request, 'dashboard.html', {'error': 'No se encontró información del tercero.'})
     else:
         return redirect('login')
+
 #----------------------------------------Funcion login------------------------------------------------
 def login_view(request):
     list(messages.get_messages(request))  # Limpia mensajes previos
@@ -398,7 +441,16 @@ def format_date(date):
 
 def format_money(amount):
     return f"${amount:,.2f}"
-
+#-----------------------Ultimos movimientos -------------------------------------------------------#
+def get_ultimos_movimientos(id_tercero, tip_tercero):
+    """
+    Obtiene los últimos 5 movimientos del usuario ordenados por fecha.
+    """
+    return HisMovimientos.objects.filter(
+        ID_TERCERO=id_tercero,
+        TIP_TERCERO=tip_tercero
+    ).select_related('COD_MOVIMIENTO') \
+     .order_by('-FEC_REGISTRO')[:5]
 
 #-------------------------------Funcion Lista Movimientos-------------------------------------------------
 def lista_movimientos(request):
@@ -445,7 +497,7 @@ def lista_movimientos(request):
             saldo_acumulado += imp_deposito + imp_retiro
             saldo_total += imp_deposito + imp_retiro
             suma_depositos += imp_deposito
-            suma_retiros += imp_retiro * -1
+            suma_retiros += imp_retiro 
             mov.saldo_acumulado = saldo_acumulado
 
             tipo_movimiento = mov.COD_MOVIMIENTO.DESC_MOVIMIENTO
@@ -476,7 +528,26 @@ def lista_movimientos(request):
         return redirect('login')
     except CatTerceros.DoesNotExist:
         return render(request, 'lista_movimientos.html', {'error': 'No se encontró información del tercero.'})
+#-------------------------------------Saldo prestamo -------------------------------------------------------------#
+def get_saldo_prestamo(id_tercero, tip_tercero):
+    """
+    Retorna el saldo del préstamo de un tercero específico.
+    Considera los movimientos 'PRESTAMO' y 'PAG.CAPIT.PREST.'
+    """
+    movimientos = HisMovimientos.objects.filter(
+        ID_TERCERO__ID_TERCERO=id_tercero,
+        TIP_TERCERO=tip_tercero
+    ).select_related('COD_MOVIMIENTO')
 
+    saldo_prestamo = 0
+    for mov in movimientos:
+        imp_deposito = float(mov.IMP_DEPOSITO or 0)
+        imp_retiro = float(mov.IMP_RETIRO or 0)
+        tipo_movimiento = mov.COD_MOVIMIENTO.DESC_MOVIMIENTO
+        if tipo_movimiento in ['PRESTAMO', 'PAG.CAPIT.PREST.']:
+            saldo_prestamo += (imp_deposito - imp_retiro) * -1
+
+    return round(saldo_prestamo, 2)
 #-----------------------------Salir logout----------------------------------------------------------------
 
 def logout_view(request):
@@ -511,71 +582,59 @@ def get_valor_cuenta(id_tercero, tip_tercero):
 
 
 #------------------------------------Funcion aportacion por mes----------------------------------------- 
-def get_aportaciones_por_mes(id_tercero, tip_tercero):
-    # Filtramos los movimientos que corresponden a aportaciones (COD_MOVIMIENTO = 1)
+def get_aportaciones_por_mes(id_tercero, tip_tercero, anio):
     aportaciones = HisMovimientos.objects.filter(
         ID_TERCERO=id_tercero,
         TIP_TERCERO=tip_tercero,
-        COD_MOVIMIENTO=1
+        COD_MOVIMIENTO=1,
+        FEC_REGISTRO__year=anio
     ).annotate(
-        mes=ExtractMonth('FEC_REGISTRO'),
-        anio=ExtractYear('FEC_REGISTRO')
-    ).values('anio', 'mes').annotate(
+        mes=ExtractMonth('FEC_REGISTRO')
+    ).values('mes').annotate(
         total_aportaciones=Sum('IMP_DEPOSITO')
-    ).order_by('anio', 'mes')
+    ).order_by('mes')
 
-    # Inicializamos los meses y el acumulado
-    aportaciones_mes = [None] * 12
+    aportaciones_mes = [0] * 12
     acumulado = 0
 
-    # Asignamos los valores acumulados por mes
-    for aportacion in aportaciones:
-        mes = aportacion['mes'] - 1  # Ajuste porque los meses en la lista empiezan desde 0
-        total_aportaciones = aportacion['total_aportaciones']
-        acumulado += total_aportaciones
+    for ap in aportaciones:
+        mes = ap['mes'] - 1
+        acumulado += ap['total_aportaciones']
         aportaciones_mes[mes] = acumulado
 
-    # Completar los meses sin datos con el valor acumulado del mes anterior
+    # Completar meses sin datos
     for i in range(1, 12):
-        if aportaciones_mes[i] is None and aportaciones_mes[i - 1] is not None:
-            aportaciones_mes[i] = aportaciones_mes[i - 1]
+        if aportaciones_mes[i] == 0 and aportaciones_mes[i-1] != 0:
+            aportaciones_mes[i] = aportaciones_mes[i-1]
 
     return aportaciones_mes
- # Limpiar mensajes previos
-    list(messages.get_messages(request))  # Esto vacía los mensajes pendientes
+
 #-------------------------------Funcion rendimiento por mes---------------------------------------------- 
-def get_rendimientos_por_mes(id_tercero, tip_tercero):
-    # Filtramos los movimientos que corresponden a rendimientos (COD_MOVIMIENTO = 1 o 5)
+def get_rendimientos_por_mes(id_tercero, tip_tercero, anio):
     rendimientos = HisMovimientos.objects.filter(
         ID_TERCERO=id_tercero,
         TIP_TERCERO=tip_tercero,
-        COD_MOVIMIENTO__in=[1, 5]
+        COD_MOVIMIENTO__in=[1,5],
+        FEC_REGISTRO__year=anio
     ).annotate(
-        mes=ExtractMonth('FEC_REGISTRO'),
-        anio=ExtractYear('FEC_REGISTRO')
-    ).values('anio', 'mes').annotate(
+        mes=ExtractMonth('FEC_REGISTRO')
+    ).values('mes').annotate(
         total_rendimientos=Sum('IMP_DEPOSITO')
-    ).order_by('anio', 'mes')
+    ).order_by('mes')
 
-    # Inicializamos los meses y el acumulado
-    rendimientos_mes = [None] * 12
+    rend_mes = [0] * 12
     acumulado = 0
 
-    # Asignamos los valores acumulados por mes
-    for rendimiento in rendimientos:
-        mes = rendimiento['mes'] - 1  # Ajuste porque los meses en la lista empiezan desde 0
-        total_rendimientos = rendimiento['total_rendimientos']
-        acumulado += total_rendimientos
-        rendimientos_mes[mes] = acumulado
+    for r in rendimientos:
+        mes = r['mes'] - 1
+        acumulado += r['total_rendimientos']
+        rend_mes[mes] = acumulado
 
-    # Completar los meses sin datos con el valor acumulado del mes anterior
     for i in range(1, 12):
-        if rendimientos_mes[i] is None and rendimientos_mes[i - 1] is not None:
-            rendimientos_mes[i] = rendimientos_mes[i - 1]
+        if rend_mes[i] == 0 and rend_mes[i-1] != 0:
+            rend_mes[i] = rend_mes[i-1]
 
-    return rendimientos_mes
- # Limpiar mensajes previos
-    list(messages.get_messages(request))  # Esto vacía los mensajes pendientes
+    return rend_mes
 #-----------------------------Funcion disponible retiro--------------------------------    
 def get_disponible_retiro(id_tercero, tip_tercero):
     # Filtrar los movimientos de tipo 5 para el tercero y tipo de tercero dados
@@ -590,9 +649,6 @@ def get_disponible_retiro(id_tercero, tip_tercero):
     
     # Si no hay resultados, devolver 0
     return disponible_retiro if disponible_retiro else 0 
-
- # Limpiar mensajes previos
-    list(messages.get_messages(request))  # Esto vacía los mensajes pendientes
 #------------------Funcion para generar reporte-----------------
 def generar_reporte_pdf(request):
     user_id = request.session.get('user_id')
@@ -629,15 +685,12 @@ def generar_reporte_pdf(request):
                 ID_TERCERO__ID_TERCERO=tercero.ID_TERCERO,
                 TIP_TERCERO=tercero.TIP_TERCERO
             ).select_related('COD_MOVIMIENTO').order_by('FEC_REGISTRO')
-
         # Crear PDF
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="reporte_movimientos_{usuario.COD_USUARIO}.pdf"'
         doc = SimpleDocTemplate(response, pagesize=letter)
-
         styles = getSampleStyleSheet()
         elements = []
-
         # ===== ENCABEZADO =====
         logo_path = os.path.join(settings.BASE_DIR, 'tasks', 'static', 'images', 'logo.png')  # ajusta si tu carpeta cambia
 
@@ -645,9 +698,7 @@ def generar_reporte_pdf(request):
             logo = Image(logo_path, width=120, height=50)
         else:
             logo = Paragraph("", styles["Normal"])  # No mostrar nada si no hay logo
-
         titulo = Paragraph("<b>Reporte de Movimientos</b>", styles["Title"])
-
         header_data = [[logo, titulo]]
         header_table = Table(header_data, colWidths=[150, 400])
         header_table.setStyle(TableStyle([
@@ -659,23 +710,18 @@ def generar_reporte_pdf(request):
             ('LEFTPADDING', (0, 0), (1, 1), 40),
             ('RIGHTPADDING', (0, 0), (1, 1), 0),
         ]))
-
         elements.append(header_table)
         elements.append(Spacer(1, 20))
-
         # ===== TABLA PRINCIPAL =====
         data = [["Fecha", "Descripción Movimiento", "Retiro", "Depósito", "Saldo Acumulado"]]
-
         for mov in movimientos:
             imp_retiro = float(mov.IMP_RETIRO or 0)
             imp_deposito = float(mov.IMP_DEPOSITO or 0)
             if imp_retiro:
                 imp_retiro = -abs(imp_retiro)
-
             saldo_acumulado += imp_deposito + imp_retiro
             suma_depositos += imp_deposito
             suma_retiros += abs(imp_retiro)
-
             data.append([
                 mov.FEC_REGISTRO.strftime('%d-%m-%Y'),
                 mov.COD_MOVIMIENTO.DESC_MOVIMIENTO,
@@ -683,7 +729,6 @@ def generar_reporte_pdf(request):
                 f"${imp_deposito:,.2f}" if imp_deposito else "-",
                 f"${saldo_acumulado:,.2f}"
             ])
-
         # Crear tabla de movimientos
         table = Table(data)
         table.setStyle(TableStyle([
@@ -696,18 +741,95 @@ def generar_reporte_pdf(request):
             ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
             ('TOPPADDING', (0, 1), (-1, -1), 8),
         ]))
-
         elements.append(table)
-
         # Construir el PDF
         doc.build(elements)
-
         return response
-
     except Usuario.DoesNotExist:
         return redirect('login')
     except CatTerceros.DoesNotExist:
         return HttpResponse("No se encontró información del tercero", status=404)
-    
+#Temporal de correo 
+logger = logging.getLogger(__name__)
+def test_password_reset(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            try:
+                # domain_override asegura que no use RequestSite
+                form.save(
+                    domain_override='127.0.0.1:8000', 
+                    use_https=False,
+                    from_email='crecetuLana <crecetulanaoficial@gmail.com>'
+                )
+                logger.info(f"Correo de restablecimiento enviado a: {form.cleaned_data['email']}")
+                return HttpResponse("Correo enviado correctamente")
+            except Exception as e:
+                # Captura cualquier error y lo registra
+                logger.error(f"Error al enviar correo de restablecimiento: {str(e)}", exc_info=True)
+                return HttpResponse(f"Ocurrió un error al enviar el correo: {str(e)}")
+        else:
+            logger.warning(f"Formulario inválido: {form.errors}")
+            return HttpResponse(f"Formulario inválido: {form.errors}")
+    return render(request, 'password_reset.html')
 
- 
+#----------------------------------------------------Configuración del token firmado--------------------------------------------------------------------
+signer = TimestampSigner()
+TOKEN_TIMEOUT = 1800  # 30 minutos
+
+#--------------------------------------------------------------Usuario envía correo para resetear contraseña-------------------------------------------
+def password_reset_request(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        try:
+            usuario = Usuario.objects.get(CORREO=email)
+        except Usuario.DoesNotExist:
+            return render(request, "password_reset_sent.html")
+
+        token = signer.sign(usuario.COD_USUARIO)
+        reset_url = request.build_absolute_uri(
+            reverse("password_reset_confirm", kwargs={"token": token})
+        )
+
+        subject = "Restablecimiento de contraseña - crecetuLana"
+        from_email = "crecetulanaoficial@gmail.com"
+        to = email
+
+        text_content = f"Para restablecer tu contraseña, visita: {reset_url}"
+        html_content = render_to_string("emails/password_reset.html", {"reset_url": reset_url, "usuario": usuario})
+
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+
+        return render(request, "password_reset_sent.html")
+    return render(request, "password_reset_form.html")
+# ----------------------------------------Usuario hace clic en el link del correo---------------------------------------------------------------
+def password_reset_confirm(request, token):
+    try:
+        # Recuperar UID desde el token firmado y validarlo
+        uid = signer.unsign(token, max_age=TOKEN_TIMEOUT)
+        usuario = Usuario.objects.get(pk=uid)
+    except SignatureExpired:
+        logger.warning("Token expirado")
+        return render(request, "password_reset_invalid.html")
+    except (BadSignature, Usuario.DoesNotExist):
+        logger.error("Token inválido o usuario no encontrado")
+        return render(request, "password_reset_invalid.html")
+    # Si el método es POST, actualizar contraseña
+    if request.method == "POST":
+        p1 = request.POST.get("password1")
+        p2 = request.POST.get("password2")
+        if p1 != p2:
+            return render(request, "password_reset_confirm.html", {
+                "error": "Las contraseñas no coinciden."
+            })
+        # Guardar contraseña (se hashea correctamente)
+        usuario.COD_PASS = make_password(p1)
+        usuario.save()
+        logger.info(f"Contraseña actualizada correctamente para {usuario.CORREO}")
+        return redirect("password_reset_complete")
+    return render(request, "password_reset_confirm.html")
+# ---------------------------------------------Finalización del proceso-------------------------------------------------------
+def password_reset_complete(request):
+    return render(request, "password_reset_complete.html")

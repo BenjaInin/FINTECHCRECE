@@ -185,3 +185,19 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(hour=17, minute=1),
     },
 }
+
+#Configuracion STM Para correo 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'crecetulanaoficial@gmail.com'
+EMAIL_HOST_PASSWORD = 'nhwd ejyt ucta cyqt'
+DEFAULT_FROM_EMAIL = 'crecetuLana <crecetulanaoficial@gmail.com>'
+SERVER_EMAIL = 'crecetulanaoficial@gmail.com'
+
+# Token expira en 30 minutos
+PASSWORD_RESET_TIMEOUT = 1800
+
+
+

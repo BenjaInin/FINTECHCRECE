@@ -1,6 +1,11 @@
 from django import forms
 from .models import Usuario
 from .models import CatTerceros, CatTipMovimientos, Usuario, HisMovimientos
+import logging
+from django.contrib.auth.forms import PasswordResetForm
+
+logger = logging.getLogger(__name__)
+
 class LoginForm(forms.Form):
     username = forms.CharField(label='Usuario', max_length=255, widget=forms.TextInput(attrs={'placeholder': 'Ingresa tu correo o teléfono'}))
     password = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'placeholder': 'Ingresa tu contraseña'}))
@@ -112,5 +117,13 @@ class MovimientoForm(forms.ModelForm):
             cleaned_data['IMP_DEPOSITO'] = None
 
         return cleaned_data
+    #Correo recuperacionlogger = logging.getLogger(__name__)
+
+class PasswordResetFormWithLogging(PasswordResetForm):
+     def save(self, *args, **kwargs):
+        email = self.cleaned_data.get('email')
+        logger.info(f"Solicitud de reset iniciada para: {email}")
+        super().save(*args, **kwargs)
+        logger.info(f"Correo enviado exitosamente a: {email}")
     
    

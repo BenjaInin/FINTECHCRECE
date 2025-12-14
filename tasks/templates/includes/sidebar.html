@@ -9,17 +9,17 @@
         </div>
 
         <div class="sidebar-nav">
-            <a href="{% url 'dashboard' %}" class="active-link">
+            <a href="{% url 'dashboard' %}" class="{% if request.path == '/dashboard/' %}active-link{% endif %}">
                 <i class="fas fa-chart-pie"></i> Resumen
             </a>
-            <a href="{% url 'lista_movimientos' %}">
+            <a href="{% url 'lista_movimientos' %}" class="{% if request.path == '/lista_movimientos/' %}active-link{% endif %}">
                 <i class="fas fa-list"></i> Movimientos
             </a>
-            <a href="{% url 'perfil' %}">
+            <a href="{% url 'perfil' %}" class="{% if request.path == '/perfil/' %}active-link{% endif %}">
                 <i class="far fa-user-circle"></i> Perfil
             </a>
             {% if usuario.COD_PERMISOS == 99 %}
-            <a href="{% url 'registro' %}">
+            <a href="{% url 'registro' %}" class="{% if request.path == '/registro/' %}active-link{% endif %}">
                 <i class="fas fa-marker"></i> Registrar
             </a>
             {% endif %}
@@ -28,7 +28,7 @@
         <div class="sidebar-bottom">
             <div class="disponible-prestamo">
                 <h3>Disponible para préstamo:</h3>
-                <div class="importe">${{ prestamo_disponible|floatformat:2 }}</div>
+                <div class="importe">${{ prestamo_disponible|floatformat:2 }} MXN</div>
                 <div class="leyenda">Tasa del 4% Mensual</div>
             </div>
 
@@ -51,7 +51,8 @@
 <div class="mobile-footer">
     <div class="mobile-prestamo">
         <h3>Disponible para préstamo:</h3>
-        <div class="importe">${{ prestamo_disponible|floatformat:2 }}</div>
+        <div class="importe">${{ prestamo_disponible|floatformat:2 }} MXN</div>
+        <div class="leyenda">Tasa del 4% Mensual</div>
     </div>
 
     <nav class="mobile-nav">
@@ -59,19 +60,15 @@
             <i class="fas fa-chart-pie"></i>
             Resumen
         </a>
-        <a href="{% url 'lista_movimientos' %}">
-            <i class="fas fa-list"></i>
-            Movimientos
+        <a href="{% url 'lista_movimientos' %}" class="{% if request.path == '/lista_movimientos/' %}active-link{% endif %}">
+            <i class="fas fa-list"></i> Movimientos
         </a>
-        <a href="{% url 'perfil' %}">
-            <i class="far fa-user-circle"></i>
-            Perfil
+        <a href="{% url 'perfil' %}" class="{% if request.path == '/perfil/' %}active-link{% endif %}">
+                <i class="far fa-user-circle"></i> Perfil
         </a>
-
-        {% if usuario.COD_PERMISOS == 99 %}
-        <a href="{% url 'registro' %}">
-            <i class="fas fa-marker"></i>
-            Registro
+            {% if usuario.COD_PERMISOS == 99 %}
+        <a href="{% url 'registro' %}" class="{% if request.path == '/registro/' %}active-link{% endif %}">
+            <i class="fas fa-marker"></i> Registrar
         </a>
         {% endif %}
     </nav>

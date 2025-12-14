@@ -10,19 +10,15 @@
     <link rel="icon" href="{% static '/images/logo_favicon.png' %}" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+     <!-- CSS global -->
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
         .header {
             display: flex;
             align-items: center;
@@ -57,104 +53,7 @@
             object-fit: cover;
             border: 2px solid #4caf50;
         }
-        /* ------------------------------ SIDEBAR ---------------------------- */
-        .sidebar {
-            width: 200px;
-            background-color: #2b3e50;
-            color: white;
-            height: 100vh;
-            padding-top: 20px;
-            position: fixed;
-        }
-        .sidebar-bottom {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;   /* <<< ESTA LÍNEA ES LA QUE SOLUCIONA TODO */
-            gap: 10px;
-            padding-left: 15px;        /* igual que todos los botones del menú */
-        }
-        .sidebar-bottom a.logout-link {
-            display: block;
-            width: auto;
-            text-align: left !important;
-            margin-left: 0 !important;
-            padding-left: 0 !important;
-        }
-        .logo-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-        }
-        .logo .crece { color: white; }
-        .logo .tu { color: #4caf50; }
-        .logo .lana { color: white; }
-
-        .logo-tagline {
-            font-size: 12px;
-            color: #4caf50;
-            margin-top: 5px;
-            line-height: 1.2;
-        }
-
-        .sidebar a {
-            padding: 12px 15px;
-            text-decoration: none;
-            color: white;
-            display: block;
-            font-size: 16px;
-            transition: 0.2s;
-        }
-
-        /* ACTIVO – Resumen verde */
-        .sidebar a.active-link {
-            background: #4caf50 !important;
-            border-left: 4px solid #fffbd4ff;
-            padding-left: 11px;
-        }
-
-        .sidebar a.active-link:hover {
-            background: linear-gradient(90deg, #4caf50, #ccb7ddff);
-        }
-
-        /* Hover normal */
-        .sidebar a:hover {
-            background-color: #1b2a38;
-        }
-
-        .sidebar i { margin-right: 8px; }
-
-        /* CERRAR SESIÓN – TEXTO ROJO */
-        .logout-link {
-            color: #e74c3c !important;
-            font-weight: bold;
-        }
-        .logout-link:hover {
-            color: #ffefef !important;
-            background-color: transparent !important;
-        }
-
-        /* Disponible para préstamo (DEBE IR HASTA ABAJO) */
-        .disponible-prestamo h3 {
-            margin: 0;
-            font-size: 11px;
-            color: #40e0d0;
-        }
-        .disponible-prestamo .importe {
-            font-size: 18px;
-            margin-top: 5px;
-        }
-        .disponible-prestamo .leyenda {
-            font-size: 11px;
-            color: #a9c1d9;
-        }
+       
         .content {
             margin-left: 200px;
             padding: 20px;
@@ -163,7 +62,7 @@
         .card {
             background: white;
             border-radius: 10px;
-            padding: 30px 40px;
+            padding: 10px 40px;
             box-shadow: 0 4px 12px rgba(43, 62, 80, 0.15);
             max-width: 900px;
             margin: 20px auto;
@@ -225,10 +124,10 @@
         .sumatorias-container {
             max-width: 35%;
             background: #f8f8f8;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 6px rgba(0,0,0,0.1);
-            margin-top: -110px;
+            margin-top: -40px;
         }
         .sumatorias-container h4 {
             margin-top: 0;
@@ -244,50 +143,139 @@
         .text-right {
             text-align: right;
         }
+        .select-modern {
+        width: 30%;
+        padding: 5px 8px;
+        font-size: 15px;
+        border: 1px solid #D0D0D0;
+        border-radius: 8px;
+        background-color: #F0F4F3;
+        color: #2b3e50;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Efecto al hacer focus */
+        .select-modern:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.25);
+        }
+        .btn-buscar {
+        width: 20%;
+        max-width: 100px;
+        padding: 8px 0;
+        background-color: #4CAF50;
+        color: #fff;
+        font-size: 15px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color .3s ease, transform .2s ease;
+        }
+
+        /* Hover */
+        .btn-buscar:hover {
+            background-color: #2c7530ff; /* Verde un poco más oscuro */
+        }
+
+        /* Efecto de clic */
+        .btn-buscar:active {
+            transform: scale(0.97);
+        }
+
+        /* ==================== MÓVIL ==================== */
+    @media (max-width: 768px) {
+
+        /* Contenedor principal ajusta margen izquierdo si hay sidebar */
+        .content {
+            margin-left: 0;
+            width: 100%;
+            padding: 10px;
+        }
+
+        /* Info y sumatorias vertical */
+        .info-sumatorias-container {
+            flex-direction: column;
+            align-items: stretch;
+            margin-bottom: 20px;
+        }
+
+        .sumatorias-container {
+            max-width: 100%;
+            margin-top: 15px; /* separación del info-estado */
+        }
+
+        /* Ajuste de tabla */
+        .table-container {
+            overflow-x: auto; /* permite scroll horizontal si es necesario */
+        }
+
+        table.table {
+            width: 100%;
+            min-width: 100%;
+            font-size: 14px;
+        }
+
+        table.table thead th,
+        table.table tbody td {
+            padding: 6px;
+            font-size: 13px;
+        }
+
+        /* Botones más pequeños en móvil */
+        .button {
+            padding: 10px 18px;
+            font-size: 14px;
+        }
+        .select-modern {
+        width: 80%;
+        padding: 5px 8px;
+        font-size: 15px;
+        border: 1px solid #D0D0D0;
+        border-radius: 8px;
+        background-color: #F0F4F3;
+        color: #2b3e50;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Efecto al hacer focus */
+        .select-modern:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.25);
+        }
+        .btn-buscar {
+        width: 30%;
+        max-width: 50px;
+        padding: 10px 0;
+        background-color: #4CAF50;
+        color: #fff;
+        font-size: 12px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color .3s ease, transform .2s ease;
+        }
+
+        /* Hover */
+        .btn-buscar:hover {
+            background-color: #2c7530ff; /* Verde un poco más oscuro */
+        }
+
+        /* Efecto de clic */
+        .btn-buscar:active {
+            transform: scale(0.97);
+        }
+
+    }
+
     </style>
 </head>
 <body>
-    <!-- ========================== SIDEBAR ========================== -->
-<div class="sidebar">
-    <div class="logo-container">
-        <div class="logo">
-            <span class="crece">crece</span><span class="tu">tu</span><span class="lana">Lana</span>
-        </div>
-        <div class="logo-tagline">Donde tu lana<br>nunca se queda quieta</div>
-    </div>
-
-    <a href="{% url 'dashboard' %}" >
-        <i class="fas fa-chart-pie"></i> Resumen
-    </a>
-
-    <a href="{% url 'lista_movimientos' %}" class="active-link">
-        <i class="fas fa-list"></i> Movimientos
-    </a>
-
-    <a href="{% url 'perfil' %}">
-        <i class="far fa-user-circle"></i> Perfil
-    </a>
-
-    {% if usuario.COD_PERMISOS == 99 %}
-    <a href="{% url 'registro' %}" >
-        <i class="fas fa-marker"></i> Registrar
-    </a>
-    {% endif %}
-
-    <!-- BLOQUE FIJADO ABAJO  -->
-    <div class="sidebar-bottom">
-        <div class="disponible-prestamo">
-            <h3>Disponible para préstamo:</h3>
-            <div class="importe">${{ prestamo_disponible|floatformat:2 }}</div>
-            <div class="leyenda">Tasa del 4% Mensual</div>
-        </div>
-
-        <a href="{% url 'logout' %}" class="logout-link">
-            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-        </a>
-    </div>
-</div>
-<!-- CONTENT-->
+     {% include 'includes/sidebar.html' %}
+   <!--- =========================== CONTENT===================================-->
     <div class="content">
                 <div class="header">
                 <!-- Usuario a la derecha -->
@@ -299,7 +287,7 @@
                         </a>
                     {% else %}
                         <a href="{% url 'perfil' %}">
-                            <img src="{% static 'images/default-avatar.png' %}" alt="Foto de perfil" class="profile-pic">
+                            <img src="{% static 'images/userdefault.png' %}" alt="Foto de perfil" class="profile-pic">
                         </a>
                     {% endif %}
                 </div>
@@ -311,7 +299,7 @@
             <form method="POST">
                 {% csrf_token %}
                <label for="id_tercero">Tercero:</label>
-    <select name="id_tercero" id="id_tercero">
+    <select name="id_tercero" id="id_tercero" class="select-modern">
       {% for t in terceros %}
         <option value="{{ t.ID_TERCERO }}" {% if t.ID_TERCERO|stringformat:"s" == selected_id_tercero|stringformat:"s" %}selected{% endif %}>
           {{ t.NOM_TERCERO }} {{ t.APE_PATERNO }} {{ t.APE_MATERNO }}
@@ -319,7 +307,7 @@
       {% endfor %}
     </select>
 
-    <button type="submit">Buscar</button>
+    <button type="submit" class="btn-buscar">Buscar</button>
             </form>
             <hr>
             {% endif %}

@@ -15,6 +15,10 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
     rel="stylesheet"
   />
+  <!-- CSS global -->
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     /* Tus estilos previos */
@@ -25,119 +29,12 @@
       display: flex;
       background-color: #f7f7f7;
     }
-        /* ------------------------------ SIDEBAR ---------------------------- */
-        .sidebar {
-            width: 200px;
-            background-color: #2b3e50;
-            color: white;
-            height: 100vh;
-            padding-top: 20px;
-            position: fixed;
-        }
-        .sidebar-bottom {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;   /* <<< ESTA LÍNEA ES LA QUE SOLUCIONA TODO */
-            gap: 10px;
-            padding-left: 15px;        /* igual que todos los botones del menú */
-        }
-        .sidebar-bottom a.logout-link {
-            display: block;
-            width: auto;
-            text-align: left !important;
-            margin-left: 0 !important;
-            padding-left: 0 !important;
-        }
-        .logo-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-        }
-        .logo .crece { color: white; }
-        .logo .tu { color: #4caf50; }
-        .logo .lana { color: white; }
-
-        .logo-tagline {
-            font-size: 12px;
-            color: #4caf50;
-            margin-top: 5px;
-            line-height: 1.2;
-        }
-
-        .sidebar a {
-            padding: 12px 15px;
-            text-decoration: none;
-            color: white;
-            display: block;
-            font-size: 16px;
-            transition: 0.2s;
-        }
-
-        /* ACTIVO – Resumen verde */
-        .sidebar a.active-link {
-            background: #4caf50 !important;
-            border-left: 4px solid #fffbd4ff;
-            padding-left: 11px;
-        }
-
-        .sidebar a.active-link:hover {
-            background: linear-gradient(90deg, #4caf50, #ccb7ddff);
-        }
-
-        /* Hover normal */
-        .sidebar a:hover {
-            background-color: #1b2a38;
-        }
-
-        .sidebar i { margin-right: 8px; }
-
-        /* CERRAR SESIÓN – TEXTO ROJO */
-        .logout-link {
-            color: #e74c3c !important;
-            font-weight: bold;
-        }
-        .logout-link:hover {
-            color: #ffefef !important;
-            background-color: transparent !important;
-        }
-
-        /* Disponible para préstamo (DEBE IR HASTA ABAJO) */
-        .disponible-prestamo h3 {
-            margin: 0;
-            font-size: 11px;
-            color: #40e0d0;
-        }
-        .disponible-prestamo .importe {
-            font-size: 18px;
-            margin-top: 5px;
-        }
-        .disponible-prestamo .leyenda {
-            font-size: 11px;
-            color: #a9c1d9;
-        }
-    .content {
-      margin-left: 200px;
-      padding: 20px;
-      width: calc(100% - 200px);
-      min-height: 100vh;
-    }
     .hidden-js {
       display: none;
     }
-
-    /* Nuevo CSS para sustituir Tailwind */
-
     /* Contenedor blanco con sombra */
     .card {
-      max-width: 768px; /* max-w-4xl ~ 64rem */
+      max-width: 568px; /* max-w-4xl ~ 64rem */
       margin-left: auto;
       margin-right: auto;
       background: white;
@@ -157,7 +54,7 @@
       font-size: 1.875rem; /* text-3xl */
       font-weight: 800; /* font-extrabold */
       color: #1f2937; /* text-gray-800 */
-      margin-bottom: 2rem; /* mb-8 */
+      margin-bottom: 1rem; /* mb-8 */
       border-bottom: 1px solid #e5e7eb; /* border-b */
       padding-bottom: 1rem; /* pb-4 */
     }
@@ -172,7 +69,7 @@
       padding-bottom: 2rem; /* pb-8 */
     }
     .profile-photo-container h3 {
-      font-size: 1.125rem; /* text-lg */
+      font-size: 2.125rem; /* text-lg */
       font-weight: 600; /* font-semibold */
       color: #4b5563; /* text-gray-700 */
       margin-bottom: 1rem; /* mb-4 */
@@ -333,50 +230,11 @@
   </style>
 </head>
 <body>
-  <!-- ========================== SIDEBAR ========================== -->
-<div class="sidebar">
-    <div class="logo-container">
-        <div class="logo">
-            <span class="crece">crece</span><span class="tu">tu</span><span class="lana">Lana</span>
-        </div>
-        <div class="logo-tagline">Donde tu lana<br>nunca se queda quieta</div>
-    </div>
-
-    <a href="{% url 'dashboard' %}" >
-        <i class="fas fa-chart-pie"></i> Resumen
-    </a>
-
-    <a href="{% url 'lista_movimientos' %}">
-        <i class="fas fa-list"></i> Movimientos
-    </a>
-
-    <a href="{% url 'perfil' %}"class="active-link">
-        <i class="far fa-user-circle"></i> Perfil
-    </a>
-
-    {% if usuario.COD_PERMISOS == 99 %}
-    <a href="{% url 'registro' %}" >
-        <i class="fas fa-marker"></i> Registrar
-    </a>
-    {% endif %}
-
-    <!-- BLOQUE FIJADO ABAJO  -->
-    <div class="sidebar-bottom">
-        <div class="disponible-prestamo">
-            <h3>Disponible para préstamo:</h3>
-            <div class="importe">${{ prestamo_disponible|floatformat:2 }}</div>
-            <div class="leyenda">Tasa del 4% Mensual</div>
-        </div>
-
-        <a href="{% url 'logout' %}" class="logout-link">
-            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-        </a>
-    </div>
-</div>
+  {% include 'includes/sidebar.html' %}
   <!-- Contenido -->
   <div class="content">
     <div class="card">
-      <h2>Configuración de Perfil</h2>
+      <h2  style="text-align: center;">Configuración de Perfil</h2>
 
       <!-- Formulario -->
       <form
@@ -393,7 +251,7 @@
           <div class="profile-photo-wrapper">
             <img
               id="profile-img-preview"
-              src="{% if usuario.FOTO_PERFIL %}{{ usuario.FOTO_PERFIL.url }}{% else %}https://placehold.co/128x128/eeeeee/2b3e50?text={{ usuario.COD_USUARIO|slice:":1" }}{% endif %}"
+              src="{% if usuario.FOTO_PERFIL %}{{ usuario.FOTO_PERFIL.url }}{% else %}{% static 'images/userdefault.png' %}{% endif %}"
               alt="Foto de Perfil"
             />
             <label for="foto_perfil_input" title="Cambiar foto de perfil"
@@ -408,6 +266,7 @@
               onchange="previewImage(event); toggleSaveButton(true);"
             />
           </div>
+        </br>
           <p>Haz clic en la cámara para subir una nueva imagen.</p>
         </div>
 

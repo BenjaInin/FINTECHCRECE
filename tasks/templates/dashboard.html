@@ -11,51 +11,45 @@
       <!-- CSS global -->
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
     <!-- Highcharts -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
 <style>
-
     /* ------------------------------ CONTENT ---------------------------- */
-    
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ccc; /* opcional para separar visualmente */
+    }
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc; /* opcional para separar visualmente */
-}
+    .main-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #4caf50; /* verde */
+        margin: 0;
+    }
 
-.main-title {
-    font-size: 28px;
-    font-weight: 700;
-    color: #4caf50; /* verde */
-    margin: 0;
-}
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 13px;
+        color: #777; /* gris */
+        font-weight: 500;
+        text-transform: uppercase; /* si quieres estilo como en la imagen */
+    }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 13px;
-    color: #777; /* gris */
-    font-weight: 500;
-    text-transform: uppercase; /* si quieres estilo como en la imagen */
-}
-
-.profile-pic {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 2px solid #4caf50; /* borde verde */
-    object-fit: cover;
-}
-
+    .profile-pic {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 2px solid #4caf50; /* borde verde */
+        object-fit: cover;
+    }
     .header img {
         width: 60px;
         height: 60px;
@@ -116,7 +110,6 @@
         padding: 8px;
         border-radius: 50%;
     }
-
     /* Tarjeta de recompensas (dorado) */
     .rewards-card {
         background: #fff8d6;
@@ -126,7 +119,7 @@
     /* Textos */
     .card-text h3 {
         margin: 0;
-        font-size: 20px;
+        font-size: 16px;
     }
     .card-text p {
         margin: 3px 0 0;
@@ -137,26 +130,28 @@
     /* ------------------ CHART ------------------ */
     .chart-container {
         display: flex;
-        margin-top: 50px;
+        margin-top: 10px;
     }
     #chart-area { width: 75%; height: 400px; }
 
     /* ------------------ INFO PANEL ------------------ */
     .info-panel {
-        width: 25%;
-        background: #ffffff; /* fondo blanco */
-        border: 1px solid #ffffffff;
-        border-radius: 10px;
-        padding: 15px;
-        margin-left: 20px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    width: 25%;
+    background: rgba(255,255,255,0.8);
+    border-radius: 14px;
+    padding: 18px;
+    margin-left: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    backdrop-filter: blur(6px);
+    border: 1px solid #e8e8e8;
     }
 
     .info-panel h3 {
-        margin-top: 0;
-        margin-bottom: 15px;
-        color: #000; /* título en negro */
-        font-size: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #4caf50;
+    margin-bottom: 18px;
+    text-align: center;
     }
 
     /* Bloques de datos */
@@ -191,8 +186,292 @@
     .info-item .value-down {
         color: #e74c3c;
     }
+
+    .market-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 4px 6px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    border-left: 6px solid #4caf50;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
     
+    /* Borde izquierdo dinámico */
+    .market-up { border-left-color: #4caf50; }
+    .market-down { border-left-color: #e74c3c; }
+
+    /* Íconos */
+    .market-icon {
+        font-size: 22px;
+        margin-right: 10px;
+        padding: 10px;
+        background: #f1f8ff;
+        border-radius: 50%;
+        color: #4a90e2;
+    }
+
+    /* Etiquetas */
+    .market-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    /* Valores */
+    .market-value {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .market-up .market-value { color: #4caf50; }
+    .market-down .market-value { color: #e74c3c; }
+
+
+    /* ------------------Tabla Ultimos Movimientos -----------------------------/
+    .card-movimientos {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    margin-top: 105px;
     
+    }
+    .card-movimientos h3 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #13e463ff;
+    }
+    .tabla-mov {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 6px; /* espacio entre filas */
+    }
+
+    .tabla-mov thead tr {
+        background: #f5f7fa;
+        border-radius: 10px;
+    }
+
+    .tabla-mov th {
+        padding: 14px 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #3a3a3a;
+        border-bottom: 2px solid #e5e7eb;
+    }
+
+    .tabla-mov tbody tr {
+        background: white;
+        border-radius: 10px;
+        transition: all .2s ease;
+    }
+
+    .tabla-mov tbody tr:hover {
+        background-color: #f1f8ff;
+        transform: scale(1.01);
+    }
+
+    .tabla-mov td {
+        padding: 14px 10px;
+        font-size: 15px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    /* Colores movimiento */
+    .mov-verde {
+        color: #2e7d32 !important;
+        font-weight: 700;
+        
+    }
+
+    .mov-rojo {
+        color: #d32f2f !important;
+        font-weight: 700;
+        
+    }
+
+    .icono-mov i {
+        font-size: 18px;
+    }
+
+    /* ===== Selector de Año ===== */
+
+    .year-selector {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    }
+
+    .year-label {
+    font-weight: 700;
+    color: #4caf50; /* Verde institucional */
+    font-size: 15px;
+    margin-right: 10px;
+    }
+
+    .year-select {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 2px solid #4a90e2; /* Azul institucional */
+    background-color: #e9f4ff; /* Azul suave */
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: 0.2s ease-in-out;
+    }
+
+    /* Estados hover y focus */
+    .year-select:hover {
+    background-color: #d8ecff;
+    border-color: #4caf50; /* verde */
+    }
+
+    .year-select:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 6px rgba(76, 175, 80, 0.45);
+    }
+
+   /* ------------------ RESPONSIVE MÓVIL ------------------ */
+@media (max-width: 768px) {
+
+    /* Header y texto */
+    .header {
+        flex-direction: row; /* mantener en línea */
+        justify-content: space-between; /* resumen a la izquierda, imagen a la derecha */
+        align-items: center;
+        gap: 1px;
+        padding: 0 10px;
+    }
+     .main-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #4caf50; /* verde */
+        margin: 0;
+    }
+    .user-info {
+        font-size: 10px;
+        flex-direction: column; /* Foto abajo, nombre arriba */
+    align-items: flex-end; /* Alineado a la derecha como en tu diseño */
+    gap: 4px;
+    }
+    .username {
+    display: none !important;
+    }
+     .profile-pic {
+        border: 2px solid #0D2B44 !important;
+    }
+    .card-text h3 {
+        font-size: 24px;
+    }
+    .card-text p {
+        font-size: 20px;
+    }
+    /* ---------------- CARDS ---------------- */
+    .summary-cards {
+        flex-direction: column; /* apilar verticalmente */
+        gap: 1px;              /* espacio entre ellas */
+        width: 100%;
+    }
+    .summary-card {
+        width: 100%;            /* ancho completo del contenedor */
+        max-width: 100%;        /* evita que se desborde */
+        box-sizing: border-box; /* incluye padding y borde en el ancho */
+    }
+
+    /* ---------------- GRÁFICA Y PANEL ---------------- */
+    .chart-container {
+        flex-direction: column;  /* apilar gráfica y panel */
+        gap: 150px;
+        width: 100%;
+    }
+    #chart-area {
+        width: 100%;
+        height: 300px;           /* altura ajustable para móvil */
+    }
+    .info-panel {
+        width: 100%;          /* ocupa todo el ancho */
+        margin-left: 0;       /* elimina margen de escritorio */
+        box-sizing: border-box;
+    }
+    /* ------------Tabla ultimos movimientos ---------------------*/
+    .card-movimientos {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .card-movimientos h3 {
+        font-size: 18px;
+        margin-bottom: 14px;
+        text-align: center;
+    }
+
+    /* Ocultar tabla clásica */
+    .tabla-mov thead {
+        display: none;
+    }
+
+    .tabla-mov,
+    .tabla-mov tbody,
+    .tabla-mov tr,
+    .tabla-mov td {
+        display: block;
+        width: 98%;
+    }
+
+    .tabla-mov tr {
+        background: #ffffff;
+        border-radius: 14px;
+        margin-bottom: 12px;
+        padding: 12px 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .tabla-mov td {
+        border: none;
+        padding: 6px 0;
+        font-size: 15px;
+    }
+
+    /* Título interno de cada campo */
+    .tabla-mov td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #555;
+        display: block;
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    /* Ajuste de colores */
+    .mov-verde,
+    .mov-rojo {
+        font-size: 17px;
+        font-weight: 700;
+        margin-top: 8px;
+    }
+
+    .icono-mov i {
+        font-size: 20px;
+    }
+    /*Select*/
+    .year-selector {
+        justify-content: center;
+    }
+    .year-label {
+        font-size: 14px;
+    }
+    .year-select {
+        font-size: 14px;
+        padding: 7px 12px;
+    }
+}
 </style>
 </head>
 
@@ -215,37 +494,37 @@
             </a>
         {% else %}
             <a href="{% url 'perfil' %}">
-                <img src="{% static 'images/default-avatar.png' %}" alt="Foto de perfil" class="profile-pic">
+                <img src="{% static 'images/userdefault.png' %}" alt="Foto de perfil" class="profile-pic">
             </a>
         {% endif %}
     </div>
 </div>
 
     <!-- ========================== CARDS ========================== -->
-    <div class="summary-cards">
-        <div class="summary-card">
+    <div class="summary-cards" >
+        <div class="summary-card" style="border: 1px solid #318df7ff; background: #c0d9f7ff;">
             <div class="card-content">
-                <i class="fas fa-wallet wallet-icon"></i>
+                <i class="fas fa-wallet wallet-icon" style="font-size:30px;"></i>
                 <div class="card-text">
-                    <h3>${{ valor_cuenta|floatformat:2 }}</h3>
+                    <h3 style="color:#4a90e2">${{ valor_cuenta|floatformat:2 }} MXN</h3>
                     <p>Valor de tu cuenta</p>
                 </div>
             </div>
         </div>
 
-        <div class="summary-card" style="border: 1px solid #4caf50; background: #e6ffed;">
+        <div class="summary-card" style="border: 1px solid #6dc783ff; background: #8EFBA7;">
             <div class="card-content">
-                <i class="fas fa-piggy-bank piggy-bank-icon"></i>
+                <i class="fas fa-piggy-bank piggy-bank-icon" style="font-size:30px; padding:12px; background:#E7FDED; border-radius:50%;"></i>
                 <div class="card-text">
-                    <h3 style="color:#4caf50">${{ disponible_retiro|floatformat:2 }}</h3>
-                    <p style="color:#4caf50">Ganado</p>
+                    <h3 style="color:#4caf50">${{ disponible_retiro|floatformat:2 }} MXN</h3>
+                    <p>Ganado</p>
                 </div>
             </div>
         </div>
 
         <div class="summary-card">
             <div class="card-content">
-                <i class="fas fa-chart-line chart-icon"></i>
+                <i class="fas fa-chart-line chart-icon" style="font-size:35px"></i>
                 <div class="card-text">
                     <h3 style="color:#4a90e2">4%</h3>
                     <p>Tasa promedio</p>
@@ -255,55 +534,164 @@
 
         <div class="summary-card rewards-card">
             <div class="card-content">
-                <i class="fas fa-trophy trophy-icon"></i>
+                <i class="fas fa-trophy trophy-icon" style="font-size:30px;"></i>
                 <div class="card-text">
                     <h3 style="color:#00adf1">Básico</h3>
                     <p>Nivel de recompensas</p>
                 </div>
             </div>
+        </div>  
+        {% if saldo_prestamo %}
+        <div class="summary-card" style="border: 1px solid #f13434ff; background: #f0a5a5ff;">
+            <div class="card-content">
+                <i class="fas fa-hand-holding-usd" style="font-size:27px; padding:12px; background:#f7d4d4ff;color:#f13434ff; border-radius:50%;"></i>
+                    <div class="card-text">
+                        <h3 style="color:#f13434ff;">
+                            ${{ saldo_prestamo|floatformat:2 }} MXN
+                        </h3>
+                            <p>Préstamo activo</p>
+                    </div>
+            </div>
         </div>
+        {% endif %}
     </div>
 
     <!-- ========================== CHART ========================== -->
+     
     <div class="chart-container">
         <div id="chart-area">
             <div id="aportaciones-chart" style="width:100%; height:400px;"></div>
-
             <div class="legend-text">
                 Esta gráfica es una proyección comparativa del rendimiento futuro reinvirtiendo los intereses.
             </div>
         </div>
-
         <div class="info-panel">
-            <h3>Mercados y Divisas</h3>
-
-            <div class="info-item">
-                <span class="label">USD/MXN:</span>
-                <span class="value value-up">${{ tipo_cambio_usd }}</span>
-            </div>
-
-            <div class="info-item">
-                <span class="label">Oro (onza):</span>
-                <span class="value value-up">$1,892.30</span>
-            </div>
-
-            <div class="info-item">
-                <span class="label">APPLE:</span>
-                <span class="value value-down">$175.43</span>
-            </div>
-
-            <div class="info-item">
-                <span class="label">AMAZON:</span>
-                <span class="value value-up">$3,245.67</span>
-            </div>
-
-            <div class="info-item">
-                <span class="label">GOOGLE:</span>
-                <span class="value value-down">$2,789.12</span>
-            </div>
+    <h3>Mercados y Divisas</h3>
+    <!-- USD/MXN -->
+    <div class="market-item market-up">
+        <div style="display:flex; align-items:center;">
+            <i class="fas fa-dollar-sign market-icon"></i>
+            <span class="market-label">USD/MXN</span>
         </div>
+        <span class="market-value">${{ tipo_cambio_usd }}</span>
     </div>
 
+    <!-- ORO -->
+    <div class="market-item market-up">
+        <div style="display:flex; align-items:center;">
+            <i class="fas fa-coins market-icon"></i>
+            <span class="market-label">Oro (onza)</span>
+        </div>
+        <span class="market-value">$1,892.30</span>
+    </div>
+
+    <!-- APPLE -->
+    <div class="market-item market-down">
+        <div style="display:flex; align-items:center;">
+            <i class="fab fa-apple market-icon"></i>
+            <span class="market-label">APPLE</span>
+        </div>
+        <span class="market-value">$175.43</span>
+    </div>
+
+    <!-- AMAZON -->
+    <div class="market-item market-up">
+        <div style="display:flex; align-items:center;">
+            <i class="fab fa-amazon market-icon"></i>
+            <span class="market-label">AMAZON</span>
+        </div>
+        <span class="market-value">$3,245.67</span>
+    </div>
+
+    <!-- GOOGLE -->
+    <div class="market-item market-down">
+        <div style="display:flex; align-items:center;">
+            <i class="fab fa-google market-icon"></i>
+            <span class="market-label">GOOGLE</span>
+        </div>
+        <span class="market-value">$2,789.12</span>
+    </div>
+</div>
+    </div>
+    <div class="year-selector">
+    <form method="GET">
+        <label for="anio" class="year-label">CONSULTAR OTROS AÑOS:</label>
+        <select name="anio" id="anio" class="year-select" onchange="this.form.submit()">
+            {% for year in anos_disponibles %}
+                <option value="{{ year }}" {% if year == anio_seleccionado %}selected{% endif %}>
+                    {{ year }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+</div>
+    <!-- ========================== ULTIMOS MOVIMIENTOS ========================== -->
+    </br>
+    </br>
+        <div class="card-movimientos">
+            <h2 style="color:#4caf50">Últimos movimientos</h2>
+            <table class="tabla-mov">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Movimiento</th>
+                        <th>Monto</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for mov in ultimos_movimientos %}
+                    {% if mov.COD_MOVIMIENTO.COD_MOVIMIENTO == 2 or mov.COD_MOVIMIENTO.COD_MOVIMIENTO == 6 %}
+                    <!-- RETIROS / ROJO -->
+                    <tr>
+                    <!-- FECHA -->
+                        <td data-label="Fecha">{{ mov.FEC_REGISTRO|date:"d/m/Y" }}</td>
+                        <!-- MOVIMIENTO (flecha + descripción) -->
+                        <td data-label="Movimiento" class="mov-rojo text-center">
+                            <div style="display:flex; flex-direction:column; align-items:center;">
+                                <i class="fas fa-arrow-down"></i>
+                                    <span style="font-size:12px; margin-top:2px;">
+                    {{ mov.COD_MOVIMIENTO.DESC_MOVIMIENTO }}
+                                    </span>
+                            </div>
+                        </td>
+            <!-- MONTO -->
+                        <td data-label="Monto" class="mov-rojo">
+                            - ${{ mov.IMP_RETIRO|floatformat:2 }}
+                        </td>
+                    </tr>
+                    {% else %}
+            <!-- DEPÓSITOS / VERDE -->
+                    <tr>
+            <!-- FECHA -->
+                        <td data-label="Fecha">{{ mov.FEC_REGISTRO|date:"d/m/Y" }}</td>
+
+            <!-- MOVIMIENTO (flecha + descripción) -->
+                        <td data-label="Movimiento" class="mov-verde text-center">
+                            <div style="display:flex; flex-direction:column; align-items:center;">
+                                <i class="fas fa-arrow-up"></i>
+                                    <span style="font-size:12px; margin-top:2px;">
+                                        {{ mov.COD_MOVIMIENTO.DESC_MOVIMIENTO }}
+                                    </span>
+                            </div>
+                        </td>
+
+                        <!-- MONTO -->
+                        <td data-label="Monto" class="mov-verde">
+                            + ${{ mov.IMP_DEPOSITO|floatformat:2 }}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% empty %}
+                    <tr>
+                        <td colspan="3" style="text-align:center; padding:15px;">
+                            No hay movimientos recientes
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 </div>
 
 <!-- DATA JSON -->
@@ -314,39 +702,85 @@
 <!-- ========================== CHART SCRIPT ========================== -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const aportacionesData = JSON.parse(document.getElementById("aportaciones-data").textContent);
+
+    const aportacionesData = {{ aportaciones|safe }};
+
+    // Detectar si la pantalla es móvil
+    const isMobile = window.innerWidth < 768;
 
     Highcharts.chart('aportaciones-chart', {
-        chart: { type: 'area' },
+        chart: { 
+            type: 'area',
+            spacing: isMobile ? [10, 5, 5, 5] : [20, 10, 10, 10],
+            
+        },
 
-        title: { text: 'Rendimiento financiero' },
+        title: { 
+            text: 'Rendimiento financiero',
+            style: {
+                fontSize: isMobile ? '16px' : '20px',
+                fontWeight: 'bold'
+            }
+        },
 
         xAxis: {
-            categories: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
+            categories: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            labels: {
+                style: {
+                    fontSize: isMobile ? '10px' : '12px'
+                }
+            }
         },
 
         yAxis: {
-            title: { text: 'Monto ($)' }
+            title: { 
+                text: 'Monto ($)',
+                style: {
+                    fontSize: isMobile ? '11px' : '14px'
+                }
+            },
+            labels: {
+                style: {
+                    fontSize: isMobile ? '10px' : '12px'
+                }
+            }
+        },
+
+        legend: {
+            enabled: !isMobile  // Oculta la leyenda en móviles para más espacio
         },
 
         series: [{
             name: 'Aportaciones',
             data: aportacionesData,
             color: '#4caf50',
-            lineWidth: 3,
+            lineWidth: isMobile ? 2 : 3,
 
-            /* RELLENO VERDE DEGRADADO (como tu imagen) */
-            fillColor: {
-                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                stops: [
-                    [0, 'rgba(76, 175, 80, 0.45)'],
-                    [1, 'rgba(76, 175, 80, 0)']
-                ]
-            }
-        }]
+            // Relleno degradado responsivo
+            fillColor: isMobile 
+                ? 'rgba(76, 175, 80, 0.25)' 
+                : {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                    stops: [
+                        [0, 'rgba(76, 175, 80, 0.45)'],
+                        [1, 'rgba(76, 175, 80, 0)']
+                    ]
+                }
+        }],
+
+        responsive: {
+            rules: [{
+                condition: { maxWidth: 480 },
+                chartOptions: {
+                    chart: { height: 390 },
+                }
+            }]
+        }
     });
+
 });
 </script>
+
 
 </body>
 </html>

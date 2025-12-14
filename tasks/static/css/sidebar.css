@@ -102,12 +102,19 @@ body {
 
 /* Logout escritorio */
 .logout-link {
-    color: #e74c3c !important;
+     background: #e74c3c;      /* Fondo rojo */
+    color: white !important;   /* Texto blanco */
     font-weight: bold;
+    padding: 10px 15px;        /* Espaciado interno */
+    border-radius: 8px;        /* Bordes redondeados */
+    text-align: center;        /* Texto centrado */
+    display: block;            /* Que ocupe todo el ancho disponible */
+    margin: 10px 15px 20px 0;  /* Separación opcional */
+    text-decoration: none;     /* Quita subrayado */
+    transition: background .2s;
 }
 .logout-link:hover {
-    background: transparent !important;
-    color: #ffefef !important;
+   background: #c0392b !important;
 }
 
 /* =========================================================
@@ -175,7 +182,7 @@ body {
         text-decoration: none;
         font-size: 20px;
         position: relative;
-        right: 60px;
+        right: 30px !important;
     }
 
     /* CONTENIDO ADAPTADO */
@@ -232,6 +239,10 @@ body {
         margin-top: 3px;
     }
 
+    .mobile-prestamo .leyenda {
+        font-size: 11px;
+        color: #a9c1d9;
+    }
     /* NAV INFERIOR */
     .mobile-nav {
         display: flex;
