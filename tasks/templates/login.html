@@ -334,51 +334,67 @@
                         </div>
                         <span>Use su correo y contraseña</span>
                         {% csrf_token %}
-                    <!-- {{ form.as_p }}-->
+                        <!-- {{ form.as_p }}-->
                         {% for field in form %}
-            <div class="form-group-login">
-                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                <div class="container-input container-input-modern">
-                    {% if field.name == 'username' %}
-                        <ion-icon name="person-outline"></ion-icon>
-                    {% else %}
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                    {% endif %}
-                    {{ field }}
-                </div>
-                {{ field.errors }}
-            </div>
-        {% endfor %}
+                            <div class="form-group-login">
+    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+    <div class="container-input container-input-modern" style="position: relative;">
+        {% if field.name == 'username' %}
+            <ion-icon name="person-outline"></ion-icon>
+            {{ field }}
+        {% elif field.name == 'password' %}
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            {{ field }}
+            <!-- Botón para mostrar/ocultar -->
+            <button type="button" id="togglePassword" style="
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #2b3e50;
+            ">
+                <ion-icon name="eye-outline" id="eyeIcon"></ion-icon>
+            </button>
+        {% else %}
+            {{ field }}
+        {% endif %}
+    </div>
+    {{ field.errors }}
+</div>
+                        {% endfor %}
                         <a href="{% url 'password_reset'%}">¿Olvidaste tu contraseña?</a>
-                        <button  type="submit" class="button">INICIAR SESIÓN</button>
-                    <!-- SE MUESTRA SOLO EN MOVIL -->
+                            <button  type="submit" class="button">INICIAR SESIÓN</button>
+                                    <!-- SE MUESTRA SOLO EN MOVIL -->
                         <a href="/registrame" class="btn-registro-mobile">REGISTRARSE</a>
                     </form>
                     {% if error %}
             <div class="error">{{ error }}</div>
-        {% endif %}
+                    {% endif %}
                 </div>
-                <div class="container-form">
-                    <form method="post" class="sign-up">
-                        <h2>Registrarse</h2>
-                        <span>Use su correo electrónico para registrarse</span>
-                        <button class="button" >REGISTRARSE</button>
-                    </form>
-                </div>
+                    <div class="container-form">
+                        <form method="post" class="sign-up">
+                            <h2>Registrarse</h2>
+                                <span>Use su correo electrónico para registrarse</span>
+                                    <button class="button" >REGISTRARSE</button>
+                        </form>
+                    </div>
                 <div class="container-welcome">
                     <div class="welcome-sign-up welcome">
                         <h3>¡Bienvenido!</h3>
-                        <p>Ingrese sus datos personales para usar las funciones del sitio</p>
-                        <button class="button" id="btn-sign-up">Registrarse</button>
+                            <p>Ingrese sus datos personales para usar las funciones del sitio</p>
+                                <button class="button" id="btn-sign-up">Registrarse</button>
                     </div>
-                    <div class="welcome-sign-in welcome">
+                <div class="welcome-sign-in welcome">
                         <h3>¡Hola!</h3>
-                        <p>Regístrese con sus datos personales para usar las funciones del sitio</p>
-                        <button class="button" id="btn-sign-in">Iniciar Sesión</button>
-                    </div>
+                            <p>Regístrese con sus datos personales para usar las funciones del sitio</p>
+                                <button class="button" id="btn-sign-in">Iniciar Sesión</button>
                 </div>
             </div>
-            <script>
+        </div>
+        <script>
         const container = document.querySelector(".container");
         const btnSignIn = document.getElementById("btn-sign-in");
         const btnSignUp = document.getElementById("btn-sign-up");
@@ -388,7 +404,20 @@
         btnSignUp.addEventListener("click", ()=>{
          window.location.href = "{% url 'registrame' %}";
         });
-            </script>
+        </script>
+        <script>
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordField = document.getElementById('id_password'); // Asegúrate que tu campo tiene este id
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    togglePassword.addEventListener('click', () => {
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        // Cambia el icono
+        eyeIcon.setAttribute('name', type === 'password' ? 'eye-outline' : 'eye-off-outline');
+    });
+</script>
+
             <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
             <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -424,6 +453,7 @@
                 });
             {% endif %}
             </script>
+            
             {% endif %}
         </body>
         </html>

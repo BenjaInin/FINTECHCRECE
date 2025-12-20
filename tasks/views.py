@@ -608,7 +608,7 @@ def get_ultimos_movimientos(id_tercero, tip_tercero):
 
 #-------------------------------Funcion Lista Movimientos-------------------------------------------------
 def lista_movimientos(request):
-    # Limpia mensajes anteriores
+     # Limpia mensajes anteriores
     list(messages.get_messages(request))
 
     user_id = request.session.get('user_id')
@@ -617,7 +617,7 @@ def lista_movimientos(request):
 
     try:
         # =========================
-        # USUARIO Y TERCERO
+        # USUARIO LOGUEADO
         # =========================
         usuario = Usuario.objects.get(COD_USUARIO=user_id)
         tercero_usuario = CatTerceros.objects.get(COD_USUARIO=usuario)
@@ -625,14 +625,23 @@ def lista_movimientos(request):
         # Para select (admin)
         terceros = CatTerceros.objects.all()
 
-        # Por defecto, el propio usuario
+        # Por defecto: el propio usuario
         id_tercero = tercero_usuario.ID_TERCERO
         tip_tercero = tercero_usuario.TIP_TERCERO
+        nombre_completo = f"{tercero_usuario.NOM_TERCERO} {tercero_usuario.APE_PATERNO} {tercero_usuario.APE_MATERNO}"
 
+        # =========================
+        # ADMIN: captura selección
+        # =========================
         if request.method == 'POST' and usuario.COD_PERMISOS == 99:
             id_tercero = request.POST.get('id_tercero')
-            tercero_seleccionado = CatTerceros.objects.get(ID_TERCERO=id_tercero)
-            tip_tercero = tercero_seleccionado.TIP_TERCERO
+            try:
+                tercero_seleccionado = CatTerceros.objects.get(ID_TERCERO=id_tercero)
+                tip_tercero = tercero_seleccionado.TIP_TERCERO
+                nombre_completo = f"{tercero_seleccionado.NOM_TERCERO} {tercero_seleccionado.APE_PATERNO} {tercero_seleccionado.APE_MATERNO}"
+            except CatTerceros.DoesNotExist:
+                nombre_completo = "Usuario no encontrado"
+                tip_tercero = None
 
         # =========================
         # MOVIMIENTOS
@@ -678,7 +687,6 @@ def lista_movimientos(request):
             if tipo_movimiento in ['PRESTAMO', 'PAG.CAPIT.PREST.']:
                 prestamo_por_liquidar += abs(imp_deposito) + abs(imp_retiro)
 
-        # Agregar al resumen
         sumatorias_por_tipo['Préstamo por liquidar'] = prestamo_por_liquidar
 
         now = timezone.now()
@@ -688,9 +696,7 @@ def lista_movimientos(request):
         # =========================
         return render(request, 'lista_movimientos.html', {
             'usuario': usuario,
-            'nombre_completo': f"{tercero_usuario.NOM_TERCERO} "
-                               f"{tercero_usuario.APE_PATERNO} "
-                               f"{tercero_usuario.APE_MATERNO}",
+            'nombre_completo': nombre_completo,
             'movimientos': movimientos,
             'sumatorias_por_tipo': sumatorias_por_tipo,
             'saldo_total': saldo_acumulado,
