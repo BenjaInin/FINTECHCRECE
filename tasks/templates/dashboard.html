@@ -1,4 +1,6 @@
 {% load static %}
+{% load humanize %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,17 +21,20 @@
 <style>
     /* ------------------------------ CONTENT ---------------------------- */
     .header {
+        margin-top: 19px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ccc; /* opcional para separar visualmente */
+        padding: 0 24px; 
+        padding-bottom: 15px;
+        margin-bottom: 10px;
+        
     }
 
     .main-title {
         font-size: 28px;
         font-weight: 700;
-        color: #4caf50; /* verde */
+        color:  #0D2B44;
         margin: 0;
     }
 
@@ -149,7 +154,7 @@
     .info-panel h3 {
     font-size: 18px;
     font-weight: 700;
-    color: #4caf50;
+    color: #0D2B44;
     margin-bottom: 18px;
     text-align: center;
     }
@@ -249,10 +254,11 @@
         width: 100%;
         border-collapse: separate;
         border-spacing: 0 6px; /* espacio entre filas */
+         background: #f5f7fa
     }
 
     .tabla-mov thead tr {
-        background: #f5f7fa;
+        background: #4CAF50 !important;
         border-radius: 10px;
     }
 
@@ -260,8 +266,9 @@
         padding: 14px 10px;
         font-size: 14px;
         font-weight: 600;
-        color: #3a3a3a;
-        border-bottom: 2px solid #e5e7eb;
+        color: #ffffffff;
+        background: #4CAF50 !important;
+        border-bottom: 2px solid #4CAF50;
     }
 
     .tabla-mov tbody tr {
@@ -280,6 +287,7 @@
         font-size: 15px;
         border-bottom: 1px solid #e5e7eb;
     }
+    
 
     /* Colores movimiento */
     .mov-verde {
@@ -309,7 +317,7 @@
 
     .year-label {
     font-weight: 700;
-    color: #4caf50; /* Verde institucional */
+    color: #0D2B44; /* Verde institucional */
     font-size: 15px;
     margin-right: 10px;
     }
@@ -337,7 +345,18 @@
     border-color: #4caf50;
     box-shadow: 0 0 6px rgba(76, 175, 80, 0.45);
     }
-
+    .icon-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: #0D2B44; /* azul */
+    color: #ffffff;            /* icono blanco */
+    border-radius: 10px;       /* bordes redondeados */
+    margin-right: 1px;
+    font-size: 21 px;
+    }
    /* ------------------ RESPONSIVE MÓVIL ------------------ */
 @media (max-width: 768px) {
 
@@ -352,7 +371,7 @@
      .main-title {
         font-size: 18px;
         font-weight: 700;
-        color: #4caf50; /* verde */
+        color: #0D2B44; 
         margin: 0;
     }
     .user-info {
@@ -485,7 +504,12 @@
 <div class="content">
 
     <div class="header">
-    <h1 class="main-title">Resumen de Cuenta</h1>
+      <h1 class="main-title">
+        <span class="icon-box">
+            <i class="fas fa-dice-d6"></i>
+        </span>
+        Resumen de Cuenta
+      </h1>
     <div class="user-info">
     <span class="username">{{ nombre }} {{ ape_paterno }} {{ ape_materno }}</span>
         {% if usuario.FOTO_PERFIL %}
@@ -506,7 +530,7 @@
             <div class="card-content">
                 <i class="fas fa-wallet wallet-icon" style="font-size:30px;"></i>
                 <div class="card-text">
-                    <h3 style="color:#4a90e2">${{ valor_cuenta|floatformat:2 }} MXN</h3>
+                    <h3 style="color:#4a90e2">${{ valor_cuenta|floatformat:2|intcomma }} MXN</h3>
                     <p>Valor de tu cuenta</p>
                 </div>
             </div>
@@ -516,7 +540,7 @@
             <div class="card-content">
                 <i class="fas fa-piggy-bank piggy-bank-icon" style="font-size:30px; padding:12px; background:#E7FDED; border-radius:50%;"></i>
                 <div class="card-text">
-                    <h3 style="color:#4caf50">${{ disponible_retiro|floatformat:2 }} MXN</h3>
+                    <h3 style="color:#4caf50">${{ disponible_retiro|floatformat:2|intcomma }} MXN</h3>
                     <p>Ganado</p>
                 </div>
             </div>
@@ -547,7 +571,7 @@
                 <i class="fas fa-hand-holding-usd" style="font-size:27px; padding:12px; background:#f7d4d4ff;color:#f13434ff; border-radius:50%;"></i>
                     <div class="card-text">
                         <h3 style="color:#f13434ff;">
-                            ${{ saldo_prestamo|floatformat:2 }} MXN
+                            ${{ saldo_prestamo|floatformat:2|intcomma }} MXN
                         </h3>
                             <p>Préstamo activo</p>
                     </div>
@@ -573,7 +597,7 @@
             <i class="fas fa-dollar-sign market-icon"></i>
             <span class="market-label">USD/MXN</span>
         </div>
-        <span class="market-value">${{ tipo_cambio_usd }}</span>
+        <span class="market-value">${{ tipo_cambio_usd|intcomma }}</span>
     </div>
 
     <!-- ORO -->
@@ -629,7 +653,7 @@
     </br>
     </br>
         <div class="card-movimientos">
-            <h2 style="color:#4caf50">Últimos movimientos</h2>
+            <h2 style="color:#0D2B44">Últimos movimientos</h2>
             <table class="tabla-mov">
                 <thead>
                     <tr>
@@ -753,7 +777,7 @@ document.addEventListener("DOMContentLoaded", function () {
         series: [{
             name: 'Aportaciones',
             data: aportacionesData,
-            color: '#4caf50',
+            color: '#0D2B44',
             lineWidth: isMobile ? 2 : 3,
 
             // Relleno degradado responsivo

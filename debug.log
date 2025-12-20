@@ -2993,3 +2993,1088 @@ django.template.exceptions.TemplateDoesNotExist: templates/emails/password_reset
 [2025-12-10 10:33:20,423] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6214
 [2025-12-10 10:36:14,874] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
 [2025-12-10 10:36:14,875] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6214
+[2025-12-17 10:39:26,718] WARNING django.request: Not Found: /login/img/icono.ico
+[2025-12-17 10:39:26,724] WARNING django.server: "GET /login/img/icono.ico HTTP/1.1" 404 4782
+[2025-12-17 10:39:50,653] WARNING django.request: Not Found: /login/img/icono.ico
+[2025-12-17 10:39:50,657] WARNING django.server: "GET /login/img/icono.ico HTTP/1.1" 404 4782
+[2025-12-17 10:56:09,463] WARNING django.request: Not Found: /favicon.ico
+[2025-12-17 10:56:09,469] WARNING django.server: "GET /favicon.ico HTTP/1.1" 404 4931
+[2025-12-17 12:52:37,492] ERROR django.request: Internal Server Error: /prestamo/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 52, in prestamo
+    return render(request, 'prestamo.html')
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 173, in render
+    with context.bind_template(self):
+  File "C:\Users\Gabriel E. Rangel\AppData\Local\Programs\Python\Python38-32\lib\contextlib.py", line 113, in __enter__
+    return next(self.gen)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\context.py", line 254, in bind_template
+    updates.update(processor(self.request))
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\context_processors.py", line 22, in datos_usuario_basicos
+    saldo_prestamo = get_saldo_prestamo(usuario)
+TypeError: get_saldo_prestamo() missing 1 required positional argument: 'tip_tercero'
+[2025-12-17 12:52:37,497] ERROR django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 357, in dashboard
+    return render(request, 'dashboard.html', {
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 173, in render
+    with context.bind_template(self):
+  File "C:\Users\Gabriel E. Rangel\AppData\Local\Programs\Python\Python38-32\lib\contextlib.py", line 113, in __enter__
+    return next(self.gen)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\context.py", line 254, in bind_template
+    updates.update(processor(self.request))
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\context_processors.py", line 22, in datos_usuario_basicos
+    saldo_prestamo = get_saldo_prestamo(usuario)
+TypeError: get_saldo_prestamo() missing 1 required positional argument: 'tip_tercero'
+[2025-12-17 12:52:37,555] ERROR django.server: "GET /dashboard/ HTTP/1.1" 500 111946
+[2025-12-17 13:09:38,929] ERROR django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 357, in dashboard
+    return render(request, 'dashboard.html', {
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 544: 'if'. Looking for one of: elif, else, endif.
+[2025-12-17 13:09:38,995] ERROR django.server: "GET /dashboard/ HTTP/1.1" 500 173765
+[2025-12-17 13:56:55,139] ERROR django.request: Internal Server Error: /prestamo/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 58, in prestamo
+    saldo_prestamo = get_saldo_prestamo(usuario)
+TypeError: get_saldo_prestamo() missing 1 required positional argument: 'tip_tercero'
+[2025-12-17 13:56:56,928] ERROR django.request: Internal Server Error: /prestamo/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 58, in prestamo
+    saldo_prestamo = get_saldo_prestamo(usuario)
+TypeError: get_saldo_prestamo() missing 1 required positional argument: 'tip_tercero'
+[2025-12-17 13:56:56,969] ERROR django.server: "GET /prestamo/ HTTP/1.1" 500 72287
+[2025-12-17 14:01:11,048] WARNING django.server: "GET /static/images/user_default.png HTTP/1.1" 404 1828
+[2025-12-17 15:52:48,128] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 15:52:48,232] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 15:52:52,164] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 15:52:52,307] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 15:52:55,939] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 15:52:55,946] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 15:52:59,668] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 15:52:59,793] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 15:53:05,360] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 15:53:05,363] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 15:53:07,982] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 15:53:07,985] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 15:53:10,913] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 15:53:10,944] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 15:53:15,082] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 15:53:15,091] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 15:53:57,442] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 15:53:57,445] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 15:59:24,716] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 15:59:25,165] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 16:31:26,115] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 16:31:26,184] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 17:14:44,516] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 17:14:44,563] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 17:14:53,633] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 17:14:53,636] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 17:14:57,866] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 17:14:57,942] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 17:15:02,136] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 17:15:02,197] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 17:15:06,914] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 17:15:06,916] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 17:15:13,075] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 17:15:13,317] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 17:15:20,173] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 17:15:20,304] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 17:15:24,830] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 17:15:24,906] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 17:15:26,680] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 17:15:26,684] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 17:15:39,172] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 17:15:39,184] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 17:15:44,882] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 17:15:44,896] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 19:18:56,716] ERROR django.request: Internal Server Error: /prestamo/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 115, in prestamo
+    'fecha': localtime(mov.FEC_REGISTRO),
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\timezone.py", line 217, in localtime
+    if is_naive(value):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\timezone.py", line 269, in is_naive
+    return value.utcoffset() is None
+AttributeError: 'datetime.date' object has no attribute 'utcoffset'
+[2025-12-17 19:18:56,746] ERROR django.server: "GET /prestamo/ HTTP/1.1" 500 81560
+[2025-12-17 20:04:59,102] ERROR django.request: Internal Server Error: /prestamo/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 154, in prestamo
+    return render(request, "prestamo.html", {
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader_tags.py", line 197, in render
+    template = context.template.engine.select_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 206, in select_template
+    return self.get_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'intcomma'
+[2025-12-17 20:04:59,142] ERROR django.server: "GET /prestamo/ HTTP/1.1" 500 222461
+[2025-12-17 22:39:26,247] WARNING django.request: Not Found: /login/img/icono.ico
+[2025-12-17 22:39:26,250] WARNING django.server: "GET /login/img/icono.ico HTTP/1.1" 404 4955
+[2025-12-17 22:53:07,401] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 22:53:07,415] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 22:53:43,388] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 22:53:43,391] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 22:53:47,598] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 22:53:47,603] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 22:53:59,193] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 22:53:59,253] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 22:54:05,698] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 22:54:05,730] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 22:56:16,939] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 22:56:16,973] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 22:56:23,307] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 22:56:23,367] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 22:56:25,842] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 22:56:25,978] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:00:18,746] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:00:18,754] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:03:23,108] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:03:23,120] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:03:46,335] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:03:46,336] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:03:56,103] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:03:56,207] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:04:18,542] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:04:18,543] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:04:29,663] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:04:29,714] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:04:37,891] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:04:37,957] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:04:41,418] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:04:41,471] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:07:56,513] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:07:56,514] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:10:19,943] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:10:19,946] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:10:24,487] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:10:24,489] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:10:26,902] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:10:26,908] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:10:29,089] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:10:29,114] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:10:53,361] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:10:53,384] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:11:29,887] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:11:29,925] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:11:55,523] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:11:55,525] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:12:01,512] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:12:01,537] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:12:04,424] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:12:04,476] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:12:17,454] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:12:17,456] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:12:20,034] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:12:20,043] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:15:49,768] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:15:49,783] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:16:01,502] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:16:01,506] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:16:16,299] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:16:16,307] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:16:31,409] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:16:31,517] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:16:59,474] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:16:59,478] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:17:15,965] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:17:16,047] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:18:28,947] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:18:28,989] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:20:32,454] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:20:32,456] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:20:37,037] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:20:37,043] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:20:40,449] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:20:40,462] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:20:57,981] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:20:58,004] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:21:09,109] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:21:09,113] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:21:21,863] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:21:21,875] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:21:34,951] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:21:34,963] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:21:54,692] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:21:54,697] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:23:03,400] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:23:03,402] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:23:09,728] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:23:09,733] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:23:18,233] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:23:18,234] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:25:06,372] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:25:06,376] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:25:23,484] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:25:23,486] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:27:45,088] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:27:45,102] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:27:57,510] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:27:57,512] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:28:06,209] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:28:06,272] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:28:32,324] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:28:32,416] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:28:35,220] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:28:35,225] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:28:46,915] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:28:46,927] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:29:02,960] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:29:03,047] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:29:06,589] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:29:06,648] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:29:08,456] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:29:08,472] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:29:12,150] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:29:12,232] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:32:34,994] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:32:34,999] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:32:51,050] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:32:51,057] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:33:20,671] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:33:20,681] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-17 23:36:42,159] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-17 23:36:42,170] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 00:00:27,526] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 00:00:27,571] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 00:00:31,263] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 00:00:31,310] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 00:00:36,679] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 00:00:36,696] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 00:00:40,584] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 00:00:40,616] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 01:17:35,556] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 01:17:35,566] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 01:29:38,803] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 01:29:38,808] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 01:29:42,361] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 01:29:42,377] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 01:29:45,026] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 01:29:45,045] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 01:33:13,568] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 01:33:13,576] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 01:34:12,355] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 01:34:12,361] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 01:34:43,411] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 01:34:43,457] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 01:34:55,549] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 01:34:55,556] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 02:20:50,815] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 02:20:50,824] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 02:26:39,022] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 02:26:39,029] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 03:03:31,167] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 03:03:31,177] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 03:05:12,270] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 03:05:12,381] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 03:05:27,130] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 03:05:27,146] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 03:06:39,818] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 03:06:39,823] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 03:06:49,917] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 03:06:49,926] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 03:07:30,593] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 03:07:30,743] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 03:19:48,936] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 03:19:48,939] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 13:05:05,143] ERROR django.request: Internal Server Error: /lista_movimientos/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 656, in lista_movimientos
+    return render(request, 'lista_movimientos.html', {
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\defaulttags.py", line 853, in do_for
+    nodelist_loop = parser.parse(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'abs'
+[2025-12-18 13:05:05,186] ERROR django.server: "GET /lista_movimientos/ HTTP/1.1" 500 228327
+[2025-12-18 13:05:05,761] WARNING django.request: Not Found: /favicon.ico
+[2025-12-18 13:05:05,763] WARNING django.server: "GET /favicon.ico HTTP/1.1" 404 4931
+[2025-12-18 13:06:22,646] ERROR django.request: Internal Server Error: /lista_movimientos/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 656, in lista_movimientos
+    return render(request, 'lista_movimientos.html', {
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\defaulttags.py", line 853, in do_for
+    nodelist_loop = parser.parse(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'abs'
+[2025-12-18 13:06:22,683] ERROR django.server: "GET /lista_movimientos/ HTTP/1.1" 500 228333
+[2025-12-18 13:15:20,496] ERROR django.request: Internal Server Error: /lista_movimientos/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 680, in lista_movimientos
+    return render(request, 'lista_movimientos.html', {
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\defaulttags.py", line 853, in do_for
+    nodelist_loop = parser.parse(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'abs'
+[2025-12-18 13:15:20,515] ERROR django.server: "GET /lista_movimientos/ HTTP/1.1" 500 228221
+[2025-12-18 14:20:25,360] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:20:25,362] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:20:32,253] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:20:32,258] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:20:34,466] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:20:34,478] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:21:34,930] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:21:34,939] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:23:00,085] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:23:00,110] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:23:14,134] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:23:14,138] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:23:47,897] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:23:47,901] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:24:37,093] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:24:37,112] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:24:47,492] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:24:47,512] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:24:57,001] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:24:57,003] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:25:09,005] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:25:09,020] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:25:20,014] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:25:20,021] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:25:38,722] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:25:38,756] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:26:01,927] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:26:01,945] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:26:16,096] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:26:16,110] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:26:30,833] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:26:30,852] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:26:38,961] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:26:38,970] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:27:01,064] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:27:01,072] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:27:25,494] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:27:25,516] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:27:30,779] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:27:30,804] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:27:42,360] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:27:42,387] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:28:16,643] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:28:16,669] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:28:24,773] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:28:24,785] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:28:41,353] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:28:41,366] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:28:56,629] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:28:56,631] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:29:11,219] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:29:11,221] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:29:25,609] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:29:25,683] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:29:27,203] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:29:27,240] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:29:27,386] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:29:27,395] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:29:30,295] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:29:30,303] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:29:43,492] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:29:43,516] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:30:07,178] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:30:07,215] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:30:24,642] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:30:24,699] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:31:03,769] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:31:03,783] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:31:17,438] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:31:17,453] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:31:40,476] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:31:40,487] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:31:59,549] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:31:59,707] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:33:10,049] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:33:10,054] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:33:17,369] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:33:17,374] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:33:34,544] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:33:34,556] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:33:50,107] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:33:50,113] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:33:58,249] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:33:58,251] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:34:13,350] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:34:13,355] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:34:28,223] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:34:28,242] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:34:45,515] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:34:45,550] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:34:56,885] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:34:56,893] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:35:32,773] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:35:32,786] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:35:40,489] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:35:40,511] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:35:52,832] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:35:52,848] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:36:34,575] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:36:34,590] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:36:40,505] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:36:40,522] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:36:42,652] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:36:42,655] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:37:22,345] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:37:22,353] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:38:10,732] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:38:10,734] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:38:21,304] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:38:21,378] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:39:13,195] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:39:13,213] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:39:19,725] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:39:19,734] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:39:25,900] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:39:25,961] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 14:41:54,209] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 14:41:54,213] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:07:17,021] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:07:17,048] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:07:43,236] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:07:43,238] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:07:50,027] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:07:50,040] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:07:52,312] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:07:52,320] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:10:59,024] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:10:59,042] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:18:18,223] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:18:18,233] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:18:34,112] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:18:34,129] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:18:36,469] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:18:36,478] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:19:06,969] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:19:06,986] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:19:16,947] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:19:16,995] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:20:20,587] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:20:20,610] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:20:45,446] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:20:45,469] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:20:52,110] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:20:52,120] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:21:13,127] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:21:13,153] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:21:26,356] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:21:26,360] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:21:38,154] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:21:38,190] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 16:21:49,822] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 16:21:49,829] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:34:45,656] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:34:45,903] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:37:44,160] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:37:44,190] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:37:55,522] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:37:55,531] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:38:56,523] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:38:56,548] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:39:02,462] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:39:02,466] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:39:06,916] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:39:06,919] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:39:58,659] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:39:58,699] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:41:20,819] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:41:20,843] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:42:07,939] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:42:07,977] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:42:51,922] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:42:51,943] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:43:14,591] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:43:14,612] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:43:22,400] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:43:22,690] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:44:26,464] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:44:26,469] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:44:34,245] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:44:34,314] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:44:40,567] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:44:40,588] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:44:57,271] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:44:57,315] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:45:11,267] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:45:11,272] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:45:21,315] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:45:21,316] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:46:54,460] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:46:54,476] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:50:05,232] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:50:05,236] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 17:51:02,047] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 17:51:02,052] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:04:11,283] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:04:11,289] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:05:22,901] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:05:22,950] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:05:40,673] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:05:40,675] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:06:08,119] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:06:08,213] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:06:23,615] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:06:23,625] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:07:49,291] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:07:49,387] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:10:17,787] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:10:17,816] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:11:54,729] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:11:54,736] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:17:13,104] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:17:13,110] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:19:32,576] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:19:32,579] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:23:31,881] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:23:31,887] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:23:46,038] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:23:46,044] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:23:59,401] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:23:59,406] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:24:36,182] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:24:36,209] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:24:59,934] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:24:59,948] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:26:29,757] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:26:29,771] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:26:36,877] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:26:36,885] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:26:39,423] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:26:39,455] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:27:18,399] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:27:18,403] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:28:38,527] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:28:38,542] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:31:21,976] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:31:21,982] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:34:10,711] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:34:10,712] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:34:20,236] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:34:20,239] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:34:22,048] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:34:22,052] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:34:25,451] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:34:25,456] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:35:52,816] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:35:52,817] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:35:57,685] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:35:57,703] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:36:13,532] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:36:13,535] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:36:19,924] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:36:19,929] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:36:22,250] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:36:22,259] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:36:36,205] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:36:36,212] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:36:45,963] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:36:46,077] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:36:49,936] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:36:49,938] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:37:03,650] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:37:03,693] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:37:44,917] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:37:44,950] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:38:01,226] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:38:01,231] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:38:17,093] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:38:17,095] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:38:35,047] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:38:35,108] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:38:39,818] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:38:39,823] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:39:28,764] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:39:28,768] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:39:53,902] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:39:53,907] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:40:02,213] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:40:02,220] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:40:20,447] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:40:20,449] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:40:32,672] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:40:32,677] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:40:52,505] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:40:52,510] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:41:13,412] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:41:13,420] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:41:57,056] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:41:57,061] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:44:27,360] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:44:27,368] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:45:41,931] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:45:41,933] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:46:08,942] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:46:08,950] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:46:43,938] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:46:43,940] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:47:04,632] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:47:04,639] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:47:22,621] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:47:22,622] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:47:40,204] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:47:40,229] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:50:45,828] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:50:45,831] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:52:10,234] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:52:10,238] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:52:38,183] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:52:38,190] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:53:00,668] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:53:00,679] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:53:45,627] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:53:45,630] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:53:57,417] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:53:57,422] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:54:26,170] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:54:26,171] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:54:51,545] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:54:51,552] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:54:54,540] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:54:54,546] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:55:23,092] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:55:23,095] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:56:20,149] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:56:20,152] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:56:32,921] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:56:32,924] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:56:35,608] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:56:35,614] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:57:46,201] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:57:46,208] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:58:28,412] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:58:28,445] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:58:50,723] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:58:50,729] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 18:59:34,509] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 18:59:34,531] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:08:42,556] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:08:42,561] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:08:42,596] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:08:42,605] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:14:07,873] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:14:07,876] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:14:15,922] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:14:15,937] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:14:23,163] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:14:23,167] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:18:10,907] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:18:10,941] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:20:03,411] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:20:03,416] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:20:35,190] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:20:35,193] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:20:51,867] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:20:51,872] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:22:42,929] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:22:42,934] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:23:34,924] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:23:34,927] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:24:50,070] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:24:50,075] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:29:50,750] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:29:50,753] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:31:54,294] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:31:54,329] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:32:02,113] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:32:02,119] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:32:58,679] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:32:58,708] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:33:10,546] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:33:10,566] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:33:16,627] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:33:16,654] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:33:23,657] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:33:23,661] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:33:30,623] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:33:30,632] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:33:43,278] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:33:43,281] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:33:51,247] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:33:51,253] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:34:49,470] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:34:49,533] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:35:05,195] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:35:05,198] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:35:13,202] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:35:13,208] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:35:25,896] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:35:25,899] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:35:35,977] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:35:35,978] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:35:46,995] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:35:46,999] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:35:54,206] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:35:54,227] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:36:26,046] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:36:26,053] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:36:38,492] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:36:38,499] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:36:45,366] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:36:45,380] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-18 19:43:41,362] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-18 19:43:41,378] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 13:52:13,296] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 13:52:13,353] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 13:52:17,111] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 13:52:17,119] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 13:52:19,397] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 13:52:19,406] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 13:52:21,276] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 13:52:21,296] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 13:56:28,268] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 13:56:28,391] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 13:57:21,710] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 13:57:21,713] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 13:57:25,740] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 13:57:25,745] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 13:57:27,896] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 13:57:27,901] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:00:08,953] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:00:08,955] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:05:16,403] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:05:16,408] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:08:42,281] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:08:42,316] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:08:52,877] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:08:52,884] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:09:07,546] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:09:07,549] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:09:57,478] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:09:57,481] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:10:36,364] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:10:36,384] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:11:13,485] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:11:13,515] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:11:31,858] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:11:31,877] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:11:42,267] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:11:42,326] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:11:44,071] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:11:44,080] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:14:24,990] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:14:24,991] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:14:33,953] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:14:33,980] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:14:47,036] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:14:47,050] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:32:21,181] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:32:21,189] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:32:39,126] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:32:39,164] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:32:55,102] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:32:55,106] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:33:10,444] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:33:10,453] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:33:19,494] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:33:19,496] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:33:29,990] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:33:29,996] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:36:24,370] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:36:24,414] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:36:34,048] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:36:34,113] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:39:16,412] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:39:16,423] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:39:17,799] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:39:17,964] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:40:06,208] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:40:06,213] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:40:14,685] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:40:14,772] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:40:17,378] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:40:17,392] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:47:45,422] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:47:45,503] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:50:28,095] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:50:28,102] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:53:56,325] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:53:56,356] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:54:01,230] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:54:01,251] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:54:04,014] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:54:04,016] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:54:06,300] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:54:06,309] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:54:12,295] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:54:12,309] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:54:14,346] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:54:14,348] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:54:38,130] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 14:54:38,138] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 14:55:22,312] WARNING django.request: Not Found: /login/img/icono.ico
+[2025-12-19 14:55:22,338] WARNING django.server: "GET /login/img/icono.ico HTTP/1.1" 404 4955
+[2025-12-19 16:33:14,032] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 16:33:14,050] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
+[2025-12-19 17:40:51,201] ERROR django.request: Internal Server Error: /prestamo/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 185, in prestamo
+    return render(request, "prestamo.html", {
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\templatetags\i18n.py", line 614, in language
+    nodelist = parser.parse(("endlanguage",))
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 4: 'language'. Looking for one of: endlanguage.
+[2025-12-19 17:40:51,218] ERROR django.server: "GET /prestamo/ HTTP/1.1" 500 171853
+[2025-12-19 20:52:51,103] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-19 20:52:51,126] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042

@@ -1,4 +1,6 @@
 {% load static %}
+{% load humanize %}
+
 <div class="sidebar-desktop">
     <div class="sidebar">
         <div class="logo-container">
@@ -23,12 +25,17 @@
                 <i class="fas fa-marker"></i> Registrar
             </a>
             {% endif %}
+            {% if saldo_prestamo %}
+            <a href="{% url 'prestamo' %}" class="{% if request.path == '/prestamo/' %}active-link{% endif %}">
+            <i class="fas fa-hand-holding-usd"></i> Préstamo
+            </a>
+            {% endif %}
         </div>
 
         <div class="sidebar-bottom">
             <div class="disponible-prestamo">
                 <h3>Disponible para préstamo:</h3>
-                <div class="importe">${{ prestamo_disponible|floatformat:2 }} MXN</div>
+                <div class="importe">${{ prestamo_disponible|floatformat:2|intcomma }} MXN</div>
                 <div class="leyenda">Tasa del 4% Mensual</div>
             </div>
 
@@ -51,7 +58,7 @@
 <div class="mobile-footer">
     <div class="mobile-prestamo">
         <h3>Disponible para préstamo:</h3>
-        <div class="importe">${{ prestamo_disponible|floatformat:2 }} MXN</div>
+        <div class="importe">${{ prestamo_disponible|floatformat:2|intcomma }} MXN</div>
         <div class="leyenda">Tasa del 4% Mensual</div>
     </div>
 
@@ -69,6 +76,11 @@
             {% if usuario.COD_PERMISOS == 99 %}
         <a href="{% url 'registro' %}" class="{% if request.path == '/registro/' %}active-link{% endif %}">
             <i class="fas fa-marker"></i> Registrar
+        </a>
+        {% endif %}
+        {% if saldo_prestamo %}
+        <a href="{% url 'prestamo' %}" class="{% if request.path == '/prestamo/' %}active-link{% endif %}">
+            <i class="fas fa-hand-holding-usd"></i> Préstamo
         </a>
         {% endif %}
     </nav>

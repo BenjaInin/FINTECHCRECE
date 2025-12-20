@@ -1,6 +1,6 @@
 # tasks/context_processors.py
 from .models import Usuario, CatTerceros  
-from .views import get_valor_cuenta
+from .views import get_valor_cuenta, get_saldo_prestamo
 
 def datos_usuario_basicos(request):
     """
@@ -19,6 +19,8 @@ def datos_usuario_basicos(request):
             prestamo_disponible = valor_cuenta * 2 if valor_cuenta <= 10000 else 10000
         else:
             prestamo_disponible = 0
+        saldo_prestamo = get_saldo_prestamo(tercero.ID_TERCERO, tercero.TIP_TERCERO)
+        
         return {
             'usuario': usuario,
             'nombre': tercero.NOM_TERCERO,
@@ -26,6 +28,7 @@ def datos_usuario_basicos(request):
             'ape_materno': tercero.APE_MATERNO,
             'valor_cuenta': valor_cuenta,
             'prestamo_disponible': prestamo_disponible,
+            'saldo_prestamo': saldo_prestamo,
         }
 
     except (Usuario.DoesNotExist, CatTerceros.DoesNotExist):

@@ -1,5 +1,6 @@
 {% load custom_filters %}
 {% load static %}
+{% load humanize %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -122,9 +123,9 @@
             flex: 1;
         }
         .sumatorias-container {
-            max-width: 35%;
+            max-width: 60%;
             background: #f8f8f8;
-            padding: 20px;
+            padding: 10px;
             border-radius: 8px;
             box-shadow: 0 0 6px rgba(0,0,0,0.1);
             margin-top: -40px;
@@ -187,87 +188,102 @@
         /* ==================== MÓVIL ==================== */
     @media (max-width: 768px) {
 
-        /* Contenedor principal ajusta margen izquierdo si hay sidebar */
-        .content {
-            margin-left: 0;
-            width: 100%;
-            padding: 10px;
-        }
+        /* === CONTENEDOR GENERAL === */
+    .content {
+        margin-left: 0;
+        width: 100%;
+        padding: 10px;
+    }
 
-        /* Info y sumatorias vertical */
-        .info-sumatorias-container {
-            flex-direction: column;
-            align-items: stretch;
-            margin-bottom: 20px;
-        }
+    .info-sumatorias-container {
+        flex-direction: column;
+    }
+    
 
-        .sumatorias-container {
-            max-width: 100%;
-            margin-top: 15px; /* separación del info-estado */
-        }
+    .sumatorias-container {
+        max-width: 100%;
+        margin-top: 10px;
+        font-size: 13px;
+    }
 
-        /* Ajuste de tabla */
-        .table-container {
-            overflow-x: auto; /* permite scroll horizontal si es necesario */
-        }
+    /* =====================================================
+       TARJETAS SOLO PARA TABLA DE MOVIMIENTOS
+       ===================================================== */
 
-        table.table {
-            width: 100%;
-            min-width: 100%;
-            font-size: 14px;
-        }
-
-        table.table thead th,
-        table.table tbody td {
-            padding: 6px;
-            font-size: 13px;
-        }
-
-        /* Botones más pequeños en móvil */
-        .button {
-            padding: 10px 18px;
-            font-size: 14px;
-        }
-        .select-modern {
+    .table-movil {
         width: 80%;
-        padding: 5px 8px;
-        font-size: 15px;
-        border: 1px solid #D0D0D0;
-        border-radius: 8px;
-        background-color: #F0F4F3;
-        color: #2b3e50;
-        outline: none;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        /* Efecto al hacer focus */
-        .select-modern:focus {
-            border-color: #4CAF50;
-            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.25);
-        }
-        .btn-buscar {
-        width: 30%;
-        max-width: 50px;
-        padding: 10px 0;
-        background-color: #4CAF50;
-        color: #fff;
-        font-size: 12px;
-        font-weight: bold;
         border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color .3s ease, transform .2s ease;
-        }
+    }
 
-        /* Hover */
-        .btn-buscar:hover {
-            background-color: #2c7530ff; /* Verde un poco más oscuro */
-        }
+    .table-movil thead {
+        display: none; /* ocultamos encabezados */
+    }
 
-        /* Efecto de clic */
-        .btn-buscar:active {
-            transform: scale(0.97);
-        }
+    .table-movil tbody tr {
+        display: block;
+        background: #ffffff;
+        margin-bottom: 16px;
+        padding: 16px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        border-left: 6px solid #4CAF50;
+        transition: all 0.25s ease;
+    }
+
+    .table-movil tbody tr:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .table-movil tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border: none;
+        font-size: 14px;
+        color: #1e293b;
+    }
+
+    /* Etiqueta */
+    .table-movil tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #64748b;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+
+    /* Colores financieros */
+    .table-movil tbody td[data-label="Retiros"] {
+        color: #dc2626;
+        font-weight: 700;
+    }
+
+    .table-movil tbody td[data-label="Depósitos"] {
+        color: #16a34a;
+        font-weight: 700;
+    }
+
+    .table-movil tbody td[data-label="Saldo"] {
+        color: #0f172a;
+        font-weight: 800;
+    }
+
+    /* Separadores */
+    .table-movil tbody td + td {
+        border-top: 1px dashed #e5e7eb;
+    }
+
+    /* Botón y selects */
+    .select-modern {
+        width: 100%;
+    }
+
+    .btn-buscar {
+        width: 100%;
+        margin-top: 10px;
+    }
 
     }
 
@@ -336,44 +352,58 @@
                             {% for tipo, suma in sumatorias_por_tipo.items %}
                             <tr>
                                 <td>{{ tipo }}</td>
-                                <td class="text-right">${{ suma|floatformat:2 }}</td>
+                                <td class="text-right">${{ suma|floatformat:2|intcomma }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                     <div class="status-box">
-                        <p><strong>Suma total de depósitos:</strong> ${{ suma_depositos|floatformat:2 }}</p>
-                        <p><strong>Suma total de retiros:</strong> ${{ suma_retiros|floatformat:2 }}</p>
-                        <p><strong>Saldo final:</strong> ${{ saldo_total|floatformat:2 }}</p>
+                        <p><strong>Suma total de depósitos:</strong> ${{ suma_depositos|floatformat:2|intcomma}}</p>
+                        <p><strong>Suma total de retiros:</strong> ${{ suma_retiros|floatformat:2|intcomma }}</p>
+                        <p><strong>Saldo final:</strong> ${{ saldo_total|floatformat:2|intcomma }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="table-container">
-                <h4>Movimientos:</h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Concepto</th>
-                            <th>Retiros</th>
-                            <th>Depósitos</th>
-                            <th>Saldo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for mov in movimientos %}
-                        <tr>
-                            <td>{{ mov.FEC_REGISTRO|date:"d-M-Y" }}</td>
-                            <td>{{ mov.COD_MOVIMIENTO.DESC_MOVIMIENTO }}</td>
-                            <td class="text-right">${{ mov.IMP_RETIRO|floatformat:2 }}</td>
-                            <td class="text-right">${{ mov.IMP_DEPOSITO|floatformat:2 }}</td>
-                            <td class="text-right">${{ mov.saldo_acumulado|floatformat:2 }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+           <div class="table-container">
+    <h4>Movimientos:</h4>
+    <table class="table table-movil">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Concepto</th>
+                <th>Retiros</th>
+                <th>Depósitos</th>
+                <th>Saldo</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for mov in movimientos %}
+<tr>
+    <td data-label="Fecha">
+        {{ mov.FEC_REGISTRO|date:"d-M-Y" }}
+    </td>
+
+    <td data-label="Concepto">
+        {{ mov.COD_MOVIMIENTO.DESC_MOVIMIENTO }}
+    </td>
+
+    <td data-label="Retiros">
+        ${{ mov.IMP_RETIRO|floatformat:2|intcomma }}
+    </td>
+
+    <td data-label="Depósitos">
+        ${{ mov.IMP_DEPOSITO|floatformat:2|intcomma }}
+    </td>
+
+    <td data-label="Saldo">
+        ${{ mov.saldo_acumulado|floatformat:2|intcomma }}
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+    </table>
+</div>
 
             {% elif usuario.COD_PERMISOS != 99 %}
             <p>No se encontraron movimientos para este usuario.</p>

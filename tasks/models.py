@@ -93,7 +93,7 @@ class CatTipMovimientos(models.Model):
 
 #Modelo para obtener movimientos HIS_MOVIMIENTOS
 class HisMovimientos(models.Model):
-    id = models.AutoField(primary_key=True)  # Nuevo campo auto_incremental
+    ID = models.AutoField(primary_key=True)  # Nuevo campo auto_incremental
     ID_TERCERO = models.ForeignKey(CatTerceros, on_delete=models.CASCADE, db_column='ID_TERCERO')
     TIP_TERCERO = models.IntegerField()
     COD_MOVIMIENTO = models.ForeignKey(CatTipMovimientos, on_delete=models.CASCADE, db_column='COD_MOVIMIENTO')
@@ -106,9 +106,6 @@ class HisMovimientos(models.Model):
 
     class Meta:
         db_table = 'HIS_MOVIMIENTOS'  
-        unique_together = (
-            'ID_TERCERO', 'TIP_TERCERO', 'COD_MOVIMIENTO', 'FEC_REGISTRO', 'FEC_ACTUALIZACION'
-        )
         managed = True  
 
     def __str__(self):
@@ -136,6 +133,6 @@ class TipoCambio(models.Model):
 
     class Meta:
         db_table = 'tipocambio'  # nombre claro y fijo de la tabla
-        
+        managed = True 
     def __str__(self):
         return f"{self.valor} ({self.fecha})"

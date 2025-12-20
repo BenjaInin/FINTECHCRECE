@@ -48,6 +48,13 @@
       .card {
         padding: 2.5rem; /* sm:p-10 */
       }
+      .edit_toggle_btn {
+        position: relative;
+        top: 100;          
+        right: 10.5rem;        
+        transform: translateY(0);
+      }
+
     }
 
     h2 {
@@ -141,6 +148,7 @@
     .email-edit-container {
       display: flex;
       align-items: center;
+      position: relative;
     }
     #correo_display {
       font-size: 1.125rem;
@@ -174,16 +182,15 @@
 
     /* Botón editar correo */
     #edit_toggle_btn {
-      margin-left: 1rem;
-      padding: 0.75rem;
+      padding: 0.5rem;
+      width: 2.25rem;
+      height: 2.25rem;
       border-radius: 9999px;
       background-color: #4caf50;
       color: white;
       border: none;
       cursor: pointer;
       display: flex;
-      align-items: center;
-      justify-content: center;
       transition: background-color 0.15s;
       box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
     }
@@ -227,6 +234,35 @@
     #save_button_area button i {
       font-size: 1rem;
     }
+
+    @media (max-width: 640px) {
+
+  .email-edit-container {
+    position: relative;
+  }
+
+  #edit_toggle_btn {
+    position: absolute;
+    top: -.9rem;       /* súbelo o bájalo aquí */
+    right: -1.5rem;     /* ajústalo horizontalmente */
+  }
+  #edit_toggle_btn i {
+      font-size: 1.2rem;
+    }
+  .profile-photo-container p {
+      font-size: 0.875rem; /* text-sm */
+      color: #6b7280; /* text-gray-500 */
+      margin: 0;
+    }
+    .profile-photo-container h3 {
+      font-size: 1.5rem; /* text-lg */
+      font-weight: 600; /* font-semibold */
+      color: #4b5563; /* text-gray-700 */
+      margin-bottom: 1rem; /* mb-4 */
+    }
+    .profil
+}
+    
   </style>
 </head>
 <body>

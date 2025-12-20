@@ -1,0 +1,440 @@
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestamo- crecetuLana</title>
+    <link rel="icon" href="{% static '/images/logo_favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+      <!-- CSS global -->
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Highcharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .header img {
+        width: 60px;
+        height: 60px;
+        border-radius: 20%;
+        object-fit: cover;
+        border: 2px solid #4caf50;
+        }
+
+        .custom-gradient {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-bar-glow {
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+        }
+
+        .user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 13px;
+        color: #777; /* gris */
+        font-weight: 500;
+        text-transform: uppercase; /* si quieres estilo como en la imagen */
+    }
+    .action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: -25px;
+    margin-bottom: 32px;
+}
+
+   /* ------------------ RESPONSIVE MÓVIL ------------------ */
+@media (max-width: 768px) {
+     header {
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+
+    header > div:first-child {
+        flex: 1; /* el título ocupa el espacio */
+    }
+
+    .header {
+        margin-left: auto; /* empuja la foto a la derecha */
+    }
+    .main-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0D2B44; 
+        margin: 0;
+    }
+    .user-info {
+        font-size: 10px;
+        flex-direction: column; /* Foto abajo, nombre arriba */
+        align-items: flex-end; /* Alineado a la derecha como en tu diseño */
+        gap: 6px;
+    }
+    .username {
+    display: none !important;
+    }
+    .profile-pic {
+        border: 2px solid #4caf50; !important;
+         width: 42px;
+        height: 42px;
+        margin-bottom: 104px;
+    }
+    .card-text h3 {
+        font-size: 24px;
+    }
+    .card-text p {
+        font-size: 20px;
+    }
+
+    /* ------------Tabla ultimos movimientos ---------------------*/
+    .card-movimientos {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .card-movimientos h3 {
+        font-size: 18px;
+        margin-bottom: 14px;
+        text-align: center;
+    }
+
+    /* Ocultar tabla clásica */
+    .tabla-mov thead {
+        display: none;
+    }
+
+    .tabla-mov,
+    .tabla-mov tbody,
+    .tabla-mov tr,
+    .tabla-mov td {
+        display: block;
+        width: 98%;
+    }
+
+    .tabla-mov tr {
+        background: #ffffff;
+        border-radius: 14px;
+        margin-bottom: 12px;
+        padding: 12px 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .tabla-mov td {
+        border: none;
+        padding: 6px 0;
+        font-size: 15px;
+    }
+
+    /* Título interno de cada campo */
+    .tabla-mov td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #555;
+        display: block;
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    /* Ajuste de colores */
+    .mov-verde,
+    .mov-rojo {
+        font-size: 17px;
+        font-weight: 700;
+        margin-top: 8px;
+    }
+
+    .icono-mov i {
+        font-size: 20px;
+    }
+     /* Contenedor del header del sidebar */
+    .sidebar-header {
+        position: relative !important;
+    }
+
+    .mobile-logout {
+        background: #e74c3c !important ;
+        color: white !important;
+        padding: 8px 12px !important;
+        border-radius: 8px !important;
+        font-weight: bold !important;
+        text-decoration: none !important;
+        font-size: 18px !important;
+        position: relative !important;
+        right: 3px !important;
+    }
+    .mobile-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        background: #1d2e3f !important;
+        padding: 16px 10px !important;
+        color: white !important;
+        position: fixed !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: 64px !important;
+        z-index: 0000 !important;
+        box-shadow: 0 3px 5px rgba(0,0,0,0.25) !important;
+    }
+    .mobile-header .mobile-logo {
+        font-size: 25px !important;
+        font-weight: 1000 !important;
+        font-family: 'Montserrat', sans-serif !important;
+        padding: 12px 1px !important;
+    }
+    .text-2xl{
+        font-size: 18px !important;
+    }
+    .action-buttons {
+        flex-direction: row;
+        width: 50%;
+        margin-top: -50px;
+        margin-bottom: 32px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+{% csrf_token %}
+
+ {% include 'includes/sidebar.html' %}
+
+<div class="content">
+    <div class="max-w-7xl mx-auto px-4 py-8 ">
+        <!-- Header con Identidad Visual -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap 3">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 custom-gradient rounded-xl flex items-center justify-center text-white shadow-lg">
+                    <i class="fas fa-hand-holding-dollar text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-800">Detalle de Crédito Personal</h1>
+                    <p class="text-slate-500 text-sm">Contrato: <span class="font-mono font-medium">CRP-2024-00892</span></p>
+                </div>
+            </div>
+            <!-- Detalles Técnicos -->
+            
+            <div class="header">
+                <div class="user-info">
+                    <span class="username">{{ nombre }} {{ ape_paterno }} {{ ape_materno }}</span>
+                    {% if usuario.FOTO_PERFIL %}
+                        <a href="{% url 'perfil' %}">
+                            <img src="{{ usuario.FOTO_PERFIL.url }}" alt="Foto de perfil" class="profile-pic">
+                        </a>
+                    {% else %}
+                        <a href="{% url 'perfil' %}">
+                            <img src="{% static 'images/userdefault.png' %}" alt="Foto de perfil" class="profile-pic">
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+        <div class="action-buttons">
+    <button class="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl font-semibold text-sm flex items-center gap-2">
+        <i class="fas fa-print"></i> Imprimir
+    </button>
+
+    <button class="px-5 py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm shadow-md">
+        Solicitar préstamo
+    </button>
+</div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- COLUMNA IZQUIERDA: Resumen Ejecutivo -->
+            <div class="lg:col-span-4 space-y-6">
+                <!-- Tarjeta Principal de Saldo -->
+                <div class="custom-gradient text-white p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
+                    <div class="relative z-10">
+                        <p class="text-slate-400 text-sm font-medium mb-1">Saldo Total Prestamo e Intereses</p>
+                        <h2 class="text-4xl font-bold mb-6">$ {{ total_credito|floatformat:2|intcomma }}</h2>
+                        
+                        <div class="space-y-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-400">Progreso de Pago</span>
+                                <span class="font-semibold text-emerald-400"> {{ progreso_pago }}%</span>
+                            </div>
+                            <div class="w-full bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-emerald-500 h-full rounded-full progress-bar-glow" style="width: {{ progreso_pago }}%"></div>
+                            </div>
+                            <p class="text-xs text-slate-400 italic text-center">Te faltan $ {{ saldo_total_pendiente|floatformat:2|intcomma }} para liquidar</p>
+                        </div>
+                    </div>
+                    <!-- Decoración fondo -->
+                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
+                </div>
+
+                <!-- Detalles Técnicos -->
+                <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100">
+                    <h3 class="text-sm font-bold text-slate-800 uppercase tracking-widest mb-4">Condiciones del Préstamo</h3>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center">
+                            <span class="text-slate-500 text-sm flex items-center gap-2">
+                                <i class="fas fa-percent text-blue-500 w-4"></i> Interés Mensual
+                            </span>
+                            <span class="font-bold text-slate-800">10%</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span class="text-slate-500 text-sm flex items-center gap-2">
+                                <i class="fas fa-calendar-check text-blue-500 w-4"></i> Próximo Pago
+                            </span>
+                            <span class="font-bold text-slate-800 text-sm">{{ proxima_fecha_pago|date:" d-m-y" }}</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span class="text-slate-500 text-sm flex items-center gap-2">
+                                <i class="fas fa-search-dollar text-blue-500 w-4"></i> Saldo Restante
+                            </span>
+                            <span class="font-bold text-slate-800">${{ saldo_total_pendiente|floatformat:2|intcomma }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: Movimientos e Indicadores -->
+            <div class="lg:col-span-8 space-y-6">
+                <!-- Grid de Mini-Stats -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="stat-card bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center text-red-600 text-xl">
+                            <i class="fas fa-money-check-alt"></i>
+                        </div>
+                        <div>
+                            <p class="text-slate-500 text-xs font-semibold uppercase">Total Prestamo(S)</p>
+                            <h4 class="text-lg font-bold text-slate-800">${{ total_prestamos|floatformat:2|intcomma }}</h4>
+                        </div>
+                    </div>
+                    <div class="stat-card bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center text-red-600 text-xl">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <div>
+                            <p class="text-slate-500 text-xs font-semibold uppercase">Total Intereses Generados</p>
+                            <h4 class="text-lg font-bold text-slate-800">${{ total_intereses_prestamo|floatformat:2|intcomma }}</h4>
+                        </div>
+                    </div>
+                     <div class="stat-card bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 text-xl">
+                            <i class="fas fa-arrow-trend-up"></i>
+                        </div>
+                        <div>
+                            <p class="text-slate-500 text-xs font-semibold uppercase">Total Pagado Capital</p>
+                            <h4 class="text-lg font-bold text-slate-800">${{ total_capital_pagado|floatformat:2|intcomma }}</h4>
+                        </div>
+                    </div>
+                    <div class="stat-card bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 text-xl">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div>
+                            <p class="text-slate-500 text-xs font-semibold uppercase">Total Intereses Pagados</p>
+                            <h4 class="text-lg font-bold text-slate-800">${{ total_intereses_pagados|floatformat:2|intcomma }}</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Movimientos Mejorada -->
+                <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden">
+                    <div class="px-8 py-6 border-b border-slate-100 flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-slate-800">Historial de Amortización</h3>
+                        <div class="flex bg-slate-100 p-1 rounded-lg">
+                            <button class="px-3 py-1 bg-white text-xs font-bold rounded-md shadow-sm">Todos</button>
+                            <button class="px-3 py-1 text-slate-500 text-xs font-bold">Abonos</button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+    <table class="w-full text-left border-separate border-spacing-0">
+        <thead>
+            <tr class="bg-slate-50/50">
+                <th class="px-8 py-4 text-xs font-bold text-slate-400 uppercase">Fecha</th>
+                <th class="px-8 py-4 text-xs font-bold text-slate-400 uppercase">Descripción</th>
+                <th class="px-8 py-4 text-xs font-bold text-slate-400 uppercase">Pago</th>
+                <th class="px-8 py-4 text-xs font-bold text-slate-400 uppercase">Estado</th>
+            </tr>
+        </thead>
+
+        <tbody class="divide-y divide-slate-100">
+
+            {% for mov in lista_pagos %}
+            <tr class="group hover:bg-slate-50/80 transition-all">
+
+                <!-- FECHA -->
+                <td class="px-8 py-5">
+                    <div class="flex flex-col">
+                        <span class="text-sm font-bold text-slate-700">
+                            {{ mov.fecha|date:"d M, Y" }}
+                        </span>
+                    </div>
+                </td>
+
+                <!-- DESCRIPCIÓN -->
+                <td class="px-8 py-5">
+                    <span class="text-sm font-semibold text-slate-600">
+                        {{ mov.descripcion }}
+                    </span>
+                </td>
+
+                <!-- PAGO -->
+                <td class="px-8 py-5">
+                    <span class="text-sm font-bold text-slate-800">
+                        ${{ mov.pago|floatformat:2|intcomma}}
+                    </span>
+                </td>
+
+                <!-- ESTADO -->
+                <td class="px-8 py-5">
+                    <span class="px-3 py-1 rounded-full 
+                                 bg-emerald-100 
+                                 text-emerald-700 
+                                 text-[10px] 
+                                 font-bold 
+                                 uppercase">
+                        {{ mov.estado }}
+                    </span>
+                </td>
+
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="px-8 py-6 text-center text-slate-400">
+                    No hay movimientos de préstamo registrados
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+                    
+                    <div class="bg-slate-50 px-8 py-4 border-t border-slate-100 text-center">
+                        <a href="#" class="text-blue-600 text-xs font-bold hover:underline">Ver historial completo (24 movimientos)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

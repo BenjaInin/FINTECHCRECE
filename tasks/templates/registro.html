@@ -12,12 +12,14 @@
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-           .header {
+        .header {
+            margin-top: 19px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding: 10px 20px; /* opcional para espacio */
-            background-color: transparent; /* quita color si había */
-            border-bottom: none; /* elimina la línea inferior */
+            padding: 0 24px; 
+            padding-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .user-info {
@@ -28,8 +30,13 @@
             color: #777; /* gris */
             font-weight: 500;
             text-transform: uppercase;
-            margin-left: auto; /* empuja el usuario a la derecha */
+           
         }
+        .main-title {
+            font-size: 32px;
+            font-weight: 700;
+             margin: 0;
+            }
 
         .profile-pic {
             width: 38px;
@@ -112,6 +119,79 @@
         button:hover {
             background-color: #3a9440;
         }
+        .select-modern {
+        width: 100%;
+        padding: 5px 8px;
+        font-size: 15px;
+        border: 1px solid #D0D0D0;
+        border-radius: 8px;
+        background-color: #F0F4F3;
+        color: #2b3e50;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Efecto al hacer focus */
+        .select-modern:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.25);
+        }
+        .form-label {
+        font-weight: 600;
+        color: #000000ff; /* gris elegante */
+        margin-bottom: 6px;
+        display: block;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        .form-input {
+            width: 50%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            font-size: 15px;
+            color: #111827;
+            background-color: #F0F4F3;
+            transition: all 0.2s ease;
+        }
+
+        /* Hover */
+        .form-input:hover {
+            border-color: #9ca3af;
+        }
+
+        /* Focus */
+        .form-input:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25);
+        }
+        @media (max-width: 768px) {
+            .header {
+            display: flex;
+            padding: 10px 10px;
+            background-color: transparent;
+            border-bottom: none; /* elimina la línea inferior */
+            gap: 4px;
+            }
+            .main-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0;
+            }
+            .username {
+            display: none !important;
+            }
+            .select-modern {
+            width: 100%;
+            }
+            .form-input {
+            width: 70%;
+            }
+        }
     </style>
 </head>
 
@@ -119,6 +199,7 @@
     {% include 'includes/sidebar.html' %}
 <div class="content">
     <div class="header">
+         <h1 class="main-title"><i class="fas fa-marker"></i> Registro de Movimientos Financieros</h1>
                 <!-- Usuario a la derecha -->
                 <div class="user-info">
                     <span class="username">{{ nombre }} {{ ape_paterno }} {{ ape_materno }}</span>
@@ -134,14 +215,12 @@
                 </div>
     </div>
     <div class="card">
-        <h2><i class="fas fa-marker"></i> Registro de Movimiento Financiero</h2>
-
         <form id="movementForm" method="post">
             {% csrf_token %}
 
             <!-- Tercero -->
             <label>Tercero (Cliente) <span style="color:red">*</span></label>
-            <select name="ID_TERCERO" required>
+            <select name="ID_TERCERO" required class="select-modern">
                 <option value="" disabled selected>Seleccione el cliente</option>
                 {% for t in terceros %}
                     <option value="{{ t.ID_TERCERO }}">{{ t.NOM_TERCERO }} {{ t.APE_PATERNO }} {{ t.APE_MATERNO }}</option>
@@ -150,7 +229,7 @@
 
             <!-- Tipo de Tercero -->
             <label>Tipo de Tercero <span style="color:red">*</span></label>
-            <select name="TIP_TERCERO" required>
+            <select name="TIP_TERCERO" required class="select-modern">
                 <option value="" disabled selected>Seleccione el tipo</option>
                 {% for a in tiptercero %}
                     <option value="{{ a.TIP_TERCERO }}">{{ a.DESC_TIP_TERCERO }}</option>
@@ -159,7 +238,7 @@
 
             <!-- Movimiento -->
             <label>Movimiento a Realizar <span style="color:red">*</span></label>
-            <select id="cod_movimiento" name="COD_MOVIMIENTO" required onchange="handleMovementChange()">
+            <select id="cod_movimiento" class="select-modern" name="COD_MOVIMIENTO" required onchange="handleMovementChange()">
                 <option value="" disabled selected>Seleccione el tipo de movimiento</option>
                 {% for m in movimientos %}
                     <option value="{{ m.COD_MOVIMIENTO }}" data-tip-movimiento="{{ m.TIP_MOVIMIENTO }}">{{ m.DESC_MOVIMIENTO }}</option>
@@ -168,7 +247,7 @@
 
             <!-- Campos de monto -->
             <div id="depositField" class="input-hidden">
-                <label>Importe de Depósito (MXN)</label>
+                <label >Importe de Depósito (MXN)</label>
                 <input type="number" step="0.01" min="0.01" id="imp_deposito" name="IMP_DEPOSITO" disabled>
             </div>
 
@@ -177,17 +256,13 @@
                 <input type="number" step="0.01" min="0.01" id="imp_retiro" name="IMP_RETIRO" disabled>
             </div>
 
-            <!-- Datos automáticos -->
-            <p><b>Datos Automáticos:</b></p>
-            <ul class="auto-data">
-                <li>FEC_REGISTRO: <span id="auto_fec_registro"></span></li>
-                <li>FEC_ACTUALIZACION: <span id="auto_fec_actualizacion"></span></li>
-                <li>MCA_INHABILITADO: N</li>
-                <li>COD_USUARIO: {{ usuario.COD_USUARIO }}</li>
-            </ul>
-
+            
+            <label class="form-label">Fecha de Registro <span class="required">*</span></label>
+            <input type="date" name="FEC_REGISTRO" class="form-input" required>
             <!-- Botón -->
+             <div>
             <button type="submit"><i class="fas fa-save"></i> Registrar Movimiento</button>
+             </div>
         </form>
     </div>
 </div>
@@ -202,7 +277,6 @@
 
     window.onload = function() {
         const now = new Date();
-        document.getElementById('auto_fec_registro').textContent = formatDate(now);
         document.getElementById('auto_fec_actualizacion').textContent = formatDate(now);
         handleMovementChange();
     };
