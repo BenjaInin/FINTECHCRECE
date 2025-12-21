@@ -390,7 +390,7 @@ def registro(request):
             archivo = request.FILES['archivo']
 
             try:
-                df = pd.read_excel(archivo)
+                df = pd.read_excel(archivo, dtype={'id_tercero': str})
 
                 user_id = request.session.get('user_id')
                 usuario = Usuario.objects.get(COD_USUARIO=user_id)
@@ -405,6 +405,21 @@ def registro(request):
 
                         if not pd.isna(fila['imp_deposito']):
                             imp_deposito = fila['imp_deposito']
+                         # 🔹 Limpiar y formatear ID_TERCERO
+
+                        id_tercero = str(fila['id_tercero']).strip().zfill(5)
+
+# 🔹 Buscar tercero usando filter + first
+                        tercero = CatTerceros.objects.filter(ID_TERCERO=id_tercero).first()
+                        if not tercero:
+                            messages.warning(request, f"No existe el tercero: '{id_tercero}'")
+                            continue  # Salta esta fila
+                    
+                        # 🔹 Buscar código de movimiento usando filter + first
+                        cod_mov = CatTipMovimientos.objects.filter(COD_MOVIMIENTO=fila['cod_movimiento']).first()
+                        if not cod_mov:
+                            messages.warning(request, f"No existe el código de movimiento: '{fila['cod_movimiento']}'")
+                            continue  # saltar esta fila
 
                         # FK
                         tercero = CatTerceros.objects.get(ID_TERCERO=fila['id_tercero'])
@@ -1149,7 +1164,7 @@ def cargar_excel(request):
         archivo = request.FILES['archivo']
 
         try:
-            df = pd.read_excel(archivo)
+            df = pd.read_excel(archivo, dtype={'id_tercero': str})
             print(df.head())
 
             with transaction.atomic():
@@ -1164,7 +1179,16 @@ def cargar_excel(request):
 
                     if not pd.isna(fila['imp_deposito']):
                         imp_deposito = fila['imp_deposito']
+                    
+                    # 🔹 Limpiar y formatear ID_TERCERO
+                    id_tercero = str(fila['id_tercero']).strip().zfill(5)
 
+                    # 🔹 Buscar tercero usando filter + first para evitar errores
+                    tercero = CatTerceros.objects.filter(ID_TERCERO=id_tercero).first()
+                    if not tercero:
+                        messages.warning(request, f"No existe el tercero: '{id_tercero}'")
+                        continue  # Salta esta fila
+                    
                     Movimiento.objects.create(
                         id_tercero=fila['id_tercero'],
                         fec_registro=fila['fec_registro'],

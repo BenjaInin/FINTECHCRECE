@@ -29,7 +29,7 @@ class Usuario(models.Model):
  
 # Modelo para CAT_TERCEROS (Tabla de terceros) 
 class CatTerceros(models.Model):
-    ID_TERCERO = models.CharField(max_length=5, primary_key=True)
+    ID_TERCERO = models.CharField(max_length=5, primary_key=True, db_column='ID_TERCERO')
     TIP_TERCERO = models.IntegerField()
     NOM_TERCERO = models.CharField(max_length=70)
     APE_PATERNO = models.CharField(max_length=30, null=True, blank=True)
@@ -141,7 +141,7 @@ class TipoCambio(models.Model):
 class Movimiento(models.Model):
     id = models.AutoField(primary_key=True)  # AUTO_INCREMENT
 
-    id_tercero = models.DateField()
+    id_tercero = models.CharField(max_length=5)
     tip_tercero = models.IntegerField(default=1)
 
     fec_registro = models.DateField()
