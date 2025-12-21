@@ -4080,3 +4080,5 @@ django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 4: 'languag
 [2025-12-19 20:52:51,126] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5042
 [2025-12-19 23:03:22,439] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.banxico.org.mx:443
 [2025-12-19 23:03:22,707] DEBUG urllib3.connectionpool: https://www.banxico.org.mx:443 "GET /SieAPIRest/service/v1/series/SF43718/datos/oportuno?token=0dec077871e37f77d82b9c01c87ae8a5d2254b8f981e53f08806612d98ef5acd HTTP/11" 200 None
+[2025-12-21 00:30:37,602] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-21 00:30:37,604] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5223

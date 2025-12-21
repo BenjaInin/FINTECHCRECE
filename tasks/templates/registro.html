@@ -191,6 +191,9 @@
             .form-input {
             width: 70%;
             }
+            .form-input-layout {
+            width: 110%;
+            }
         }
     </style>
 </head>
@@ -227,7 +230,7 @@
                 {% endfor %}
             </select>
 
-            <!-- Tipo de Tercero -->
+            <!-- Tipo de Tercero
             <label>Tipo de Tercero <span style="color:red">*</span></label>
             <select name="TIP_TERCERO" required class="select-modern">
                 <option value="" disabled selected>Seleccione el tipo</option>
@@ -235,7 +238,7 @@
                     <option value="{{ a.TIP_TERCERO }}">{{ a.DESC_TIP_TERCERO }}</option>
                 {% endfor %}
             </select>
-
+             -->
             <!-- Movimiento -->
             <label>Movimiento a Realizar <span style="color:red">*</span></label>
             <select id="cod_movimiento" class="select-modern" name="COD_MOVIMIENTO" required onchange="handleMovementChange()">
@@ -264,6 +267,12 @@
             <button type="submit"><i class="fas fa-save"></i> Registrar Movimiento</button>
              </div>
         </form>
+         <h3>Cargar movimientos desde Excel</h3>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <input type="file" class="form-input-layout" name="archivo" required>
+                <button type="submit">Cargar</button>
+            </form>
     </div>
 </div>
 

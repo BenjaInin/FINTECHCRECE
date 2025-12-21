@@ -1,5 +1,8 @@
 import logging
 import bcrypt  # type: ignore
+import pandas as pd
+from django.contrib import messages
+from .models import Movimiento
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
@@ -22,9 +25,7 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle,Paragraph, I
 from reportlab.lib import colors
 from django.conf import settings
 from reportlab.lib.styles import getSampleStyleSheet
-from django.contrib import messages
 from django.db import transaction
-from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import render
 from tasks.models import TipoCambio
@@ -37,7 +38,8 @@ from datetime import datetime
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 import os
-
+import traceback
+from decimal import Decimal
 
 # ------------------------------------- FUNCION HOME ----------------------------------------------
 def home(request):
@@ -369,59 +371,110 @@ def registrame(request):
     return render(request, 'registrarse.html')
 # ------------------------------------- FUNCION REGISTRO ----------------------------------------------
 def registro(request):
-     # Limpiar mensajes pendientes (para evitar mensajes de vistas previas)
-    list(messages.get_messages(request))  
+    # Limpiar mensajes pendientes
+    list(messages.get_messages(request))
 
-      # Obtener listas para los selects del formulario
     terceros = CatTerceros.objects.all().order_by('NOM_TERCERO')
     movimientos = CatTipMovimientos.objects.all()
     tiptercero = CatTipoTercero.objects.all()
 
-    # --- Si el formulario fue enviado ---
+    # -----------------------------
+    # POST
+    # -----------------------------
     if request.method == 'POST':
-        try:
-            # Obtener los valores enviados desde el formulario HTML
-            id_tercero_id = request.POST.get('ID_TERCERO')
-            tip_tercero = request.POST.get('TIP_TERCERO')
-            cod_movimiento_id = request.POST.get('COD_MOVIMIENTO')
-            imp_retiro = request.POST.get('IMP_RETIRO') or None
-            imp_deposito = request.POST.get('IMP_DEPOSITO') or None
-            #Fecha manual
-            fecha_registro_str = request.POST.get('FEC_REGISTRO')
-            fecha_registro = datetime.strptime(
-                fecha_registro_str, '%Y-%m-%d'
-            ).date()
-            # Obtener el usuario que está logueado
-            user_id = request.session.get('user_id')
-            usuario = Usuario.objects.get(COD_USUARIO=user_id)
 
-            # Obtener las referencias de claves foráneas
-            tercero = CatTerceros.objects.get(ID_TERCERO=id_tercero_id)
-            cod_movimiento = CatTipMovimientos.objects.get(COD_MOVIMIENTO=cod_movimiento_id)
+        # =====================================================
+        # 🟢 CARGA MASIVA DESDE EXCEL
+        # =====================================================
+        if request.FILES.get('archivo'):
+            archivo = request.FILES['archivo']
 
-            # Fechas
-            fecha_actual = timezone.now().date()
+            try:
+                df = pd.read_excel(archivo)
 
-            # Crear registro en la tabla HIS_MOVIMIENTOS
-            HisMovimientos.objects.create(
-                ID_TERCERO=tercero,
-                TIP_TERCERO=tip_tercero,
-                COD_MOVIMIENTO=cod_movimiento,
-                FEC_REGISTRO=fecha_registro,
-                FEC_ACTUALIZACION=fecha_actual,
-                IMP_RETIRO=imp_retiro,
-                IMP_DEPOSITO=imp_deposito,
-                MCA_INHABILITADO='N',
-                COD_USUARIO=usuario
-            )
+                user_id = request.session.get('user_id')
+                usuario = Usuario.objects.get(COD_USUARIO=user_id)
 
-            messages.success(request, "Movimiento registrado correctamente ")
-            return redirect('registro')
+                with transaction.atomic():
+                    for index, fila in df.iterrows():
+                        imp_retiro = None
+                        imp_deposito = None
 
-        except Exception as e:
-            messages.error(request, f"Error al registrar el movimiento: {str(e)}")
+                        if not pd.isna(fila['imp_retiro']):
+                            imp_retiro = fila['imp_retiro']
 
-    # --- Mostrar formulario por primera vez o si hay error ---
+                        if not pd.isna(fila['imp_deposito']):
+                            imp_deposito = fila['imp_deposito']
+
+                        # FK
+                        tercero = CatTerceros.objects.get(ID_TERCERO=fila['id_tercero'])
+                        cod_mov = CatTipMovimientos.objects.get(
+                            COD_MOVIMIENTO=fila['cod_movimiento']
+                        )
+
+                        HisMovimientos.objects.create(
+                            ID_TERCERO=tercero,
+                            TIP_TERCERO=1,
+                            COD_MOVIMIENTO=cod_mov,
+                            FEC_REGISTRO=fila['fec_registro'],
+                            FEC_ACTUALIZACION=fila['fec_registro'],
+                            IMP_RETIRO=imp_retiro,
+                            IMP_DEPOSITO=imp_deposito,
+                            MCA_INHABILITADO='N',
+                            COD_USUARIO=usuario
+                        )
+
+                messages.success(request, "Archivo Excel cargado correctamente")
+                return redirect('registro')
+
+            except Exception as e:
+                traceback.print_exc()
+                messages.error(request, f"Error al cargar Excel: {e}")
+
+        # =====================================================
+        # 🔵 REGISTRO MANUAL
+        # =====================================================
+        else:
+            try:
+                id_tercero_id = request.POST.get('ID_TERCERO')
+                cod_movimiento_id = request.POST.get('COD_MOVIMIENTO')
+                imp_retiro = request.POST.get('IMP_RETIRO') or None
+                imp_deposito = request.POST.get('IMP_DEPOSITO') or None
+
+                fecha_registro = datetime.strptime(
+                    request.POST.get('FEC_REGISTRO'),
+                    '%Y-%m-%d'
+                ).date()
+
+                user_id = request.session.get('user_id')
+                usuario = Usuario.objects.get(COD_USUARIO=user_id)
+
+                tercero = CatTerceros.objects.get(ID_TERCERO=id_tercero_id)
+                cod_movimiento = CatTipMovimientos.objects.get(
+                    COD_MOVIMIENTO=cod_movimiento_id
+                )
+
+                HisMovimientos.objects.create(
+                    ID_TERCERO=tercero,
+                    TIP_TERCERO=1,
+                    COD_MOVIMIENTO=cod_movimiento,
+                    FEC_REGISTRO=fecha_registro,
+                    FEC_ACTUALIZACION=timezone.now().date(),
+                    IMP_RETIRO=imp_retiro,
+                    IMP_DEPOSITO=imp_deposito,
+                    MCA_INHABILITADO='N',
+                    COD_USUARIO=usuario
+                )
+
+                messages.success(request, "Movimiento registrado correctamente")
+                return redirect('registro')
+
+            except Exception as e:
+                messages.error(request, f"Error al registrar movimiento: {e}")
+
+    # -----------------------------
+    # GET
+    # -----------------------------
     return render(request, 'registro.html', {
         'terceros': terceros,
         'movimientos': movimientos,
@@ -1077,3 +1130,57 @@ def get_proxima_fecha_pago(id_tercero, tip_tercero):
         fecha_base = fecha_base + relativedelta(months=1) + timedelta(days=1)
         if fecha_base > hoy:
             return fecha_base
+# -------------------------------------Vista para cargar en excel-------------------------------------
+COLUMNAS_REQUERIDAS = {
+    'id_tercero',
+    'fec_registro',
+    'cod_movimiento',
+    'imp_retiro',
+    'imp_deposito',
+}
+
+def cargar_excel(request):
+    if request.method == 'POST':
+        if 'archivo' not in request.FILES:
+            return render(request, 'registro.html', {
+                'error': 'No se recibió el archivo'
+            })
+
+        archivo = request.FILES['archivo']
+
+        try:
+            df = pd.read_excel(archivo)
+            print(df.head())
+
+            with transaction.atomic():
+                for index, fila in df.iterrows():
+                    print("Procesando fila:", fila.to_dict())
+
+                    imp_retiro = None
+                    imp_deposito = None
+
+                    if not pd.isna(fila['imp_retiro']):
+                        imp_retiro = fila['imp_retiro']
+
+                    if not pd.isna(fila['imp_deposito']):
+                        imp_deposito = fila['imp_deposito']
+
+                    Movimiento.objects.create(
+                        id_tercero=fila['id_tercero'],
+                        fec_registro=fila['fec_registro'],
+                        cod_movimiento=fila['cod_movimiento'],
+                        imp_retiro=imp_retiro,
+                        imp_deposito=imp_deposito,
+                    )
+
+            return render(request, 'registro.html', {
+                'mensaje': 'Archivo cargado correctamente'
+            })
+
+        except Exception as e:
+            traceback.print_exc()
+            return render(request, 'registro.html', {
+                'error': str(e)
+            })
+
+    return render(request, 'registro.html')

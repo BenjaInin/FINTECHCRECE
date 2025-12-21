@@ -136,3 +136,30 @@ class TipoCambio(models.Model):
         managed = True 
     def __str__(self):
         return f"{self.valor} ({self.fecha})"
+    
+#Modelo para insertar datos por excel
+class Movimiento(models.Model):
+    id = models.AutoField(primary_key=True)  # AUTO_INCREMENT
+
+    id_tercero = models.IntegerField()
+    tip_tercero = models.IntegerField(default=1)
+
+    fec_registro = models.DateField()
+    cod_movimiento = models.CharField(max_length=50)
+
+    imp_retiro = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    imp_deposito = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+
+    fec_actualizacion = models.DateField()
+    mca_inhabilitado = models.CharField(max_length=1, default='N')
+
+    cod_usuario = models.CharField(max_length=50, default='bemendez')
+    
+    class Meta:
+        db_table = 'HIS_MOVIMIENTOS'
+        managed = False  # MUY IMPORTANTE
+    
+    def save(self, *args, **kwargs):
+        # FEC_ACTUALIZACION siempre igual a FEC_REGISTRO
+        self.fec_actualizacion = self.fec_registro
+        super().save(*args, **kwargs)
