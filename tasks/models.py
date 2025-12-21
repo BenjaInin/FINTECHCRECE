@@ -153,7 +153,7 @@ class Movimiento(models.Model):
     fec_actualizacion = models.DateField()
     mca_inhabilitado = models.CharField(max_length=1, default='N')
 
-    cod_usuario = models.CharField(max_length=50, default='bemendez')
+    cod_usuario = models.CharField(max_length=50, default='jagaliciais')
     
     class Meta:
         db_table = 'HIS_MOVIMIENTOS'
