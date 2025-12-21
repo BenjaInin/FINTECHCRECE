@@ -4,10 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página de Registro</title>
+  <title>Registro</title>
+
   <link rel="icon" href="{% static 'images/logo_favicon.png' %}" type="image/png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -17,127 +20,155 @@
             'primary-dark': '#0D2B44',
             'accent-green': '#4CAF50',
           },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
         },
       },
     };
   </script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     .icon-input { position: relative; }
     .icon-input ion-icon {
       position: absolute;
       left: 12px;
       top: 50%;
       transform: translateY(-50%);
-      color: #4b5563;
+      color: #4CAF50;
     }
-    .icon-input input { padding-left: 40px !important; }
-    .container-input-modern {
-    background-color: #D0D0D0; /* Fondo gris muy suave */
-    border: 1px solid  #F0F4F3; /* Borde gris sutil */
-}
+    .icon-input input { padding-left: 40px; }
+
+    /* LOGO */
+    .brand-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 32px;
+    }
+    .brand-logo .crece { color: white; }
+    .brand-logo .tu { color: #4CAF50; margin: 0 2px; }
+    .brand-logo .lana { color: white; }
+
+    .brand-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.2;
+    }
   </style>
 </head>
 
-<body class="font-sans bg-gray-100">
+<body class="bg-primary-dark font-sans">
 
-  <div class="flex min-h-screen">
-    <!-- PANEL IZQUIERDO con imagen -->
-   <div class="w-1/3 bg-primary-dark flex flex-col items-center justify-start p-10 pt-5">
-    <img src="{% static 'images/registrame.png' %}" 
-        alt="Regístrate Ahora" 
-        class="w-11/12 h-auto rounded-xl object-contain">
-          <!-- Mensaje alentador -->
-   <h4 class="text-3xl font-bold mb-4 text-center text-white">
-    ¡Empieza a ahorrar hoy y construye tu futuro!
-  </h4>
-  <!-- Beneficios -->
-  <ul class="text-lg list-disc list-inside space-y-2 max-w-xs text-center text-white">
-    <li>✔️ Multiplica tus ahorros con intereses competitivos.</li>
-    <li>✔️ Accede a préstamos rápidos y seguros.</li>
-    <li>✔️ Controla y optimiza tu dinero de forma fácil.</li>
-    <li>✔️ Únete a una comunidad que crece contigo.</li>
-  </ul>
-  </div>
+<div class="min-h-screen flex flex-col lg:flex-row">
 
-    <!-- PANEL DERECHO con formulario -->
-    <div class="w-2/3 flex items-center justify-center bg-gray-200">
-      <div class="w-full max-w-xl p-4 rounded-xl shadow-lg border border-gray-200  container-input-modern">
-        <h3 class="text-2xl font-bold text-center text-gray-800 mb-6">Crea tu nueva cuenta</h3>
-         <!-- Llamado a la acción -->
-            <p class="mt-6 text-xl font-semibold text-center">
-              ¡Regístrate ahora y comienza a crecer tu lana!
-            </p>
-        <form method="POST" action="{% url 'registrame' %}" class="space-y-4">
-          {% csrf_token %}
+  <!-- BLOQUE IZQUIERDO (VISIBLE EN TODAS LAS VERSIONES) -->
+<div class="w-full lg:w-1/3 flex flex-col items-center text-white p-6 space-y-6">
 
-          <div class="icon-input">
-            <ion-icon name="person-outline"></ion-icon>
-            <input type="text" name="NOM_TERCERO" placeholder="Ingresa tu nombre" required
-              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
-          </div>
-
-          <div class="icon-input">
-            <ion-icon name="person-outline"></ion-icon>
-            <input type="text" name="APE_PATERNO" placeholder="Ingresa tu apellido paterno" required
-              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
-          </div>
-
-          <div class="icon-input">
-            <ion-icon name="person-outline"></ion-icon>
-            <input type="text" name="APE_MATERNO" placeholder="Ingresa tu apellido materno" required
-              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
-          </div>
-
-          <div class="icon-input">
-            <ion-icon name="mail-outline"></ion-icon>
-            <input type="email" name="CORREO_USUARIO" placeholder="Ingresa tu correo" required
-              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
-          </div>
-
-          <div class="icon-input">
-            <ion-icon name="call-outline"></ion-icon>
-            <input type="text" name="TELEFONO_USUARIO" placeholder="Ingresa tu número telefónico" required
-              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
-          </div>
-
-          <div class="icon-input">
-            <ion-icon name="lock-closed-outline"></ion-icon>
-            <input type="password" name="COD_PASS" placeholder="Ingresa tu contraseña" required
-              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 focus:ring-primary-dark focus:border-primary-dark placeholder-gray-500 transition">
-          </div>
-
-          <button type="submit"
-                  class="w-full py-3 bg-accent-green text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark transition">
-              Registrarme
-          </button>
-
-          <p class="text-center text-sm text-gray-500 mt-4">
-            ¿Ya tienes una cuenta?
-            <a href="{% url 'login' %}" class="text-primary-dark font-semibold hover:underline">Inicia Sesión</a>
-          </p>
-        </form>
+    <!-- LOGO -->
+    <div class="text-center">
+      <div class="brand-logo">
+        <span class="crece">crece</span>
+        <span class="tu">tu</span>
+        <span class="lana">Lana</span>
+      </div>
+      <div class="brand-tagline mt-1">
+        Donde tu lana<br>nunca se queda quieta
       </div>
     </div>
+
+    <!-- IMAGEN -->
+    <img src="{% static 'images/registrame.png' %}" class="w-10/12 max-w-sm max-h-[45vh] object-contain rounded-xl">
+
+
+    <!-- BENEFICIOS -->
+    <ul class="space-y-2 text-sm text-center mb-2">
+      <li>✔️ Ahorros con intereses competitivos</li>
+      <li>✔️ Préstamos rápidos y seguros</li>
+      <li>✔️ Control total de tu dinero</li>
+      <li>✔️ Crece con nosotros</li>
+    </ul>
   </div>
 
-  <!-- SweetAlert2 mensajes -->
-  {% if messages %}
-  <script>
-    {% for message in messages %}
-      Swal.fire({
-        title: "{% if message.tags == 'success' %}¡Registro Exitoso!{% else %}Atención{% endif %}",
-        text: "{{ message }}",
-        icon: "{% if message.tags == 'success' %}success{% else %}warning{% endif %}",
-        confirmButtonColor: "#4CAF50",
-        confirmButtonText: "Aceptar"
-      });
-    {% endfor %}
-  </script>
-  {% endif %}
+  <!-- FORMULARIO -->
+  <div class="flex-1 flex items-center justify-center p-4">
+
+<div class="w-full max-w-md bg-gray-100 rounded-2xl shadow-xl p-6 lg:p-4">
+
+      <h3 class="text-xl sm:text-2xl font-bold text-center mb-2 text-gray-800">
+        Crea tu cuenta
+      </h3>
+      <p class="text-center text-sm mb-4 text-gray-600">
+        Regístrate y empieza a crecer tu lana 💸
+      </p>
+
+      <form method="POST" action="{% url 'registrame' %}" class="space-y-3">
+        {% csrf_token %}
+
+        <div class="icon-input">
+          <ion-icon name="person-outline"></ion-icon>
+          <input type="text" name="NOM_TERCERO" placeholder="Nombre"
+                 class="w-full h-12 lg:h-10 rounded-lg border bg-white">
+        </div>
+
+        <div class="icon-input">
+          <ion-icon name="person-outline"></ion-icon>
+          <input type="text" name="APE_PATERNO" placeholder="Apellido paterno"
+                 class="w-full h-12 rounded-lg  lg:h-10 border bg-white">
+        </div>
+
+        <div class="icon-input">
+          <ion-icon name="person-outline"></ion-icon>
+          <input type="text" name="APE_MATERNO" placeholder="Apellido materno"
+                 class="w-full h-12 rounded-lg  lg:h-10 border bg-white">
+        </div>
+
+        <div class="icon-input">
+          <ion-icon name="mail-outline"></ion-icon>
+          <input type="email" name="CORREO_USUARIO" placeholder="Correo electrónico"
+                 class="w-full h-12 rounded-lg  lg:h-10 border bg-white">
+        </div>
+
+        <div class="icon-input">
+          <ion-icon name="call-outline"></ion-icon>
+          <input type="text" name="TELEFONO_USUARIO" placeholder="Teléfono"
+                 class="w-full h-12 rounded-lg  lg:h-10 border bg-white">
+        </div>
+
+        <div class="icon-input">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <input type="password" name="COD_PASS" placeholder="Contraseña"
+                 class="w-full h-12 rounded-lg  lg:h-10 border bg-white">
+        </div>
+
+        <button type="submit"
+          class="w-full h-12 bg-accent-green text-white font-semibold rounded-lg hover:bg-primary-dark transition">
+          Registrarme
+        </button>
+
+        <p class="text-center text-sm mt-3 text-gray-600">
+          ¿Ya tienes cuenta?
+          <a href="{% url 'login' %}" class="text-primary-dark font-semibold">
+            Inicia sesión
+          </a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ALERTAS -->
+{% if messages %}
+<script>
+  {% for message in messages %}
+  Swal.fire({
+    title: "{{ message.tags|title }}",
+    text: "{{ message }}",
+    icon: "{{ message.tags }}",
+    confirmButtonColor: "#4CAF50"
+  });
+  {% endfor %}
+</script>
+{% endif %}
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 </body>
 </html>
