@@ -141,7 +141,7 @@ class TipoCambio(models.Model):
 class Movimiento(models.Model):
     id = models.AutoField(primary_key=True)  # AUTO_INCREMENT
 
-    id_tercero = models.IntegerField()
+    id_tercero = models.DateField()
     tip_tercero = models.IntegerField(default=1)
 
     fec_registro = models.DateField()
