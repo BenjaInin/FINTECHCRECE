@@ -30,6 +30,11 @@
             <i class="fas fa-hand-holding-usd"></i> Préstamo
             </a>
             {% endif %}
+            {% if usuario.COD_PERMISOS == 99 %}
+            <a href="{% url 'usuarios' %}" class="{% if request.path == '/usuarios/' %}active-link{% endif %}">
+            <i class="fas fa-users w-5"></i> Usuarios
+            </a>
+            {% endif %}
         </div>
 
         <div class="sidebar-bottom">
@@ -82,6 +87,11 @@
         <a href="{% url 'prestamo' %}" class="{% if request.path == '/prestamo/' %}active-link{% endif %}">
             <i class="fas fa-hand-holding-usd"></i> Préstamo
         </a>
+        {% endif %}
+        {% if usuario.COD_PERMISOS == 99 %}
+            <a href="{% url 'usuarios' %}" class="{% if request.path == '/usuarios/' %}active-link{% endif %}">
+            <i class="fas fa-users "></i> Usuarios
+            </a>
         {% endif %}
     </nav>
 </div>

@@ -1,0 +1,361 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Usuarios - crecetuLana</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .custom-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        #editModal {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .modal-hidden {
+            transform: translateX(100%);
+        }
+
+        .modal-visible {
+            transform: translateX(0);
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+           
+        }
+        .no-scroll{
+            overflow: hidden !important;
+        }
+        * ------------------ RESPONSIVE MÓVIL ------------------ */
+@media (max-width: 768px) {
+     header {
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+
+    header > div:first-child {
+        flex: 3; /* el título ocupa el espacio */
+    }
+
+    .header {
+        margin-left: auto; /* empuja la foto a la derecha */
+    }
+    .main-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0D2B44; 
+        margin: 0;
+    }
+    .user-info {
+        font-size: 10px;
+        flex-direction: column; /* Foto abajo, nombre arriba */
+        align-items: flex-end; /* Alineado a la derecha como en tu diseño */
+        gap: 6px;
+    }
+    .username {
+    display: none !important;
+    }
+    .profile-pic {
+        border: 2px solid #4caf50; !important;
+         width: 42px;
+        height: 42px;
+        margin-bottom: 104px;
+    }
+    .card-text h3 {
+        font-size: 24px;
+    }
+    .card-text p {
+        font-size: 20px;
+    }
+     /* Contenedor del header del sidebar */
+    .sidebar-header {
+        position: relative !important;
+    }
+
+    .mobile-logout {
+        background: #e74c3c !important ;
+        color: white !important;
+        padding: 8px 12px !important;
+        border-radius: 8px !important;
+        font-weight: bold !important;
+        text-decoration: none !important;
+        font-size: 18px !important;
+        position: relative !important;
+        right: 3px !important;
+    }
+    .mobile-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        background: #1d2e3f !important;
+        padding: 16px 10px !important;
+        color: white !important;
+        position: fixed !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: 64px !important;
+        z-index: 0000 !important;
+        box-shadow: 0 3px 5px rgba(0,0,0,0.25) !important;
+    }
+    .mobile-header .mobile-logo {
+        font-size: 25px !important;
+        font-weight: 1000 !important;
+        font-family: 'Montserrat', sans-serif !important;
+        padding: 12px 1px !important;
+    }
+    .text-2xl{
+        font-size: 18px !important;
+    }
+    .action-buttons {
+        flex-direction: row;
+        width: 50%;
+        margin-top: -50px;
+        margin-bottom: 32px;
+    }
+    
+    </style>
+</head>
+
+<body class="min-h-screen flex overflow-hidden">
+{% csrf_token %}
+
+ {% include 'includes/sidebar.html' %}
+<!-- SIDEBAR -->
+<div class="content">
+
+<!-- CONTENIDO -->
+<main class="flex-1 h-screen overflow-y-auto">
+
+<div class="p-8 max-w-7xl mx-auto">
+
+    <!-- HEADER -->
+    <header class="flex flex-col md:flex-row justify-between gap-4 mb-8">
+        <div>
+            <h1 class="text-3xl font-extrabold text-slate-900">Gestión de Usuarios</h1>
+            <p class="text-slate-500 text-sm">Administra accesos, roles y perfiles.</p>
+        </div>
+         <form method="GET" class="flex gap-3">
+    <div class="relative">
+        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+        <input 
+            type="text"
+            name="q"
+            value="{{ request.GET.q }}"
+            placeholder="Buscar usuario..."
+            class="pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none w-64 shadow-sm"
+        >
+    </div>
+</form>
+    </header>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-3xl border shadow-sm flex items-center justify-between">
+            <div>
+                <p class="text-xs font-bold text-slate-400">TOTAL USUARIOS</p>
+                <h3 class="text-3xl font-black text-blue-800">{{ total_usuarios }}</h3>
+          </div>
+            <i class="fas fa-users text-blue-500 text-4xl"></i>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl border shadow-sm flex items-center justify-between">
+            <div>
+                <p class="text-xs font-bold text-slate-400">USUARIOS ACTIVOS</p>
+                <h3 class="text-3xl font-black text-emerald-600">{{ usuarios_activos }}</h3>
+        </div>
+        <i class="fas fa-users text-green-500 text-4xl"></i>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl border shadow-sm  flex items-center justify-between">
+            <div>
+                <p class="text-xs font-bold text-slate-400">USUARIOS INACTIVOS</p>
+                <h3 class="text-3xl font-black text-amber-500">{{ usuarios_inactivos }}</h3>
+            </div>
+            <i class="fas fa-users text-amber-500 text-4xl"></i>
+        </div>
+    </div>
+
+    <!-- TABLA -->
+    <div class="bg-white rounded-3xl border shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-slate-50">
+                <tr>
+                    <th class="px-8 py-4 text-xs text-slate-400">ID</th>
+                    <th class="px-8 py-4 text-xs text-slate-400">USUARIO</th>
+                    <th class="px-8 py-4 text-xs text-slate-400">ROL</th>
+                    <th class="px-8 py-4 text-xs text-slate-400">ESTADO</th>
+                    <th class="px-8 py-4 text-xs text-slate-400">ACTUALIZADO</th>
+                    <th class="px-8 py-4 text-xs text-slate-400 text-right">ACCIONES</th>
+                </tr>
+                </thead>
+
+                <tbody class="divide-y">
+                {% for t in usuarios %}
+                <tr class="hover:bg-slate-50">
+                    <td class="px-8 py-4 text-sm">
+                        {{ t.ID_TERCERO }}
+                    </td>
+
+                    <td class="px-8 py-4">
+                        <div class="flex items-center gap-4">
+                            {% if t.COD_USUARIO.FOTO_PERFIL %}
+                                <img src="{{ t.COD_USUARIO.FOTO_PERFIL.url }}"
+                                     class="w-10 h-10 rounded-full">
+                            {% else %}
+                                <img src="https://ui-avatars.com/api/?name={{ t.NOM_TERCERO }}&background=0D8ABC&color=fff"
+                                     class="w-10 h-10 rounded-full">
+                            {% endif %}
+                            <div>
+                                <p class="font-bold text-sm">
+                                    {{ t.NOM_TERCERO }} {{ t.APE_PATERNO }} {{ t.APE_MATERNO }}
+                                </p>
+                                <p class="text-xs text-slate-400">
+                                    {{ t.COD_USUARIO.CORREO }}
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="px-8 py-4 text-sm">
+                        {{ t.COD_USUARIO.TIP_USUARIO }}
+                    </td>
+
+                    <td class="px-8 py-4 text-sm">
+                        {% if t.MCA_INHABILITADO == 'N' %}
+                            <span class="text-emerald-600 font-bold">Activo</span>
+                        {% else %}
+                            <span class="text-slate-400 font-bold">Inactivo</span>
+                        {% endif %}
+                    </td>
+
+                    <td class="px-8 py-4 text-xs text-slate-500">
+                        {{ t.FEC_ACTUALIZACION|date:"d/m/Y" }}
+                    </td>
+
+                    <td class="px-8 py-4 text-right">
+                        <button onclick="openEditModal('{{ t.NOM_TERCERO }}', '{{ t.COD_USUARIO.TIP_USUARIO }}', '{{ t.COD_USUARIO.CORREO }}')"
+                                class="text-blue-600 hover:bg-blue-50 p-2 rounded">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</main>
+
+  <!-- MODAL LATERAL DE EDICIÓN (SLIDE-OVER) -->
+        <div id="editModalOverlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden" onclick="closeEditModal()"></div>
+        
+        <div id="editModal" class="fixed top-0 right-0 w-full max-w-md h-full glass-effect z-50 shadow-2xl modal-hidden border-l border-white">
+            <div class="flex flex-col h-full">
+                <!-- Header Modal -->
+                <div class="p-8 border-b border-slate-100 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-black text-slate-800">Editar Usuario</h2>
+                        <p class="text-xs text-slate-400 font-medium">Modifica los permisos y datos personales.</p>
+                    </div>
+                    <button onclick="closeEditModal()" class="w-10 h-10 rounded-full hover:bg-slate-100 transition-colors flex items-center justify-center text-slate-400">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Formulario Modal -->
+                <div class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Foto de Perfil en el modal -->
+                    <div class="flex flex-col items-center gap-3 mb-4">
+                        <div class="relative group">
+                            <img id="modalImg" src="https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff" class="w-24 h-24 rounded-3xl shadow-xl border-4 border-white transition-all" alt="Avatar">
+                            <button class="absolute bottom-0 right-0 bg-blue-600 text-white w-8 h-8 rounded-full border-2 border-white text-xs shadow-lg group-hover:scale-110 transition-transform">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Nombre Completo</label>
+                            <input type="text" id="editName" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm font-medium">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Correo Electrónico</label>
+                            <input type="email"  id="editEmail" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm font-medium text-slate-500 cursor-not-allowed" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Rol en la Plataforma</label>
+                            <select id="editRole" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm font-medium appearance-none">
+                                <option value="Administrador">Administrador</option>
+                                <option value="Analista Riesgo">Analista Riesgo</option>
+                                <option value="Cliente Premium">Cliente Premium</option>
+                                <option value="Soporte">Soporte IT</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Estado de Cuenta</label>
+                            <div class="flex gap-4 mt-2">
+                                <label class="flex-1 cursor-pointer">
+                                    <input type="radio" name="status" checked class="hidden peer">
+                                    <div class="w-full p-3 text-center rounded-2xl border border-slate-200 text-xs font-bold peer-checked:border-emerald-500 peer-checked:bg-emerald-50 peer-checked:text-emerald-700 transition-all">Activo</div>
+                                </label>
+                                <label class="flex-1 cursor-pointer">
+                                    <input type="radio" name="status" class="hidden peer">
+                                    <div class="w-full p-3 text-center rounded-2xl border border-slate-200 text-xs font-bold peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:text-red-700 transition-all">Bloqueado</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Modal -->
+                <div class="p-8 border-t border-slate-100 bg-slate-50/50 flex gap-3">
+                    <button onclick="closeEditModal()" class="flex-1 px-6 py-3.5 border border-slate-200 text-slate-600 rounded-2xl font-bold text-sm hover:bg-white transition-all">Cancelar</button>
+                    <button class="flex-1 px-6 py-3.5 bg-blue-600 text-white rounded-2xl font-bold text-sm hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+
+
+<script>
+    const modal = document.getElementById('editModal');
+    const overlay = document.getElementById('editModalOverlay');
+    const editName = document.getElementById('editName');
+    const editRole = document.getElementById('editRole');
+    const editEmail = document.getElementById('editEmail');
+
+    function openEditModal(name, role, email) {
+        editName.value = name;
+        editRole.value = role;
+        editEmail.value = email;
+        overlay.classList.remove('hidden');
+        modal.classList.remove('modal-hidden');
+        document.body.classList.add('no-scroll');
+        
+    }
+
+    function closeEditModal() {
+        overlay.classList.add('hidden');
+        modal.classList.add('modal-hidden');
+    }
+</script>
+
+</body>
+</html>

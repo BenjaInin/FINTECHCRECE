@@ -1,6 +1,7 @@
 import logging
 import bcrypt  # type: ignore
 import pandas as pd
+from django.db.models import Q
 from django.contrib import messages
 from .models import Movimiento
 from django.contrib.auth.forms import PasswordResetForm
@@ -495,6 +496,27 @@ def registro(request):
         'movimientos': movimientos,
         'tiptercero': tiptercero
     })
+#-----------------------------------------Usuarios------------------------------------------------------------------------
+def usuarios_view(request):
+    query = request.GET.get('q', '')
+    usuarios = CatTerceros.objects.select_related('COD_USUARIO')
+    if query:
+        usuarios = usuarios.filter(
+            Q(NOM_TERCERO__icontains=query) |
+            Q(APE_PATERNO__icontains=query) |
+            Q(APE_MATERNO__icontains=query) |
+            Q(COD_USUARIO__CORREO__icontains=query)
+        )
+
+    context = {
+        'usuarios': usuarios,
+        'total_usuarios': usuarios.count(),
+        'usuarios_activos': usuarios.filter(MCA_INHABILITADO='N').count(),
+        'usuarios_inactivos': usuarios.filter(MCA_INHABILITADO='S').count(),
+        'query' :query
+    }
+
+    return render(request, 'usuarios.html', context)
 #-------------------------------------Funcion Dashboard----------------------------------------------
 def dashboard(request):
     user_id = request.session.get('user_id')  # Obtener el COD_USUARIO desde la sesión

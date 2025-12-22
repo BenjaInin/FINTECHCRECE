@@ -22,7 +22,7 @@ body {
 
 .sidebar {
     width: 200px;
-    background-color: #2b3e50;
+    background-color: #0f172a;
     color: white;
     height: 100vh;
     padding-top: 20px;
@@ -152,7 +152,7 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #1d2e3f;
+        background: #0f172a;
         padding: 12px 18px;
         color: white;
         position: fixed;
