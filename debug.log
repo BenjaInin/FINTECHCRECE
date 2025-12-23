@@ -4320,3 +4320,9 @@ NameError: name 'Q' is not defined
 [2025-12-22 17:01:04,619] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5215
 [2025-12-22 17:01:08,334] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
 [2025-12-22 17:01:08,348] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5215
+[2025-12-22 18:27:03,124] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-22 18:27:03,127] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-22 18:27:03,129] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-22 18:27:03,130] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-22 18:27:03,131] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-22 18:27:03,133] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960

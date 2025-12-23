@@ -728,18 +728,17 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const aportacionesData = {{ aportaciones|safe }};
+    const rendimientosData = {{ rendimientos|safe }};
 
-    // Detectar si la pantalla es móvil
     const isMobile = window.innerWidth < 768;
 
     Highcharts.chart('aportaciones-chart', {
-        chart: { 
+        chart: {
             type: 'area',
-            spacing: isMobile ? [10, 5, 5, 5] : [20, 10, 10, 10],
-            
+            spacing: isMobile ? [10, 5, 5, 5] : [20, 15, 10, 10]
         },
 
-        title: { 
+        title: {
             text: 'Rendimiento financiero',
             style: {
                 fontSize: isMobile ? '16px' : '20px',
@@ -749,61 +748,72 @@ document.addEventListener("DOMContentLoaded", function () {
 
         xAxis: {
             categories: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            tickmarkPlacement: 'on',
             labels: {
-                style: {
-                    fontSize: isMobile ? '10px' : '12px'
-                }
+                style: { fontSize: isMobile ? '10px' : '12px' }
             }
         },
 
         yAxis: {
-            title: { 
-                text: 'Monto ($)',
-                style: {
-                    fontSize: isMobile ? '11px' : '14px'
-                }
-            },
+            title: { text: 'Monto ($)' },
             labels: {
-                style: {
-                    fontSize: isMobile ? '10px' : '12px'
+                formatter() {
+                    return '$' + Highcharts.numberFormat(this.value, 0);
                 }
             }
         },
 
-        legend: {
-            enabled: !isMobile  // Oculta la leyenda en móviles para más espacio
+        tooltip: {
+            shared: true,
+            valuePrefix: '$',
+            valueDecimals: 2
         },
 
-        series: [{
-            name: 'Aportaciones',
-            data: aportacionesData,
-            color: '#0D2B44',
-            lineWidth: isMobile ? 2 : 3,
+        legend: {
+            enabled: true
+        },
 
-            // Relleno degradado responsivo
-            fillColor: isMobile 
-                ? 'rgba(76, 175, 80, 0.25)' 
-                : {
+        plotOptions: {
+            series: {
+                marker: { enabled: false },
+                lineWidth: 2
+            }
+        },
+
+        series: [
+            {
+                name: 'Depositado',
+                data: aportacionesData,
+                type: 'line',
+                step: 'left',            // 🔹 efecto escalonado
+                color: '#60A5FA',         // azul claro
+            },
+            {
+                name: 'Rentabilidad',
+                data: rendimientosData,
+                color: '#1D4ED8',         // azul fuerte
+                fillColor: {
                     linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
                     stops: [
-                        [0, 'rgba(76, 175, 80, 0.45)'],
-                        [1, 'rgba(76, 175, 80, 0)']
+                        [0, 'rgba(29, 78, 216, 0.25)'],
+                        [1, 'rgba(29, 78, 216, 0.05)']
                     ]
                 }
-        }],
+            }
+        ],
 
         responsive: {
             rules: [{
                 condition: { maxWidth: 480 },
                 chartOptions: {
-                    chart: { height: 390 },
+                    chart: { height: 380 }
                 }
             }]
         }
     });
-
 });
 </script>
+
 
 
 </body>
