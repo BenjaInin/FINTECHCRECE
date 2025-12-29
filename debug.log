@@ -4326,3 +4326,343 @@ NameError: name 'Q' is not defined
 [2025-12-22 18:27:03,130] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
 [2025-12-22 18:27:03,131] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
 [2025-12-22 18:27:03,133] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-22 19:03:45,627] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-22 19:03:45,632] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-22 19:03:45,632] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-22 19:03:45,633] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-22 19:03:45,633] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-22 19:03:45,634] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-22 19:08:30,566] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-22 19:08:30,592] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-22 19:08:30,600] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-22 19:08:30,601] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-22 19:08:30,604] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-22 19:08:30,606] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-22 19:11:47,454] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-22 19:11:47,465] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-22 19:11:47,466] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-22 19:11:47,468] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-22 19:11:47,470] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-22 19:11:47,479] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-22 19:20:16,218] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-22 19:20:16,221] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-22 19:20:16,221] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-22 19:20:16,222] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-22 19:20:16,223] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-22 19:20:16,223] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-28 23:47:28,856] WARNING django.request: Not Found: /login/img/icono.ico
+[2025-12-28 23:47:28,859] WARNING django.server: "GET /login/img/icono.ico HTTP/1.1" 404 5128
+[2025-12-28 23:52:35,777] WARNING django.request: Not Found: /favicon.ico
+[2025-12-28 23:52:35,779] WARNING django.server: "GET /favicon.ico HTTP/1.1" 404 5104
+[2025-12-29 01:35:02,017] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 01:35:02,034] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 01:35:02,035] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 01:35:02,036] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 01:35:02,037] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 01:35:02,038] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 01:38:22,141] ERROR django.request: Internal Server Error: /generar_reporte_pdf/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 1008, in generar_reporte_pdf
+    ["Cliente:", nombre_cliente],
+UnboundLocalError: local variable 'nombre_cliente' referenced before assignment
+[2025-12-29 01:38:22,146] ERROR django.server: "GET /generar_reporte_pdf/?month=01&year=2025 HTTP/1.1" 500 79304
+[2025-12-29 01:38:43,479] ERROR django.request: Internal Server Error: /generar_reporte_pdf/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 1008, in generar_reporte_pdf
+    ["Cliente:", nombre_cliente],
+UnboundLocalError: local variable 'nombre_cliente' referenced before assignment
+[2025-12-29 01:38:43,484] ERROR django.server: "GET /generar_reporte_pdf/?month=12&year=2025 HTTP/1.1" 500 81465
+[2025-12-29 01:41:48,076] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 01:41:48,088] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 01:41:48,109] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 01:41:48,111] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 01:41:48,140] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 01:41:48,141] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 01:51:07,049] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 01:51:07,051] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 01:51:07,052] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 01:51:07,053] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 01:51:07,053] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 01:51:07,054] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 01:52:47,433] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 01:52:47,435] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 01:52:47,436] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 01:52:47,436] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 01:52:47,437] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 01:52:47,438] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 01:54:33,885] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 01:54:33,886] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 01:54:33,888] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 01:54:33,888] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 01:54:33,889] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 01:54:33,889] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:04:13,888] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:04:13,890] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:04:13,892] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:04:13,894] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:04:13,898] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:04:13,901] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:08:14,752] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:08:14,753] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:08:14,754] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:08:14,754] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:08:14,755] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:08:14,756] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:10:11,281] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:10:11,284] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:10:11,284] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:10:11,285] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:10:11,286] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:10:11,302] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:11:15,883] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:11:15,885] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:11:15,887] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:11:15,895] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:11:15,896] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:11:15,913] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:12:41,639] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:12:41,645] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:12:41,646] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:12:41,646] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:12:41,647] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:12:41,648] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:14:14,530] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:14:14,531] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:14:14,532] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:14:14,533] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:14:14,534] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:14:14,535] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:14:55,218] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:14:55,225] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:14:55,243] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:14:55,269] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:14:55,271] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:14:55,278] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:16:13,298] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:16:13,304] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:16:13,305] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:16:13,306] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:16:13,306] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:16:13,308] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:20:09,065] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:20:09,073] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:20:09,074] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:20:09,075] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:20:09,076] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:20:09,080] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:27:24,866] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:27:24,898] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:27:24,912] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:27:24,918] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:27:24,919] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:27:24,919] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:29:43,297] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:29:43,309] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:29:43,327] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:29:43,328] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:29:43,343] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:29:43,344] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:30:31,626] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:30:31,627] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:30:31,628] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:30:31,629] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:30:31,634] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:30:31,639] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:34:41,446] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:34:41,447] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:34:41,449] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:34:41,449] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:34:41,450] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:34:41,451] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:37:25,158] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:37:25,160] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:37:25,160] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:37:25,161] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:37:25,162] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:37:25,162] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:41:16,580] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:41:16,582] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:41:16,583] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:41:16,584] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:41:16,584] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:41:16,585] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 02:54:36,405] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 02:54:36,408] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 02:54:36,409] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 02:54:36,411] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 02:54:36,412] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 02:54:36,423] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:05:43,092] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:05:43,105] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:05:43,108] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:05:43,111] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:05:43,118] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:05:43,122] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:06:22,133] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:06:22,140] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:06:22,142] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:06:22,143] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:06:22,144] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:06:22,145] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:06:57,583] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:06:57,585] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:06:57,586] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:06:57,587] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:06:57,591] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:06:57,591] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:07:18,728] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:07:18,729] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:07:18,730] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:07:18,730] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:07:18,731] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:07:18,731] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:10:39,495] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:10:39,496] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:10:39,497] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:10:39,497] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:10:39,498] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:10:39,499] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:11:27,164] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:11:27,165] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:11:27,165] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:11:27,166] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:11:27,167] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:11:27,170] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:14:07,176] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:14:07,177] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:14:07,178] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:14:07,179] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:14:07,181] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:14:07,182] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:15:03,815] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:15:03,816] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:15:03,817] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:15:03,817] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:15:03,818] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:15:03,818] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:16:00,691] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:16:00,693] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:16:00,694] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:16:00,695] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:16:00,696] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:16:00,697] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:17:41,716] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:17:41,717] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:17:41,718] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:17:41,718] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:17:41,719] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:17:41,720] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:18:14,846] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:18:14,848] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:18:14,848] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:18:14,849] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:18:14,850] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:18:14,850] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:18:20,236] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:18:20,236] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:18:20,238] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:18:20,238] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:18:20,239] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:18:20,240] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:28:23,669] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:28:23,670] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:28:23,671] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:28:23,671] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:28:23,672] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:28:23,673] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:31:49,368] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:31:49,369] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:31:49,370] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:31:49,371] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:31:49,371] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:31:49,375] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:33:10,436] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:33:10,437] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:33:10,438] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:33:10,439] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:33:10,440] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:33:10,441] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:34:34,047] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:34:34,055] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:34:34,057] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:34:34,057] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:34:34,058] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:34:34,058] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:35:30,291] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:35:30,292] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:35:30,296] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:35:30,299] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:35:30,300] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:35:30,310] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:38:53,999] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:38:54,009] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:38:54,010] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:38:54,012] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:38:54,013] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:38:54,014] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:39:24,472] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:39:24,473] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:39:24,473] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:39:24,474] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:39:24,475] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:39:24,476] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:42:05,744] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:42:05,748] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:42:05,749] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:42:05,749] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:42:05,750] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:42:05,751] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 03:43:27,304] DEBUG PIL.PngImagePlugin: STREAM b'IHDR' 16 13
+[2025-12-29 03:43:27,305] DEBUG PIL.PngImagePlugin: STREAM b'sRGB' 41 1
+[2025-12-29 03:43:27,306] DEBUG PIL.PngImagePlugin: STREAM b'gAMA' 54 4
+[2025-12-29 03:43:27,307] DEBUG PIL.PngImagePlugin: STREAM b'pHYs' 70 9
+[2025-12-29 03:43:27,308] DEBUG PIL.PngImagePlugin: STREAM b'tEXt' 91 19
+[2025-12-29 03:43:27,309] DEBUG PIL.PngImagePlugin: STREAM b'IDAT' 122 23960
+[2025-12-29 04:06:16,319] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-29 04:06:16,342] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5434
+[2025-12-29 04:14:51,048] WARNING django.request: Not Found: /movimiento/undefined/editar/
+[2025-12-29 04:14:51,050] WARNING django.server: "POST /movimiento/undefined/editar/ HTTP/1.1" 404 5737
+[2025-12-29 04:14:54,782] WARNING django.request: Not Found: /movimiento/undefined/editar/
+[2025-12-29 04:14:54,784] WARNING django.server: "POST /movimiento/undefined/editar/ HTTP/1.1" 404 5737
+[2025-12-29 04:16:07,791] WARNING django.request: Not Found: /movimiento/undefined/eliminar/
+[2025-12-29 04:16:07,792] WARNING django.server: "POST /movimiento/undefined/eliminar/ HTTP/1.1" 404 5743
+[2025-12-29 04:16:19,493] WARNING django.request: Not Found: /movimiento/undefined/eliminar/
+[2025-12-29 04:16:19,494] WARNING django.server: "POST /movimiento/undefined/eliminar/ HTTP/1.1" 404 5743
+[2025-12-29 04:16:45,648] WARNING django.request: Not Found: /movimiento/undefined/editar/
+[2025-12-29 04:16:45,649] WARNING django.server: "POST /movimiento/undefined/editar/ HTTP/1.1" 404 5737
+[2025-12-29 04:16:46,665] WARNING django.request: Not Found: /movimiento/undefined/editar/
+[2025-12-29 04:16:46,666] WARNING django.server: "POST /movimiento/undefined/editar/ HTTP/1.1" 404 5737
+[2025-12-29 04:16:46,950] WARNING django.request: Not Found: /movimiento/undefined/editar/
+[2025-12-29 04:16:46,951] WARNING django.server: "POST /movimiento/undefined/editar/ HTTP/1.1" 404 5737
+[2025-12-29 04:16:47,139] WARNING django.request: Not Found: /movimiento/undefined/editar/
+[2025-12-29 04:16:47,140] WARNING django.server: "POST /movimiento/undefined/editar/ HTTP/1.1" 404 5737
+[2025-12-29 04:16:47,330] WARNING django.request: Not Found: /movimiento/undefined/editar/
+[2025-12-29 04:16:47,332] WARNING django.server: "POST /movimiento/undefined/editar/ HTTP/1.1" 404 5737
+[2025-12-29 04:16:47,537] WARNING django.request: Not Found: /movimiento/undefined/editar/
+[2025-12-29 04:16:47,538] WARNING django.server: "POST /movimiento/undefined/editar/ HTTP/1.1" 404 5737
+[2025-12-29 04:16:47,737] WARNING django.request: Not Found: /movimiento/undefined/editar/
+[2025-12-29 04:16:47,738] WARNING django.server: "POST /movimiento/undefined/editar/ HTTP/1.1" 404 5737
+[2025-12-29 04:22:11,636] WARNING django.request: Not Found: /movimiento/undefined/eliminar/
+[2025-12-29 04:22:11,638] WARNING django.server: "POST /movimiento/undefined/eliminar/ HTTP/1.1" 404 5743
+[2025-12-29 04:22:24,265] WARNING django.request: Not Found: /movimiento/undefined/eliminar/
+[2025-12-29 04:22:24,267] WARNING django.server: "POST /movimiento/undefined/eliminar/ HTTP/1.1" 404 5743
+[2025-12-29 04:25:23,043] ERROR django.server: "GET /usuarios/10/movimientos/ HTTP/1.1" 500 72642
+[2025-12-29 04:25:25,589] ERROR django.server: "GET /usuarios/10/movimientos/ HTTP/1.1" 500 72642
+[2025-12-29 04:25:28,258] ERROR django.server: "GET /usuarios/10/movimientos/ HTTP/1.1" 500 72642
+[2025-12-29 04:25:29,271] ERROR django.server: "GET /usuarios/10/movimientos/ HTTP/1.1" 500 72642
+[2025-12-29 04:25:29,534] ERROR django.server: "GET /usuarios/10/movimientos/ HTTP/1.1" 500 72642
+[2025-12-29 04:25:29,772] ERROR django.server: "GET /usuarios/10/movimientos/ HTTP/1.1" 500 72642
+[2025-12-29 05:06:49,128] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-29 05:06:49,138] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5434
+[2025-12-29 05:26:57,460] WARNING django.request: Not Found: /movimiento/59/editar/
+[2025-12-29 05:26:57,477] WARNING django.server: "POST /movimiento/59/editar/ HTTP/1.1" 404 5564
+[2025-12-29 05:26:58,298] WARNING django.request: Not Found: /movimiento/59/editar/
+[2025-12-29 05:26:58,299] WARNING django.server: "POST /movimiento/59/editar/ HTTP/1.1" 404 5564

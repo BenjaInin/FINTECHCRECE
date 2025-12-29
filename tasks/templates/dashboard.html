@@ -550,7 +550,7 @@
             <div class="card-content">
                 <i class="fas fa-chart-line chart-icon" style="font-size:35px"></i>
                 <div class="card-text">
-                    <h3 style="color:#4a90e2">4%</h3>
+                    <h3 style="color:#4a90e2">{{ tasa_promedio }}%</h3>
                     <p>Tasa promedio</p>
                 </div>
             </div>
@@ -565,7 +565,7 @@
                 </div>
             </div>
         </div>  
-        {% if saldo_prestamo %}
+        {% if saldo_prestamo > 0 %}
         <div class="summary-card" style="border: 1px solid #f13434ff; background: #f0a5a5ff;">
             <div class="card-content">
                 <i class="fas fa-hand-holding-usd" style="font-size:27px; padding:12px; background:#f7d4d4ff;color:#f13434ff; border-radius:50%;"></i>

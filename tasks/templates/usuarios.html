@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración de Usuarios - crecetuLana</title>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
@@ -131,7 +131,9 @@
 </head>
 
 <body class="min-h-screen flex overflow-hidden">
-{% csrf_token %}
+<form id="csrf-form" style="display:none;">
+    {% csrf_token %}
+</form>
 
  {% include 'includes/sidebar.html' %}
 <!-- SIDEBAR -->
@@ -252,6 +254,10 @@
                                 class="text-blue-600 hover:bg-blue-50 p-2 rounded">
                             <i class="fas fa-edit"></i>
                         </button>
+                        <button onclick="verMovimientos('{{ t.ID_TERCERO }}')"
+                                class="text-emerald-600 hover:bg-emerald-50 p-2 rounded">
+                            <i class="fas fa-list"></i>
+                        </button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -356,6 +362,165 @@
         modal.classList.add('modal-hidden');
     }
 </script>
+<script>
+function getCSRFToken() {
+    return document.querySelector('#csrf-form input[name=csrfmiddlewaretoken]').value;
+}
+</script>
+<script>
+function verMovimientos(id) {
+    fetch(`/usuarios/${id}/movimientos/`)
+        .then(res => res.json())
+        .then(data => {
+            let body = '';
+
+            data.forEach(m => {
+                body += `
+                <tr id="row-${m.id}" class="border-b">
+                    <td class="p-2 font-mono text-slate-600">${m.id}</td>
+                    <td class="p-2">${m.fecha}</td>
+                    <td class="p-2">${m.concepto}</td>
+
+                    <td class="p-2 text-right">
+                        <input class="w-20 border rounded p-1 text-right"
+                               value="${m.deposito}"
+                               id="dep-${m.id}">
+                    </td>
+
+                    <td class="p-2 text-right">
+                        <input class="w-20 border rounded p-1 text-right"
+                               value="${m.retiro}"
+                               id="ret-${m.id}">
+                    </td>
+
+                    <td class="p-2 text-right space-x-2">
+                        <button onclick="guardarMovimiento(${m.id})" class="text-blue-600">
+                            <i class="fas fa-save"></i>
+                        </button>
+
+                        <button onclick="eliminarMovimiento(${m.id})" class="text-red-600">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>`;
+            });
+
+            document.getElementById('movimientosBody').innerHTML = body;
+            document.getElementById('movModal').classList.remove('hidden');
+            document.getElementById('movModalOverlay').classList.remove('hidden');
+        });
+}
+
+function closeMovModal() {
+    document.getElementById('movModal').classList.add('hidden');
+    document.getElementById('movModalOverlay').classList.add('hidden');
+}
+</script>
+
+<script>
+function guardarMovimiento(id){
+    fetch(`/movimiento/${id}/editar/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken()
+        },
+        body: JSON.stringify({
+            deposito: document.getElementById(`dep-${id}`).value,
+            retiro: document.getElementById(`ret-${id}`).value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.ok) {
+            alert("Movimiento actualizado");
+        }
+    });
+}
+
+function eliminarMovimiento(id){
+
+    Swal.fire({
+        title: '¿Eliminar movimiento?',
+        text: 'Esta acción no se puede deshacer',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#e11d48',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+
+        if (!result.isConfirmed) return;
+
+        fetch(`/movimiento/${id}/eliminar/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCSRFToken(),
+                'Accept': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            if (data.ok) {
+                document.getElementById(`row-${id}`).remove();
+
+                Swal.fire({
+                    title: 'Eliminado',
+                    text: 'El movimiento fue eliminado correctamente',
+                    icon: 'success',
+                    timer: 1800,
+                    showConfirmButton: false
+                });
+
+            } else {
+                throw new Error('Respuesta inválida del servidor');
+            }
+
+        })
+        .catch(err => {
+            console.error(err);
+
+            Swal.fire({
+                title: 'Error',
+                text: 'No se pudo eliminar el movimiento',
+                icon: 'error'
+            });
+        });
+    });
+}
+</script>
+
+<div id="movModalOverlay" class="fixed inset-0 bg-black/40 hidden z-40" onclick="closeMovModal()"></div>
+
+<div id="movModal" class="fixed inset-0 flex items-center justify-center hidden z-50">
+  <div class="bg-white rounded-2xl w-full max-w-2xl shadow-xl p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-bold">Movimientos del usuario</h3>
+      <button onclick="closeMovModal()" class="text-gray-400 hover:text-black">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="overflow-y-auto max-h-96">
+      <table class="w-full text-sm">
+        <thead class="bg-slate-100">
+          <tr>
+            <th class="p-2 text-left">ID</th>
+            <th class="p-2 text-left">Fecha</th>
+            <th class="p-2 text-left">Concepto</th>
+            <th class="p-2 text-right">Depósito</th>
+            <th class="p-2 text-right">Retiro</th>
+            <th class="p-2 text-right">Acciones</th>
+
+          </tr>
+        </thead>
+        <tbody id="movimientosBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

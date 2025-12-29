@@ -41,6 +41,10 @@ from dateutil.relativedelta import relativedelta
 import os
 import traceback
 from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
+from reportlab.lib.units import cm
+from django.views.decorators.http import require_POST
+from django.shortcuts import get_object_or_404
 
 # ------------------------------------- FUNCION HOME ----------------------------------------------
 def home(request):
@@ -60,133 +64,110 @@ def prestamo(request):
     if not user_id:
         return redirect('login')
 
-    # =========================
-    # USUARIO Y TERCERO
-    # =========================
     usuario = Usuario.objects.get(COD_USUARIO=user_id)
     tercero = CatTerceros.objects.get(COD_USUARIO=usuario)
 
-    # =========================
-    # SALDO DEL PRÉSTAMO (VALIDACIÓN)
-    # =========================
-    saldo_prestamo = get_saldo_prestamo(
+    inicio_prestamo = get_inicio_prestamo_activo(
         tercero.ID_TERCERO,
         tercero.TIP_TERCERO
     )
 
-    if saldo_prestamo is None:
+    # Seguridad
+    if not inicio_prestamo:
         return redirect("dashboard")
 
     # =========================
-    # TOTAL INTERESES PAGADOS (MOV 3)
+    # TOTAL INTERESES PAGADOS
     # =========================
     total_intereses_pagados = (
         HisMovimientos.objects.filter(
             ID_TERCERO__ID_TERCERO=tercero.ID_TERCERO,
             TIP_TERCERO=tercero.TIP_TERCERO,
+            FEC_REGISTRO__gte=inicio_prestamo,
             COD_MOVIMIENTO__COD_MOVIMIENTO=3
         ).aggregate(total=Sum('IMP_DEPOSITO'))['total'] or 0
     )
 
     # =========================
-    # TOTAL CAPITAL PAGADO (MOV 4)
+    # TOTAL CAPITAL PAGADO
     # =========================
     total_capital_pagado = (
         HisMovimientos.objects.filter(
             ID_TERCERO__ID_TERCERO=tercero.ID_TERCERO,
             TIP_TERCERO=tercero.TIP_TERCERO,
+            FEC_REGISTRO__gte=inicio_prestamo,
             COD_MOVIMIENTO__COD_MOVIMIENTO=4
         ).aggregate(total=Sum('IMP_DEPOSITO'))['total'] or 0
     )
 
     # =========================
-    # TOTAL PRÉSTAMOS (MOV 2)
+    # TOTAL PRÉSTAMOS
     # =========================
     total_prestamos = (
         HisMovimientos.objects.filter(
             ID_TERCERO__ID_TERCERO=tercero.ID_TERCERO,
             TIP_TERCERO=tercero.TIP_TERCERO,
-            COD_MOVIMIENTO__COD_MOVIMIENTO=2  # PRÉSTAMO
+            FEC_REGISTRO__gte=inicio_prestamo,
+            COD_MOVIMIENTO__COD_MOVIMIENTO=2
         ).aggregate(total=Sum('IMP_RETIRO'))['total'] or 0
     )
 
     # =========================
-    # TOTAL INTERESES DEL PRÉSTAMO (MOV 6)
+    # TOTAL INTERESES DEL PRÉSTAMO
     # =========================
     total_intereses_prestamo = (
         HisMovimientos.objects.filter(
             ID_TERCERO__ID_TERCERO=tercero.ID_TERCERO,
             TIP_TERCERO=tercero.TIP_TERCERO,
-            COD_MOVIMIENTO__COD_MOVIMIENTO=6  # INTERÉS PRÉSTAMO
+            FEC_REGISTRO__gte=inicio_prestamo,
+            COD_MOVIMIENTO__COD_MOVIMIENTO=6
         ).aggregate(total=Sum('IMP_RETIRO'))['total'] or 0
     )
 
     # =========================
-    # TOTAL PAGADO
+    # TOTALES
     # =========================
     total_pagado = total_intereses_pagados + total_capital_pagado
-
-    # =========================
-    # TOTAL CRÉDITO (100%)
-    # =========================
-    total_credito = (
-        HisMovimientos.objects.filter(
-            ID_TERCERO__ID_TERCERO=tercero.ID_TERCERO,
-            TIP_TERCERO=tercero.TIP_TERCERO,
-            COD_MOVIMIENTO__COD_MOVIMIENTO__in=[2, 6]
-        ).aggregate(total=Sum('IMP_RETIRO'))['total'] or 0
-    )
-
-    # =========================
-    # SALDO TOTAL PENDIENTE
-    # =========================
+    total_credito = total_prestamos + total_intereses_prestamo
     saldo_total_pendiente = total_credito - total_pagado
 
-    # =========================
-    # PROGRESO DE PAGO (%)
-    # =========================
-    if total_credito > 0:
-        progreso_pago = round((total_pagado / total_credito) * 100, 2)
-    else:
-        progreso_pago = 0
+    progreso_pago = round((total_pagado / total_credito) * 100, 2) if total_credito else 0
+    progreso_pago = min(progreso_pago, 100)
 
-    progreso_pago = min(progreso_pago, 100)  # nunca > 100%
     # =========================
-    # PRÓXIMA FECHA DE PAGO
-    # =========================
-    proxima_fecha_pago = get_proxima_fecha_pago(
-        tercero.ID_TERCERO,
-        tercero.TIP_TERCERO
-    )
-    # =========================
-    # MOVIMIENTOS PARA TABLA
+    # MOVIMIENTOS
     # =========================
     movimientos = HisMovimientos.objects.filter(
         ID_TERCERO__ID_TERCERO=tercero.ID_TERCERO,
         TIP_TERCERO=tercero.TIP_TERCERO,
+        FEC_REGISTRO__gte=inicio_prestamo,
         COD_MOVIMIENTO__COD_MOVIMIENTO__in=[2, 3, 4, 6]
     ).select_related('COD_MOVIMIENTO').order_by('-FEC_REGISTRO')
 
     lista_pagos = []
-
     for mov in movimientos:
-        deposito = float(mov.IMP_DEPOSITO or 0)
-        retiro = float(mov.IMP_RETIRO or 0)
-
-        monto = deposito if deposito > 0 else abs(retiro)
-
+        monto = float(mov.IMP_DEPOSITO or mov.IMP_RETIRO or 0)
         lista_pagos.append({
             'fecha': mov.FEC_REGISTRO,
             'descripcion': mov.COD_MOVIMIENTO.DESC_MOVIMIENTO,
             'pago': monto,
             'estado': 'PROCESADO'
         })
+        
+    
+    # =========================
+    # PRÓXIMA FECHA DE PAGO
+    # =========================
+
+    proxima_fecha_pago = get_proxima_fecha_pago(
+        tercero.ID_TERCERO,
+        tercero.TIP_TERCERO
+    )
 
     # =========================
     # RENDER
     # =========================
     return render(request, "prestamo.html", {
-        "saldo_prestamo": saldo_prestamo,
         "saldo_total_pendiente": saldo_total_pendiente,
         "total_prestamos": total_prestamos,
         "total_intereses_prestamo": total_intereses_prestamo,
@@ -517,6 +498,30 @@ def usuarios_view(request):
     }
 
     return render(request, 'usuarios.html', context)
+
+def movimientos_usuario(request, id_tercero):
+    movimientos = HisMovimientos.objects.filter(
+        ID_TERCERO__ID_TERCERO=id_tercero
+    ).select_related('COD_MOVIMIENTO').order_by('-FEC_REGISTRO')
+
+    data = []
+    for m in movimientos:
+        data.append({
+            'id': m.ID,
+            'fecha': m.FEC_REGISTRO.strftime('%d/%m/%Y'),
+            'concepto': m.COD_MOVIMIENTO.DESC_MOVIMIENTO,
+            'deposito': float(m.IMP_DEPOSITO or 0),
+            'retiro': float(m.IMP_RETIRO or 0),
+        })
+
+    return JsonResponse(data, safe=False)
+
+@require_POST
+def eliminar_movimiento(request, id):
+    mov = get_object_or_404(HisMovimientos, ID=id)
+    mov.delete()
+    return JsonResponse({'ok': True})
+
 #-------------------------------------Funcion Dashboard----------------------------------------------
 def dashboard(request):
     user_id = request.session.get('user_id')  # Obtener el COD_USUARIO desde la sesión
@@ -591,6 +596,10 @@ def dashboard(request):
 
             # Obtener el último tipo de cambio
             tipo_cambio = TipoCambio.objects.order_by('-fecha').first()  # último registrado
+            
+            # Tasa promedio
+            tasa_promedio = get_tasa_promedio(tercero.ID_TERCERO, tercero.TIP_TERCERO)
+
 
             # Pasar los datos al template
             return render(request, 'dashboard.html', {
@@ -609,6 +618,8 @@ def dashboard(request):
                 'tipo_cambio_usd': tipo_cambio.valor if tipo_cambio else "N/D",
                 'anio_seleccionado': anio_seleccionado,
                 'anos_disponibles': anos_disponibles,
+                'tasa_promedio': tasa_promedio,
+
             })
         
         except Usuario.DoesNotExist:
@@ -810,18 +821,32 @@ def lista_movimientos(request):
 #-------------------------------------Saldo prestamo -------------------------------------------------------------#
 def get_saldo_prestamo(id_tercero, tip_tercero):
     """
-    Retorna el total del crédito del préstamo (capital + intereses).
-    Equivale a total_credito del dashboard.
+    Retorna el saldo REAL del préstamo:
+    (Préstamo + Intereses) - (Pagos de interés + Pagos a capital)
     """
-    saldo_prestamo = (
-        HisMovimientos.objects.filter(
-            ID_TERCERO__ID_TERCERO=id_tercero,
-            TIP_TERCERO=tip_tercero,
-            COD_MOVIMIENTO__COD_MOVIMIENTO__in=[2, 6]  # PRÉSTAMO + INTERÉS
-        ).aggregate(total=Sum('IMP_RETIRO'))['total'] or 0
-    )
 
-    return round(float(saldo_prestamo), 2)
+    # Cargos (lo que incrementa la deuda)
+    # CARGOS → lo que genera deuda
+    total_prestamo = HisMovimientos.objects.filter(
+        ID_TERCERO__ID_TERCERO=id_tercero,
+        TIP_TERCERO=tip_tercero,
+        COD_MOVIMIENTO__COD_MOVIMIENTO__in=[2, 6]  # PRÉSTAMO + INTERÉS
+    ).aggregate(total=Sum('IMP_RETIRO'))['total'] or Decimal('0')
+
+    # ABONOS → lo que paga deuda
+    total_pagos = HisMovimientos.objects.filter(
+        ID_TERCERO__ID_TERCERO=id_tercero,
+        TIP_TERCERO=tip_tercero,
+        COD_MOVIMIENTO__COD_MOVIMIENTO__in=[3, 4]  # PAGOS
+    ).aggregate(total=Sum('IMP_DEPOSITO'))['total'] or Decimal('0')
+
+    saldo = Decimal(total_prestamo) - Decimal(total_pagos)
+
+    # Si ya está liquidado → no mostrar
+    if saldo <= 0:
+        return Decimal('0.00')
+
+    return saldo.quantize(Decimal('0.00'))
 #-----------------------------Salir logout----------------------------------------------------------------
 
 def logout_view(request):
@@ -909,7 +934,7 @@ def get_rendimientos_por_mes(id_tercero, tip_tercero, anio):
             rend_mes[i] = rend_mes[i-1]
 
     return rend_mes
-#-----------------------------Funcion disponible retiro--------------------------------    
+#-------------------------------------Funcion disponible retiro-----------------------------------------------    
 def get_disponible_retiro(id_tercero, tip_tercero):
     # Filtrar los movimientos de tipo 5 para el tercero y tipo de tercero dados
     movimientos = HisMovimientos.objects.filter(
@@ -923,30 +948,59 @@ def get_disponible_retiro(id_tercero, tip_tercero):
     
     # Si no hay resultados, devolver 0
     return disponible_retiro if disponible_retiro else 0 
-#------------------Funcion para generar reporte-----------------
-def generar_reporte_pdf(request):
-    user_id = request.session.get('user_id')
+#------------------------------------------Funcion para generar reporte-------------------------------------
+def dibujar_marco(canvas, doc):
+    canvas.saveState()
+    
+    ancho, alto = letter
+    
+    margen = 18  # espacio entre el borde y el marco
+    canvas.setStrokeColor(colors.HexColor('#0B2C4A'))  # azul marino
+    canvas.setLineWidth(3)
 
+    canvas.rect(
+        margen,
+        margen,
+        ancho - margen*2,
+        alto - margen*2
+    )
+
+    canvas.restoreState()
+    
+def dibujar_encabezado(canvas, doc):
+    width, height = letter
+
+    logo_path = os.path.join(settings.BASE_DIR, 'tasks', 'static', 'images', 'logo.png')
+
+    if os.path.exists(logo_path):
+        # Posición: esquina inferior izquierda del encabezado
+        canvas.drawImage(
+            logo_path,
+            1.5 * cm,                # X
+            height - 3.5 * cm,         # Y
+            width=4 * cm,
+            preserveAspectRatio=True,
+            mask='auto'
+        )
+
+def generar_reporte_pdf(request):
+
+    user_id = request.session.get('user_id')
     if not user_id:
         return redirect('login')
 
     try:
-        # Obtener datos del usuario y tercero
         usuario = Usuario.objects.get(COD_USUARIO=user_id)
         tercero = CatTerceros.objects.get(COD_USUARIO=usuario)
+        nombre_completo = f"{tercero.NOM_TERCERO} {tercero.APE_PATERNO} {tercero.APE_MATERNO}"
 
-        movimientos = []
-        saldo_acumulado = 0
-        suma_depositos = 0
-        suma_retiros = 0
-
-        # Obtener parámetros de fecha
+        # =================== FILTRO FECHA ===================
         mes = request.GET.get('month')
         año = request.GET.get('year')
 
         if mes and año:
             start_date = f"{año}-{mes}-01"
-            end_date = f"{int(año) + 1}-01-01" if mes == '12' else f"{año}-{str(int(mes) + 1).zfill(2)}-01"
+            end_date = f"{int(año)+1}-01-01" if mes == '12' else f"{año}-{str(int(mes)+1).zfill(2)}-01"
 
             movimientos = HisMovimientos.objects.filter(
                 ID_TERCERO__ID_TERCERO=tercero.ID_TERCERO,
@@ -959,71 +1013,139 @@ def generar_reporte_pdf(request):
                 ID_TERCERO__ID_TERCERO=tercero.ID_TERCERO,
                 TIP_TERCERO=tercero.TIP_TERCERO
             ).select_related('COD_MOVIMIENTO').order_by('FEC_REGISTRO')
-        # Crear PDF
+
+        if not movimientos:
+            return HttpResponse("No hay movimientos")
+
+        saldo_acumulado = 0
+        suma_depositos = 0
+        suma_retiros = 0
+        sumatorias_por_tipo = {}
+
+        for mov in movimientos:
+            dep = float(mov.IMP_DEPOSITO or 0)
+            ret = float(mov.IMP_RETIRO or 0)
+
+            saldo_acumulado += dep - ret
+            suma_depositos += dep
+            suma_retiros += ret
+
+            tipo = mov.COD_MOVIMIENTO.DESC_MOVIMIENTO
+            sumatorias_por_tipo[tipo] = sumatorias_por_tipo.get(tipo, 0) + dep + ret
+
         response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="reporte_movimientos_{usuario.COD_USUARIO}.pdf"'
+        response['Content-Disposition'] = f'attachment; filename="Estado_de_cuenta_{usuario.COD_USUARIO}.pdf"'
+
         doc = SimpleDocTemplate(response, pagesize=letter)
         styles = getSampleStyleSheet()
         elements = []
-        # ===== ENCABEZADO =====
-        logo_path = os.path.join(settings.BASE_DIR, 'tasks', 'static', 'images', 'logo.png')  # ajusta si tu carpeta cambia
 
-        if os.path.exists(logo_path):
-            logo = Image(logo_path, width=120, height=50)
-        else:
-            logo = Paragraph("", styles["Normal"])  # No mostrar nada si no hay logo
-        titulo = Paragraph("<b>Reporte de Movimientos</b>", styles["Title"])
-        header_data = [[logo, titulo]]
-        header_table = Table(header_data, colWidths=[150, 400])
-        header_table.setStyle(TableStyle([
-            ('VALIGN', (0, 0), (1, 1), 'TOP'),
-            ('ALIGN', (0, 0), (0, 0), 'LEFT'),
-            ('ALIGN', (1, 0), (1, 0), 'RIGHT'),
-            ('BOTTOMPADDING', (0, 0), (1, 1), 10),
-            ('TOPPADDING', (0, 0), (1, 1), -10),
-            ('LEFTPADDING', (0, 0), (1, 1), 40),
-            ('RIGHTPADDING', (0, 0), (1, 1), 0),
+        # =================== TITULO ===================
+        titulo = Paragraph(f"<b>Estado de Cuenta</b><br/>{nombre_completo}", styles['Title'])
+        
+        elements.append(titulo)
+        elements.append(Spacer(1, 15))
+
+        # =================== BLOQUE SUPERIOR ===================
+        periodo = f"{movimientos.first().FEC_REGISTRO:%d-%m-%Y} al {movimientos.last().FEC_REGISTRO:%d-%m-%Y}"
+        fecha_emision = timezone.now().strftime('%d-%m-%Y')
+
+        info = [
+            [Paragraph(f"<b>Periodo:</b> {periodo}", styles['Normal'])],
+            [Paragraph(f"<b>Fecha de emisión:</b> {fecha_emision}", styles['Normal'])]
+        ]
+
+        info_table = Table(info, colWidths=[300])
+        
+        info_table.setStyle(TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),       # Centra el texto dentro
+            ('LEFTPADDING', (0,0), (-1,-1), 6),
+            ('RIGHTPADDING', (3,3), (-1,-1), 6),
         ]))
-        elements.append(header_table)
+
+        # Contenedor para centrar la tabla en la página
+        info_container = Table([[info_table]], colWidths=[500])
+        info_container.setStyle(TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ]))
+
+        elements.append(info_container)
+        elements.append(Spacer(1, 14))
+
+        resumen_data = [["Concepto", "Importe"]]
+        for k, v in sumatorias_por_tipo.items():
+            resumen_data.append([k, f"${v:,.2f}"])
+
+        resumen_data += [
+            ["Total depósitos", f"${suma_depositos:,.2f}"],
+            ["Total retiros", f"${suma_retiros:,.2f}"],
+            ["Saldo final", f"${saldo_acumulado:,.2f}"]
+        ]
+
+        resumen_table = Table(resumen_data, colWidths=[160, 100])
+
+        style = TableStyle([
+            ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#4CAF50')),
+            ('TEXTCOLOR', (0,0), (-1,0), colors.white),
+            ('FONTNAME', (0,0), (-1,0), 'Helvetica-Bold'),
+            ('GRID', (0,0), (-1,-1), 0.5, colors.lightgrey),
+            ('ALIGN', (1,1), (-1,-1), 'RIGHT'),
+        ])
+
+        for i in range(1, len(resumen_data)):
+            style.add('BACKGROUND', (0,i), (-1,i), colors.HexColor('#bef2d4') if i%2==0 else colors.white)
+
+        style.add('FONTNAME', (0, len(resumen_data)-3), (-1, len(resumen_data)-1), 'Helvetica-Bold')
+        resumen_table.setStyle(style)
+
+        bloque = Table([[ resumen_table]], colWidths=[300, 260])
+        elements.append(bloque)
         elements.append(Spacer(1, 20))
-        # ===== TABLA PRINCIPAL =====
-        data = [["Fecha", "Descripción Movimiento", "Retiro", "Depósito", "Saldo Acumulado"]]
+
+        # =================== TABLA MOVIMIENTOS ===================
+        data = [["Fecha", "Concepto", "Retiros", "Depósitos", "Saldo"]]
+        saldo_temp = 0
+
         for mov in movimientos:
-            imp_retiro = float(mov.IMP_RETIRO or 0)
-            imp_deposito = float(mov.IMP_DEPOSITO or 0)
-            if imp_retiro:
-                imp_retiro = -abs(imp_retiro)
-            saldo_acumulado += imp_deposito + imp_retiro
-            suma_depositos += imp_deposito
-            suma_retiros += abs(imp_retiro)
+            ret = float(mov.IMP_RETIRO or 0)
+            dep = float(mov.IMP_DEPOSITO or 0)
+            saldo_temp += dep - ret
+
             data.append([
                 mov.FEC_REGISTRO.strftime('%d-%m-%Y'),
                 mov.COD_MOVIMIENTO.DESC_MOVIMIENTO,
-                f"${imp_retiro:,.2f}" if imp_retiro else "-",
-                f"${imp_deposito:,.2f}" if imp_deposito else "-",
-                f"${saldo_acumulado:,.2f}"
+                f"${ret:,.2f}" if ret else "-",
+                f"${dep:,.2f}" if dep else "-",
+                f"${saldo_temp:,.2f}"
             ])
-        # Crear tabla de movimientos
-        table = Table(data)
-        table.setStyle(TableStyle([
-            ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
-            ('BACKGROUND', (0, 0), (-1, 0), (76/255, 175/255, 80/255)),  # verde encabezado
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-            ('TOPPADDING', (0, 1), (-1, -1), 8),
-        ]))
-        elements.append(table)
-        # Construir el PDF
-        doc.build(elements)
+
+        tabla = Table(data, colWidths=[120, 200, 80, 80, 80])
+
+        style = TableStyle([
+            ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#4CAF50')),
+            ('TEXTCOLOR', (0,0), (-1,0), colors.white),
+            ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#DDDDDD')),
+            ('ALIGN', (0,0), (-1,-1), 'CENTER')
+        ])
+
+        for i in range(1, len(data)):
+            style.add('BACKGROUND', (0,i), (-1,i), colors.HexColor('#bef2d4') if i%2==0 else colors.white)
+
+        tabla.setStyle(style)
+        elements.append(tabla)
+
+        doc.build(
+            elements,
+            onFirstPage=lambda c, d: (dibujar_marco(c, d), dibujar_encabezado(c, d)),
+            onLaterPages=lambda c, d: (dibujar_marco(c, d), dibujar_encabezado(c, d)),
+        )
+
         return response
-    except Usuario.DoesNotExist:
+
+    except:
         return redirect('login')
-    except CatTerceros.DoesNotExist:
-        return HttpResponse("No se encontró información del tercero", status=404)
-#Temporal de correo 
+
+#--------------------------------------------Temporal de correo----------------------------------------------- 
 logger = logging.getLogger(__name__)
 def test_password_reset(request):
     if request.method == 'POST':
@@ -1117,56 +1239,42 @@ def get_proxima_fecha_pago(id_tercero, tip_tercero):
     # =========================
     # 1️⃣ FECHA DEL PRÉSTAMO
     # =========================
+     # 🔎 1. Detectar inicio del préstamo activo
     prestamo = (
         HisMovimientos.objects.filter(
             ID_TERCERO__ID_TERCERO=id_tercero,
             TIP_TERCERO=tip_tercero,
-            COD_MOVIMIENTO__COD_MOVIMIENTO=2  # PRÉSTAMO
-        )
-        .order_by('FEC_REGISTRO')
-        .first()
+            COD_MOVIMIENTO__COD_MOVIMIENTO=2
+        ).order_by('-FEC_REGISTRO').first()
     )
 
     if not prestamo:
-        return None  # nunca ha tenido préstamo
+        return None
 
-    fecha_prestamo = prestamo.FEC_REGISTRO
+    inicio_prestamo = prestamo.FEC_REGISTRO
 
-    # =========================
-    # 2️⃣ CALCULAR SALDO PENDIENTE
-    # =========================
-    total_cargos = (
-        HisMovimientos.objects.filter(
-            ID_TERCERO__ID_TERCERO=id_tercero,
-            TIP_TERCERO=tip_tercero,
-            COD_MOVIMIENTO__COD_MOVIMIENTO__in=[2, 6]
-        ).aggregate(total=Sum('IMP_RETIRO'))['total'] or 0
-    )
+    # 💰 2. Calcular saldo solo del préstamo activo
+    cargos = HisMovimientos.objects.filter(
+        ID_TERCERO__ID_TERCERO=id_tercero,
+        TIP_TERCERO=tip_tercero,
+        FEC_REGISTRO__gte=inicio_prestamo,
+        COD_MOVIMIENTO__COD_MOVIMIENTO__in=[2, 6]
+    ).aggregate(total=Sum('IMP_RETIRO'))['total'] or 0
 
-    total_pagos = (
-        HisMovimientos.objects.filter(
-            ID_TERCERO__ID_TERCERO=id_tercero,
-            TIP_TERCERO=tip_tercero,
-            COD_MOVIMIENTO__COD_MOVIMIENTO__in=[3, 4]
-        ).aggregate(total=Sum('IMP_DEPOSITO'))['total'] or 0
-    )
+    pagos = HisMovimientos.objects.filter(
+        ID_TERCERO__ID_TERCERO=id_tercero,
+        TIP_TERCERO=tip_tercero,
+        FEC_REGISTRO__gte=inicio_prestamo,
+        COD_MOVIMIENTO__COD_MOVIMIENTO__in=[3, 4]
+    ).aggregate(total=Sum('IMP_DEPOSITO'))['total'] or 0
 
-    saldo_pendiente = total_cargos - total_pagos
+    if cargos - pagos <= 0:
+        return None  # préstamo ya liquidado
 
-    if saldo_pendiente <= 0:
-        return None  # crédito liquidado
+    # 📅 3. Calcular próxima fecha de pago
+    fecha_base = inicio_prestamo + relativedelta(months=1) + timedelta(days=1)
 
-    # =========================
-    # 3️⃣ CALCULAR PRÓXIMA FECHA DE PAGO
-    # =========================
-    hoy = timezone.now().date()
-
-    fecha_base = fecha_prestamo
-
-    while True:
-        fecha_base = fecha_base + relativedelta(months=1) + timedelta(days=1)
-        if fecha_base > hoy:
-            return fecha_base
+    return fecha_base
 # -------------------------------------Vista para cargar en excel-------------------------------------
 COLUMNAS_REQUERIDAS = {
     'id_tercero',
@@ -1230,3 +1338,38 @@ def cargar_excel(request):
             })
 
     return render(request, 'registro.html')
+
+#----------------------OBTENER EL INICIO DEL PRESTAMO -----------------------------------------------
+def get_inicio_prestamo_activo(id_tercero, tip_tercero):
+
+    ultimo_prestamo = (
+        HisMovimientos.objects.filter(
+            ID_TERCERO__ID_TERCERO=id_tercero,
+            TIP_TERCERO=tip_tercero,
+            COD_MOVIMIENTO__COD_MOVIMIENTO=2
+        )
+        .order_by('-FEC_REGISTRO')
+        .first()
+    )
+
+    return ultimo_prestamo.FEC_REGISTRO if ultimo_prestamo else None
+#----------------------------------------Funcion Tasa Promedio ------------------------------------------
+def get_tasa_promedio(id_tercero, tip_tercero):
+    # Total ahorrado
+    total_ahorro = HisMovimientos.objects.filter(
+        ID_TERCERO__ID_TERCERO=id_tercero,
+        TIP_TERCERO=tip_tercero,
+        COD_MOVIMIENTO__COD_MOVIMIENTO=1
+    ).aggregate(total=Sum('IMP_DEPOSITO'))['total'] or 0
+
+    total_rendimiento = HisMovimientos.objects.filter(
+        ID_TERCERO__ID_TERCERO=id_tercero,
+        TIP_TERCERO=tip_tercero,
+        COD_MOVIMIENTO__COD_MOVIMIENTO=5
+    ).aggregate(total=Sum('IMP_DEPOSITO'))['total'] or 0
+
+    if total_ahorro <= 0:
+        return 0
+
+    tasa = (total_rendimiento / total_ahorro) * 100
+    return round(tasa, 2)
