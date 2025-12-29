@@ -500,18 +500,31 @@ def usuarios_view(request):
     return render(request, 'usuarios.html', context)
 
 def movimientos_usuario(request, id_tercero):
-    movimientos = HisMovimientos.objects.filter(
-        ID_TERCERO__ID_TERCERO=id_tercero
-    ).select_related('COD_MOVIMIENTO').order_by('-FEC_REGISTRO')
+    """
+    Devuelve los movimientos de un tercero en formato JSON
+    para mostrar en el modal.
+    Funciona tanto si el ID viene con ceros a la izquierda como sin ellos.
+    """
 
+    # Convertimos a string y generamos versión con ceros a la izquierda
+    id_tercero_str = str(id_tercero)
+    id_tercero_zfill = id_tercero_str.zfill(5)  # Por ejemplo, '2' -> '00002'
+
+    # Filtramos movimientos por ambos posibles formatos
+    movimientos = HisMovimientos.objects.filter(
+        ID_TERCERO__ID_TERCERO__in=[id_tercero_str, id_tercero_zfill]
+    ).order_by('FEC_REGISTRO')
+
+    # Convertimos el queryset a lista de diccionarios
     data = []
     for m in movimientos:
         data.append({
             'id': m.ID,
-            'fecha': m.FEC_REGISTRO.strftime('%d/%m/%Y'),
+            'id_tercero': m.ID_TERCERO.ID_TERCERO,
+            'fecha': m.FEC_REGISTRO.strftime('%Y-%m-%d') if m.FEC_REGISTRO else '',
             'concepto': m.COD_MOVIMIENTO.DESC_MOVIMIENTO,
-            'deposito': float(m.IMP_DEPOSITO or 0),
-            'retiro': float(m.IMP_RETIRO or 0),
+            'deposito': float(m.IMP_DEPOSITO) if m.IMP_DEPOSITO else 0,
+            'retiro': float(m.IMP_RETIRO) if m.IMP_RETIRO else 0
         })
 
     return JsonResponse(data, safe=False)

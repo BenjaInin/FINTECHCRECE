@@ -4666,3 +4666,67 @@ UnboundLocalError: local variable 'nombre_cliente' referenced before assignment
 [2025-12-29 05:26:57,477] WARNING django.server: "POST /movimiento/59/editar/ HTTP/1.1" 404 5564
 [2025-12-29 05:26:58,298] WARNING django.request: Not Found: /movimiento/59/editar/
 [2025-12-29 05:26:58,299] WARNING django.server: "POST /movimiento/59/editar/ HTTP/1.1" 404 5564
+[2025-12-29 06:41:34,985] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-29 06:41:35,024] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5644
+[2025-12-29 15:48:35,790] ERROR django.request: Internal Server Error: /usuarios/00010/movimientos/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 503, in movimientos_usuario
+    id_tercero = id_tercero.strip()  # Limpiar espacios
+AttributeError: 'int' object has no attribute 'strip'
+[2025-12-29 15:48:35,800] ERROR django.server: "GET /usuarios/00010/movimientos/ HTTP/1.1" 500 72007
+[2025-12-29 15:48:36,609] ERROR django.request: Internal Server Error: /usuarios/00010/movimientos/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 503, in movimientos_usuario
+    id_tercero = id_tercero.strip()  # Limpiar espacios
+AttributeError: 'int' object has no attribute 'strip'
+[2025-12-29 15:48:36,647] ERROR django.server: "GET /usuarios/00010/movimientos/ HTTP/1.1" 500 72007
+[2025-12-29 15:48:39,299] ERROR django.request: Internal Server Error: /usuarios/00012/movimientos/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 503, in movimientos_usuario
+    id_tercero = id_tercero.strip()  # Limpiar espacios
+AttributeError: 'int' object has no attribute 'strip'
+[2025-12-29 15:48:39,327] ERROR django.server: "GET /usuarios/00012/movimientos/ HTTP/1.1" 500 72007
+[2025-12-29 15:49:31,142] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-29 15:49:31,188] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5644
+[2025-12-29 15:49:50,081] ERROR django.request: Internal Server Error: /usuarios/00010/movimientos/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 503, in movimientos_usuario
+    id_tercero = id_tercero.strip()  # Limpiar espacios
+AttributeError: 'int' object has no attribute 'strip'
+[2025-12-29 15:49:50,087] ERROR django.server: "GET /usuarios/00010/movimientos/ HTTP/1.1" 500 72025
+[2025-12-29 15:53:18,677] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-29 15:53:19,055] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5644
+[2025-12-29 15:53:24,650] ERROR django.request: Internal Server Error: /usuarios/00010/movimientos/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 514, in movimientos_usuario
+    return render(request, 'movimientos.html', {'movimientos': movimientos})
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: movimientos.html
+[2025-12-29 15:53:24,658] ERROR django.server: "GET /usuarios/00010/movimientos/ HTTP/1.1" 500 86974
+[2025-12-29 15:59:31,413] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-12-29 15:59:31,841] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5644

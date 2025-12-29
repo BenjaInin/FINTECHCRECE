@@ -18,8 +18,8 @@ urlpatterns = [
     path('lista_movimientos/', views.lista_movimientos, name='lista_movimientos'),
     path('generar_reporte_pdf/', views.generar_reporte_pdf, name='generar_reporte_pdf'),
     path('usuarios/', views.usuarios_view, name='usuarios'),
-    path('usuarios/<int:id_tercero>/movimientos/', views.movimientos_usuario, name='movimientos_usuario'),
-    path('movimiento/<int:id>/eliminar/', views.eliminar_movimiento, name='eliminar_movimiento'),
+    path('usuarios/<str:id_tercero>/movimientos/', views.movimientos_usuario, name='movimientos_usuario'),
+    path('movimiento/<str:id>/eliminar/', views.eliminar_movimiento, name='eliminar_movimiento'),
 
 
     # Path para remplazo de contraseña

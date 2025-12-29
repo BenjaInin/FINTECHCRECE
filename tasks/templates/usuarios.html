@@ -367,49 +367,67 @@ function getCSRFToken() {
     return document.querySelector('#csrf-form input[name=csrfmiddlewaretoken]').value;
 }
 </script>
+
+
 <script>
 function verMovimientos(id) {
     fetch(`/usuarios/${id}/movimientos/`)
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error("Error al obtener los movimientos");
+            return res.json();
+        })
         .then(data => {
             let body = '';
 
-            data.forEach(m => {
-                body += `
-                <tr id="row-${m.id}" class="border-b">
-                    <td class="p-2 font-mono text-slate-600">${m.id}</td>
-                    <td class="p-2">${m.fecha}</td>
-                    <td class="p-2">${m.concepto}</td>
+            if (data.length === 0) {
+                body = `<tr><td colspan="6" class="text-center p-4 text-slate-500">No hay movimientos para este usuario</td></tr>`;
+            } else {
+                data.forEach(m => {
+                    body += `
+                    <tr id="row-${m.id}" class="border-b">
+                        <td class="p-2 font-mono text-slate-600">${m.id}</td>
+                        <td class="p-2">${m.fecha}</td>
+                        <td class="p-2">${m.concepto}</td>
 
-                    <td class="p-2 text-right">
-                        <input class="w-20 border rounded p-1 text-right"
-                               value="${m.deposito}"
-                               id="dep-${m.id}">
-                    </td>
+                        <td class="p-2 text-right">
+                            <input class="w-20 border rounded p-1 text-right"
+                                   value="${m.deposito}"
+                                   id="dep-${m.id}">
+                        </td>
 
-                    <td class="p-2 text-right">
-                        <input class="w-20 border rounded p-1 text-right"
-                               value="${m.retiro}"
-                               id="ret-${m.id}">
-                    </td>
+                        <td class="p-2 text-right">
+                            <input class="w-20 border rounded p-1 text-right"
+                                   value="${m.retiro}"
+                                   id="ret-${m.id}">
+                        </td>
 
-                    <td class="p-2 text-right space-x-2">
-                        <button onclick="guardarMovimiento(${m.id})" class="text-blue-600">
-                            <i class="fas fa-save"></i>
-                        </button>
+                        <td class="p-2 text-right space-x-2">
+                            <button onclick="guardarMovimiento(${m.id})" class="text-blue-600">
+                                <i class="fas fa-save"></i>
+                            </button>
 
-                        <button onclick="eliminarMovimiento(${m.id})" class="text-red-600">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>`;
-            });
+                            <button onclick="eliminarMovimiento(${m.id})" class="text-red-600">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>`;
+                });
+            }
 
             document.getElementById('movimientosBody').innerHTML = body;
             document.getElementById('movModal').classList.remove('hidden');
             document.getElementById('movModalOverlay').classList.remove('hidden');
+        })
+        .catch(err => {
+            console.error(err);
+            Swal.fire({
+                title: 'Error',
+                text: 'No se pudieron cargar los movimientos. Intenta de nuevo.',
+                icon: 'error'
+            });
         });
 }
+
 
 function closeMovModal() {
     document.getElementById('movModal').classList.add('hidden');
