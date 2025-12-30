@@ -528,7 +528,6 @@ def movimientos_usuario(request, id_tercero):
         })
 
     return JsonResponse(data, safe=False)
-
 @require_POST
 def eliminar_movimiento(request, id):
     mov = get_object_or_404(HisMovimientos, ID=id)
@@ -777,11 +776,14 @@ def lista_movimientos(request):
         # =========================
         # PROCESAMIENTO
         # =========================
+        suma_prestamo = 0        # para COD_MOVIMIENTO 2
+        suma_pago_capital = 0    # para COD_MOVIMIENTO 4
+        prestamo_por_liquidar = 0
+
         for mov in movimientos:
             imp_deposito = float(mov.IMP_DEPOSITO or 0)
             imp_retiro = float(mov.IMP_RETIRO or 0)
 
-            # SALDO CONTABLE
             saldo_mov = imp_deposito - imp_retiro
             saldo_acumulado += saldo_mov
             mov.saldo_acumulado = saldo_acumulado
@@ -789,21 +791,55 @@ def lista_movimientos(request):
             suma_depositos += imp_deposito
             suma_retiros += imp_retiro
 
-            # SUMATORIAS VISUALES (SIEMPRE POSITIVAS)
             tipo_movimiento = mov.COD_MOVIMIENTO.DESC_MOVIMIENTO
-            sumatorias_por_tipo[tipo_movimiento] = (
-                sumatorias_por_tipo.get(tipo_movimiento, 0)
-                + abs(imp_deposito)
-                + abs(imp_retiro)
-            )
+            cod_movimiento = mov.COD_MOVIMIENTO.COD_MOVIMIENTO
 
+            # ------------------------------
+            # OMITIMOS agregar PRESTAMO a sumatorias_por_tipo dentro del bucle
+            # ------------------------------
+            if tipo_movimiento != 'PRESTAMO':  
+                sumatorias_por_tipo[tipo_movimiento] = (
+                    sumatorias_por_tipo.get(tipo_movimiento, 0)
+                    + abs(imp_deposito)
+                    + abs(imp_retiro)
+                )
+
+            # ------------------------------
             # PRÉSTAMO POR LIQUIDAR (POSITIVO)
-            if tipo_movimiento in ['PRESTAMO', 'PAG.CAPIT.PREST.']:
-                prestamo_por_liquidar += abs(imp_deposito) + abs(imp_retiro)
+            # ------------------------------
+            if tipo_movimiento == 'PRESTAMO':
+                prestamo_por_liquidar += imp_retiro
+                suma_prestamo += imp_retiro  # para el cálculo final
+            elif tipo_movimiento == 'PAG.CAPIT.PREST.':
+                prestamo_por_liquidar -= imp_deposito
+                suma_pago_capital += imp_deposito  # para el cálculo final
 
-        sumatorias_por_tipo['Préstamo por liquidar'] = prestamo_por_liquidar
+        # ------------------------------
+        # ASIGNAR LOS RESULTADOS
+        # ------------------------------
+        sumatorias_por_tipo['PRESTAMO PARA LIQUIDAR'] = prestamo_por_liquidar
+        sumatorias_por_tipo['PRESTAMO'] = suma_prestamo - suma_pago_capital
 
         now = timezone.now()
+        # ORDEN DE CONCEPTOS
+        orden_conceptos = [
+            'DEPOSITO AHORR.',
+            'PRESTAMO',
+            'INTER.PRESTAMO',
+            'PAG.INTE.PREST.',
+            'PAG.CAPIT.PREST.',
+            'RENDIMIENTO DEL PERIODO',
+            'PRESTAMO PARA LIQUIDAR'
+        ]
+
+        sumatorias_ordenadas = {}
+
+        for concepto in orden_conceptos:
+            if concepto in sumatorias_por_tipo:
+                sumatorias_ordenadas[concepto] = sumatorias_por_tipo[concepto]
+
+        # Reemplazamos el original
+        sumatorias_por_tipo = sumatorias_ordenadas
 
         # =========================
         # RENDER
@@ -1003,17 +1039,42 @@ def generar_reporte_pdf(request):
         return redirect('login')
 
     try:
+        # =================== OBTENER USUARIO Y TERCERO ===================
         usuario = Usuario.objects.get(COD_USUARIO=user_id)
-        tercero = CatTerceros.objects.get(COD_USUARIO=usuario)
+
+        # Revisar si se envió un tercero por GET (solo admin)
+        id_tercero_get = request.GET.get('id_tercero')
+
+        if usuario.COD_PERMISOS == 99 and id_tercero_get:  # admin seleccionando otro usuario
+            try:
+                tercero = CatTerceros.objects.get(ID_TERCERO=id_tercero_get)
+            except CatTerceros.DoesNotExist:
+                return HttpResponse("Usuario seleccionado no existe")
+        else:
+            tercero = CatTerceros.objects.get(COD_USUARIO=usuario)
+
         nombre_completo = f"{tercero.NOM_TERCERO} {tercero.APE_PATERNO} {tercero.APE_MATERNO}"
 
         # =================== FILTRO FECHA ===================
-        mes = request.GET.get('month')
-        año = request.GET.get('year')
+        # Parámetros GET para rango de fechas
+        # Fecha de emisión
+        fecha_emision = timezone.now().strftime('%d-%m-%Y')
+        mes_inicio = request.GET.get('month_start')
+        año_inicio = request.GET.get('year_start')
+        mes_fin = request.GET.get('month_end')
+        año_fin = request.GET.get('year_end')
 
-        if mes and año:
-            start_date = f"{año}-{mes}-01"
-            end_date = f"{int(año)+1}-01-01" if mes == '12' else f"{año}-{str(int(mes)+1).zfill(2)}-01"
+        if mes_inicio and año_inicio:
+            start_date = f"{año_inicio}-{mes_inicio}-01"
+
+            # Si mes_fin y año_fin existen Y son diferentes al inicio
+            if mes_fin and año_fin and (mes_fin != mes_inicio or año_fin != año_inicio):
+                end_date = f"{año_fin}-{mes_fin}-01"
+                # Ajustar para incluir todo el mes final
+                end_date = (datetime.strptime(end_date, "%Y-%m-%d") + relativedelta(months=1)).strftime("%Y-%m-%d")
+            else:
+                # Solo un mes
+                end_date = f"{año_inicio}-{str(int(mes_inicio)+1).zfill(2)}-01" if mes_inicio != '12' else f"{int(año_inicio)+1}-01-01"
 
             movimientos = HisMovimientos.objects.filter(
                 ID_TERCERO__ID_TERCERO=tercero.ID_TERCERO,
@@ -1021,11 +1082,7 @@ def generar_reporte_pdf(request):
                 FEC_REGISTRO__gte=start_date,
                 FEC_REGISTRO__lt=end_date
             ).select_related('COD_MOVIMIENTO').order_by('FEC_REGISTRO')
-        else:
-            movimientos = HisMovimientos.objects.filter(
-                ID_TERCERO__ID_TERCERO=tercero.ID_TERCERO,
-                TIP_TERCERO=tercero.TIP_TERCERO
-            ).select_related('COD_MOVIMIENTO').order_by('FEC_REGISTRO')
+
 
         if not movimientos:
             return HttpResponse("No hay movimientos")
@@ -1047,7 +1104,7 @@ def generar_reporte_pdf(request):
             sumatorias_por_tipo[tipo] = sumatorias_por_tipo.get(tipo, 0) + dep + ret
 
         response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="Estado_de_cuenta_{usuario.COD_USUARIO}.pdf"'
+        response['Content-Disposition'] = f'attachment; filename="Estado_de_cuenta_{tercero.NOM_TERCERO} {tercero.APE_PATERNO} {tercero.APE_MATERNO}_{fecha_emision}.pdf"'
 
         doc = SimpleDocTemplate(response, pagesize=letter)
         styles = getSampleStyleSheet()
@@ -1065,7 +1122,7 @@ def generar_reporte_pdf(request):
 
         info = [
             [Paragraph(f"<b>Periodo:</b> {periodo}", styles['Normal'])],
-            [Paragraph(f"<b>Fecha de emisión:</b> {fecha_emision}", styles['Normal'])]
+            [Paragraph(f"<b>Fecha de consulta:</b> {fecha_emision}", styles['Normal'])]
         ]
 
         info_table = Table(info, colWidths=[300])
@@ -1157,6 +1214,7 @@ def generar_reporte_pdf(request):
 
     except:
         return redirect('login')
+
 
 #--------------------------------------------Temporal de correo----------------------------------------------- 
 logger = logging.getLogger(__name__)

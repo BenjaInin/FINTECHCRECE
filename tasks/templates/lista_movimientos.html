@@ -410,83 +410,149 @@
             {% endif %}
         </div>
     </div>
-
 <script>
-    document.getElementById('generate-report-btn')?.addEventListener('click', function() {
-        Swal.fire({
-            title: 'Selecciona el Mes y Año',
-            html: `
-                <style>
-                   .swal2-input,
-                        .swal2-select {
-                            width: 90% !important;
-                            display: block;
-                            margin: 5px auto 10px auto !important;
-                            border: 1px solid #4CAF50 !important;
-                            border-radius: 6px !important;
-                            padding: 8px 10px !important;
-                            font-size: 16px !important;
-                            background-color: #fff !important;
-                            color: #333 !important;
-                            box-sizing: border-box;
-                        }
-
-                        .swal2-input:focus,
-                        .swal2-select:focus {
-                            outline: none !important;
-                            border-color: #3a9440 !important;
-                            box-shadow: 0 0 5px #81c784 !important;
-                        }
-
-                        .swal2-label {
-                            display: block;
-                            font-weight: bold;
-                            text-align: left;
-                            margin: 8px 0 3px 5%;
-                            color: #333;
-                        }
-                </style>
-                <label for="month" class="swal2-label">Mes:</label>
-                <select id="month" class="swal2-select">
-                    <option value="01">Enero</option>
-                    <option value="02">Febrero</option>
-                    <option value="03">Marzo</option>
-                    <option value="04">Abril</option>
-                    <option value="05">Mayo</option>
-                    <option value="06">Junio</option>
-                    <option value="07">Julio</option>
-                    <option value="08">Agosto</option>
-                    <option value="09">Septiembre</option>
-                    <option value="10">Octubre</option>
-                    <option value="11">Noviembre</option>
-                    <option value="12">Diciembre</option>
-                </select>
-                <br>
-                <label for="year" class="swal2-label">Año:</label>
-                <input type="number" id="year" class="swal2-input" value="${new Date().getFullYear()}" min="2000" max="2100">
-            `,
-            showCancelButton: true,
-            confirmButtonText: 'Generar Reporte',
-            cancelButtonText: 'Cancelar',
-            confirmButtonColor:  '#2b3e50',
-            cancelButtonColor: '#d33',
-            preConfirm: () => {
-                const month = document.getElementById('month').value;
-                const year = document.getElementById('year').value;
-                if (!month || !year) {
-                    Swal.showValidationMessage('Por favor, selecciona el mes y el año');
-                    return false;
+document.getElementById('generate-report-btn')?.addEventListener('click', function() {
+    Swal.fire({
+        title: 'Selecciona el rango de fechas',
+        html: `
+            <style>
+                .swal2-input, .swal2-select {
+                    width: 80% !important;
+                    display: block;
+                    margin: 5px auto 10px auto !important;
+                    border: 2px solid #4CAF50 !important; /* borde verde */
+                    border-radius: 6px !important;
+                    padding: 8px 10px !important;
+                    font-size: 16px !important;
+                    background-color: #fff !important;
+                    color: #333 !important;
+                    text-align: center;
+                    box-sizing: border-box;
                 }
-                return { month, year };
+                .swal2-input:focus, .swal2-select:focus {
+                    outline: none !important;
+                    border-color: #3a9440 !important;
+                    box-shadow: 0 0 5px #81c784 !important;
+                }
+                .swal2-label {
+                    display: block;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 8px 0 3px 0;
+                    color: #2b3e50;
+                    font-size: 15px;
+                }
+                .swal2-title {
+                    font-size: 20px !important;
+                    color: #2b3e50 !important;
+                    text-align: center !important;
+                }
+                .swal2-html-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+                .separator {
+                    width: 90%;
+                    height: 1px;
+                    background-color: #ccc;
+                    margin: 15px auto;
+                }
+                .label-optional {
+                    font-size: 13px;
+                    color: #777;
+                    text-align: center;
+                    margin: 5px 0 5px 0;
+                }
+            </style>
+            
+            <!-- Fecha inicio -->
+            <label class="swal2-label">Mes inicio:</label>
+            <select id="month_start" class="swal2-select">
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+
+            <label class="swal2-label">Año inicio:</label>
+            <input type="number" id="year_start" class="swal2-input" value="${new Date().getFullYear()}" min="2000" max="2100">
+
+            <div class="separator"></div>
+            <div class="label-optional">Opcional</div>
+
+            <!-- Fecha fin -->
+            <label class="swal2-label">Mes fin:</label>
+            <select id="month_end" class="swal2-select">
+                <option value="">-- Selecciona --</option>
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+
+            <label class="swal2-label">Año fin:</label>
+            <input type="number" id="year_end" class="swal2-input" placeholder="Opcional" min="2000" max="2100">
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Generar Reporte',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#0f2c55', // azul marino
+        cancelButtonColor: '#d33', // rojo
+        preConfirm: () => {
+            const month_start = document.getElementById('month_start').value;
+            const year_start = document.getElementById('year_start').value;
+            const month_end = document.getElementById('month_end').value;
+            const year_end = document.getElementById('year_end').value;
+
+            if (!month_start || !year_start) {
+                Swal.showValidationMessage('Por favor, selecciona al menos el mes y año de inicio');
+                return false;
             }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const { month, year } = result.value;
-                // Redirige con parámetros para generar el PDF
-                window.location.href = `/generar_reporte_pdf/?month=${month}&year=${year}`;
+
+            return { month_start, year_start, month_end, year_end };
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const { month_start, year_start, month_end, year_end } = result.value;
+
+            // Obtener id del tercero solo si existe (admins)
+            const id_tercero = document.getElementById('id_tercero')?.value || '';
+
+           // Construir URL base con mes y año de inicio
+            let url = `/generar_reporte_pdf/?month_start=${month_start}&year_start=${year_start}`;
+
+            // Solo agregar mes/año fin si el usuario seleccionó algo
+            if (month_end && year_end) {
+                url += `&month_end=${month_end}&year_end=${year_end}`;
             }
-        });
+
+            // Agregar id del tercero si existe
+            if (id_tercero) {
+                url += `&id_tercero=${id_tercero}`;
+            }
+
+            // Redirigir a la URL
+            window.location.href = url;
+        }
     });
+});
 </script>
 {% if error %}
 <script>
