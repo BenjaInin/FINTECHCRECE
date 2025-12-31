@@ -20,6 +20,8 @@ urlpatterns = [
     path('usuarios/', views.usuarios_view, name='usuarios'),
     path('usuarios/<str:id_tercero>/movimientos/', views.movimientos_usuario, name='movimientos_usuario'),
     path('movimiento/<str:id>/eliminar/', views.eliminar_movimiento, name='eliminar_movimiento'),
+    path('usuarios/<str:id>/eliminar/', views.eliminar_usuario, name='eliminar_usuario'),
+    path('usuarios/editar/', views.editar_usuario, name='editar_usuario'),
 
 
     # Path para remplazo de contraseña

@@ -5,26 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración de Usuarios - crecetuLana</title>
+    <link rel="icon" href="{% static '/images/logo_favicon.png' %}" type="image/png">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
+        
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
         }
-
+        body.no-scroll {
+              overflow: hidden !important;
+            height: 100vh !important;
+        }
         .custom-gradient {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         }
 
-        #editModal {
-            transition: transform 0.3s ease-in-out;
-        }
-
+  
         .modal-hidden {
             transform: translateX(100%);
         }
@@ -40,11 +41,22 @@
         .no-scroll{
             overflow: hidden !important;
         }
-        * ------------------ RESPONSIVE MÓVIL ------------------ */
+        /* Estado oculto */
+        #editModal.modal-hidden {
+            transform: translateX(100%);
+        }
+
+        /* Estado visible */
+        #editModal.modal-visible {
+            transform: translateX(0);
+        }
+
+       
+        /* ------------------ RESPONSIVE MÓVIL ------------------ */
 @media (max-width: 768px) {
      header {
-        flex-direction: row !important;
-        align-items: center !important;
+        flex-direction: row;
+        align-items: center ;
     }
 
     header > div:first-child {
@@ -126,6 +138,16 @@
         margin-top: -50px;
         margin-bottom: 32px;
     }
+    
+     #editModal.modal-hidden {
+        transform: translateY(100%);
+    }
+
+     #editModal.modal-visible {
+        transform: translateY(0);
+    }
+}
+
     
     </style>
 </head>
@@ -250,13 +272,17 @@
                     </td>
 
                     <td class="px-8 py-4 text-right">
-                        <button onclick="openEditModal('{{ t.NOM_TERCERO }}', '{{ t.COD_USUARIO.TIP_USUARIO }}', '{{ t.COD_USUARIO.CORREO }}')"
+                        <button onclick="openEditModal('{{ t.ID_TERCERO }}','{{ t.NOM_TERCERO }}','{{ t.APE_PATERNO }}','{{ t.APE_MATERNO }}','{{ t.COD_USUARIO.TIP_USUARIO }}','{{ t.COD_USUARIO.CORREO }}','{{ t.MCA_INHABILITADO }}')"
                                 class="text-blue-600 hover:bg-blue-50 p-2 rounded">
                             <i class="fas fa-edit"></i>
                         </button>
                         <button onclick="verMovimientos('{{ t.ID_TERCERO }}')"
                                 class="text-emerald-600 hover:bg-emerald-50 p-2 rounded">
                             <i class="fas fa-list"></i>
+                        </button>
+                         <button onclick="eliminarUsuario('{{ t.ID_TERCERO }}')"
+                                class="text-red-600 hover:bg-red-50 p-2 rounded">
+                            <i class="fas fa-trash"></i>
                         </button>
                     </td>
                 </tr>
@@ -268,100 +294,142 @@
 
 </div>
 </main>
+<!-- OVERLAY -->
+<div id="editModalOverlay"
+     class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[1000] hidden"
+     onclick="closeEditModal()"></div>
 
-  <!-- MODAL LATERAL DE EDICIÓN (SLIDE-OVER) -->
-        <div id="editModalOverlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden" onclick="closeEditModal()"></div>
-        
-        <div id="editModal" class="fixed top-0 right-0 w-full max-w-md h-full glass-effect z-50 shadow-2xl modal-hidden border-l border-white">
-            <div class="flex flex-col h-full">
-                <!-- Header Modal -->
-                <div class="p-8 border-b border-slate-100 flex justify-between items-center">
-                    <div>
-                        <h2 class="text-xl font-black text-slate-800">Editar Usuario</h2>
-                        <p class="text-xs text-slate-400 font-medium">Modifica los permisos y datos personales.</p>
-                    </div>
-                    <button onclick="closeEditModal()" class="w-10 h-10 rounded-full hover:bg-slate-100 transition-colors flex items-center justify-center text-slate-400">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+<!-- MODAL -->
+<div id="editModal"
+     class="fixed bottom-0 right-0 w-full max-w-md
+            h-[80vh] md:h-full
+            bg-white shadow-2xl modal-hidden
+            z-[2100]
+            rounded-t-2xl md:rounded-none">
 
-                <!-- Formulario Modal -->
-                <div class="flex-1 overflow-y-auto p-6 space-y-4">
-                    <!-- Foto de Perfil en el modal -->
-                    <div class="flex flex-col items-center gap-3 mb-4">
-                        <div class="relative group">
-                            <img id="modalImg" src="https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff" class="w-24 h-24 rounded-3xl shadow-xl border-4 border-white transition-all" alt="Avatar">
-                            <button class="absolute bottom-0 right-0 bg-blue-600 text-white w-8 h-8 rounded-full border-2 border-white text-xs shadow-lg group-hover:scale-110 transition-transform">
-                                <i class="fas fa-camera"></i>
-                            </button>
-                        </div>
-                    </div>
+    <div class="flex flex-col h-full">
+        <!-- HEADER -->
+        <div class="p-3 border-b flex justify-between items-center">
+            <div>
+                <h2 class="text-xl text-blue-900 font-bold">Editar Usuario</h2>
+                <p class="text-xs text-gray-400">Datos del usuario</p>
+            </div>
+            <button onclick="closeEditModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
 
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Nombre Completo</label>
-                            <input type="text" id="editName" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm font-medium">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Correo Electrónico</label>
-                            <input type="email"  id="editEmail" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm font-medium text-slate-500 cursor-not-allowed" readonly>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Rol en la Plataforma</label>
-                            <select id="editRole" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm font-medium appearance-none">
-                                <option value="Administrador">Administrador</option>
-                                <option value="Analista Riesgo">Analista Riesgo</option>
-                                <option value="Cliente Premium">Cliente Premium</option>
-                                <option value="Soporte">Soporte IT</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Estado de Cuenta</label>
-                            <div class="flex gap-4 mt-2">
-                                <label class="flex-1 cursor-pointer">
-                                    <input type="radio" name="status" checked class="hidden peer">
-                                    <div class="w-full p-3 text-center rounded-2xl border border-slate-200 text-xs font-bold peer-checked:border-emerald-500 peer-checked:bg-emerald-50 peer-checked:text-emerald-700 transition-all">Activo</div>
-                                </label>
-                                <label class="flex-1 cursor-pointer">
-                                    <input type="radio" name="status" class="hidden peer">
-                                    <div class="w-full p-3 text-center rounded-2xl border border-slate-200 text-xs font-bold peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:text-red-700 transition-all">Bloqueado</div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- FORMULARIO -->
+        <div class="flex-1 overflow-y-auto p-1 space-y-3 text-sm">
+            <input type="hidden" id="editUserId">
 
-                <!-- Footer Modal -->
-                <div class="p-8 border-t border-slate-100 bg-slate-50/50 flex gap-3">
-                    <button onclick="closeEditModal()" class="flex-1 px-6 py-3.5 border border-slate-200 text-slate-600 rounded-2xl font-bold text-sm hover:bg-white transition-all">Cancelar</button>
-                    <button class="flex-1 px-6 py-3.5 bg-blue-600 text-white rounded-2xl font-bold text-sm hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all">Guardar Cambios</button>
+            <div>
+                <label class="text-xs font-bold uppercase text-blue-900 text-sm">Nombre</label>
+                <input id="editNombre" class="w-full px-2 py-1 border rounded-xl">
+            </div>
+
+            <div>
+                <label class="text-xs font-bold uppercase text-blue-900">Apellido Paterno</label>
+                <input id="editApellidoPaterno" class="w-full px-2 py-1 border rounded-xl">
+            </div>
+
+            <div>
+                <label class="text-xs font-bold uppercase text-blue-900">Apellido Materno</label>
+                <input id="editApellidoMaterno" class="w-full px-2 py-1 border rounded-xl">
+            </div>
+
+            <div>
+                <label class="text-xs font-bold uppercase text-blue-900">Correo</label>
+                <input id="editEmail" type="email" class="w-full px-2 py-1 border rounded-xl">
+            </div>
+
+            <div>
+                <label class="text-xs font-bold uppercase text-blue-900">Rol</label>
+                <select id="editRole" class="w-full px-2 py-1 border rounded-xl">
+                    <option value="ADM">Administrador</option>
+                    <option value="ACC">Accionista</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="text-xs font-bold uppercase text-blue-900">Estado</label>
+                <div class="flex gap-4 mt-2">
+                    <label class="flex-1 cursor-pointer">
+                        <input type="radio" name="status" value="N" class="hidden peer">
+                        <div class="p-2 text-center border rounded-xl
+                                    peer-checked:bg-emerald-50
+                                    peer-checked:border-emerald-500">
+                            Activo
+                        </div>
+                    </label>
+
+                    <label class="flex-1 cursor-pointer">
+                        <input type="radio" name="status" value="S" class="hidden peer">
+                        <div class="p-2 text-center border rounded-xl
+                                    peer-checked:bg-red-50
+                                    peer-checked:border-red-500">
+                            Bloqueado
+                        </div>
+                    </label>
                 </div>
             </div>
         </div>
 
+        <!-- FOOTER -->
+        <div class="p-8 border-t border-slate-100 bg-slate-50/50 flex gap-3 modal-footer text-sm">
+            <button onclick="closeEditModal()"
+                    class="flex-1 px-6 py-3.5 bg-red-500 text-white border border-slate-200 text-slate-600 rounded-2xl font-bold text-sm hover:bg-red-700 transition-all">
+                Cancelar
+            </button>
+
+            <button onclick="guardarCambiosUsuario()"
+                    class="flex-1 px-6 py-3.5 bg-blue-600 text-white rounded-2xl font-bold text-sm hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all">
+                Guardar Cambios
+            </button>
+        </div>
+    </div>
+</div>
 
 <script>
-    const modal = document.getElementById('editModal');
-    const overlay = document.getElementById('editModalOverlay');
-    const editName = document.getElementById('editName');
-    const editRole = document.getElementById('editRole');
-    const editEmail = document.getElementById('editEmail');
+const modal = document.getElementById('editModal');
+const overlay = document.getElementById('editModalOverlay');
 
-    function openEditModal(name, role, email) {
-        editName.value = name;
-        editRole.value = role;
-        editEmail.value = email;
-        overlay.classList.remove('hidden');
-        modal.classList.remove('modal-hidden');
-        document.body.classList.add('no-scroll');
-        
-    }
+// Evitar que clicks dentro del modal cierren el modal
+modal.addEventListener('click', function(event) {
+    event.stopPropagation();
+});
 
-    function closeEditModal() {
-        overlay.classList.add('hidden');
-        modal.classList.add('modal-hidden');
-    }
+let scrollPos = 0;
+
+function openEditModal(id, nombre, apePat, apeMat, rol, correo, estado) {
+    scrollPos = window.pageYOffset;
+
+    document.getElementById('editUserId').value = id;
+    document.getElementById('editNombre').value = nombre;
+    document.getElementById('editApellidoPaterno').value = apePat;
+    document.getElementById('editApellidoMaterno').value = apeMat;
+    document.getElementById('editEmail').value = correo;
+    document.getElementById('editRole').value = rol;
+
+    const radioEstado = document.querySelector(`input[name="status"][value="${estado}"]`);
+    if (radioEstado) radioEstado.checked = true;
+
+    overlay.classList.remove('hidden');
+    modal.classList.remove('modal-hidden');
+    modal.classList.add('modal-visible');
+
+    document.body.classList.add('no-scroll');
+}
+
+function closeEditModal() {
+    modal.classList.remove('modal-visible');
+    modal.classList.add('modal-hidden');
+    overlay.classList.add('hidden');
+    document.body.classList.remove('no-scroll');
+    window.scrollTo(0, scrollPos);
+}
 </script>
+
 <script>
 function getCSRFToken() {
     return document.querySelector('#csrf-form input[name=csrfmiddlewaretoken]').value;
@@ -370,6 +438,8 @@ function getCSRFToken() {
 
 
 <script>
+
+//------------------------------------------------------------------ Ver movimientos ------------------------------------
 function verMovimientos(id) {
     fetch(`/usuarios/${id}/movimientos/`)
         .then(res => {
@@ -428,7 +498,7 @@ function verMovimientos(id) {
         });
 }
 
-
+//---------------------------------------- Cerrar Modal---------------------------------
 function closeMovModal() {
     document.getElementById('movModal').classList.add('hidden');
     document.getElementById('movModalOverlay').classList.add('hidden');
@@ -436,6 +506,7 @@ function closeMovModal() {
 </script>
 
 <script>
+ //------------------------------------------Guardar movimiento--------------------------------   
 function guardarMovimiento(id){
     fetch(`/movimiento/${id}/editar/`, {
         method: 'POST',
@@ -455,7 +526,7 @@ function guardarMovimiento(id){
         }
     });
 }
-
+//-----------------------Eliminar movimiento ----------------------------------------------------------
 function eliminarMovimiento(id){
 
     Swal.fire({
@@ -506,6 +577,108 @@ function eliminarMovimiento(id){
                 icon: 'error'
             });
         });
+    });
+}
+// ------------------------------------- Eliminar usuario-------------------------------------------------
+function eliminarUsuario(id) {
+
+    Swal.fire({
+        title: '¿Eliminar usuario?',
+        text: 'Se eliminará el usuario y toda su información asociada',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#e11d48',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+
+        if (!result.isConfirmed) return;
+
+        fetch(`/usuarios/${id}/eliminar/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCSRFToken(),
+                'Accept': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.ok) {
+
+                Swal.fire({
+                    title: 'Usuario eliminado',
+                    text: 'El usuario fue eliminado correctamente',
+                    icon: 'success',
+                    timer: 1800,
+                    showConfirmButton: false
+                });
+
+                // Recargar la página para actualizar la tabla
+                setTimeout(() => {
+                    location.reload();
+                }, 1800);
+
+            } else {
+                throw new Error(data.error || 'Error desconocido');
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            Swal.fire({
+                title: 'Error',
+                text: 'No se pudo eliminar el usuario',
+                icon: 'error'
+            });
+        });
+    });
+}
+
+//----------------------------   Guardar cambios -----------------------------------------------------
+function guardarCambiosUsuario() {
+    fetch('/usuarios/editar/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({
+            id: editUserId.value,
+            nombre: editNombre.value,
+            apellido_paterno: editApellidoPaterno.value,
+            apellido_materno: editApellidoMaterno.value,
+            correo: editEmail.value,
+            rol: editRole.value,
+            estado: document.querySelector('input[name="status"]:checked').value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.ok) {
+            // SweetAlert que se muestra por encima del modal
+            Swal.fire({
+                title: 'Actualizado',
+                text: 'Usuario actualizado',
+                icon: 'success',
+                customClass: {
+                    container: 'z-[9999]'
+                },
+                timer: 1000,
+                showConfirmButton: false
+            });
+
+            // Recargar la página después del timer
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: data.error,
+                icon: 'error',
+                customClass: {
+                    container: 'z-[9999]'
+                }
+            });
+        }
     });
 }
 </script>
