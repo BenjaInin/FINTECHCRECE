@@ -26,13 +26,8 @@ SECRET_KEY = 'django-insecure-jubrn%12#17vqnf&h1t!k%vz2=j_xx+#3n1wyl^skhbb@3$5aj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['noncontextually-subcordate-zola.ngrok-free.dev',
-                'localhost',
-                '127.0.0.1',]
+ALLOWED_HOSTS = ['3.142.196.1']
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://noncontextually-subcordate-zola.ngrok-free.dev',
-]
 
 # Application definition
 
@@ -89,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'DB_FINTECH',
         'USER':'bmendez',
-        'PASSWORD':'inte1204',
+        'PASSWORD':'Cr3ce26#l4na',
         'HOST':'localhost',
         'PORT':'3306'
     }
