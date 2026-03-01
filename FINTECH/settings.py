@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-jubrn%12#17vqnf&h1t!k%vz2=j_xx+#3n1wyl^skhbb@3$5aj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.142.196.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -82,8 +82,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'DB_FINTECH',
-        'USER':'bmendez',
-        'PASSWORD':'Cr3ce26#l4na',
+        'USER':'root',
+        'PASSWORD':'',
         'HOST':'localhost',
         'PORT':'3306'
     }
