@@ -5028,3 +5028,97 @@ TypeError: unsupported operand type(s) for +=: 'decimal.Decimal' and 'float'
 [2025-12-31 03:40:13,955] ERROR django.server: "GET /dashboard/ HTTP/1.1" 500 74301
 [2026-01-20 19:08:40,628] WARNING django.request: Not Found: /login/img/icono.ico
 [2026-01-20 19:08:40,630] WARNING django.server: "GET /login/img/icono.ico HTTP/1.1" 404 5948
+[2026-02-08 03:47:14,008] WARNING django.request: Not Found: /login/img/icono.ico
+[2026-02-08 03:47:14,010] WARNING django.server: "GET /login/img/icono.ico HTTP/1.1" 404 5948
+[2026-02-08 03:48:34,720] WARNING django.request: Not Found: /favicon.ico
+[2026-02-08 03:48:34,722] WARNING django.server: "GET /favicon.ico HTTP/1.1" 404 5924
+[2026-02-08 03:49:32,836] INFO tasks.views: Contraseña actualizada correctamente para bmendez@inintech.com.mx
+[2026-02-26 23:06:35,190] ERROR django.security.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+[2026-02-26 23:06:35,280] WARNING django.server: "GET / HTTP/1.1" 400 75569
+[2026-02-26 23:06:36,014] ERROR django.security.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+[2026-02-26 23:06:36,021] WARNING django.server: "GET /favicon.ico HTTP/1.1" 400 75412
+[2026-02-26 23:07:56,589] WARNING django.request: Not Found: /login/img/icono.ico
+[2026-02-26 23:07:56,591] WARNING django.server: "GET /login/img/icono.ico HTTP/1.1" 404 5948
+[2026-02-26 23:07:59,917] WARNING django.request: Not Found: /login/usuarios
+[2026-02-26 23:07:59,919] WARNING django.server: "GET /login/usuarios HTTP/1.1" 404 5933
+[2026-02-26 23:08:00,016] WARNING django.request: Not Found: /favicon.ico
+[2026-02-26 23:08:00,021] WARNING django.server: "GET /favicon.ico HTTP/1.1" 404 5924
+[2026-02-26 23:10:42,508] ERROR django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 611, in dashboard
+    tercero = CatTerceros.objects.get(COD_USUARIO=usuario.COD_USUARIO)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\query.py", line 642, in get
+    raise self.model.MultipleObjectsReturned(
+tasks.models.CatTerceros.MultipleObjectsReturned: get() returned more than one CatTerceros -- it returned 3!
+[2026-02-26 23:10:42,534] ERROR django.server: "GET /dashboard/ HTTP/1.1" 500 81858
+[2026-02-26 23:11:10,442] ERROR django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\tasks\views.py", line 611, in dashboard
+    tercero = CatTerceros.objects.get(COD_USUARIO=usuario.COD_USUARIO)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\Gabriel E. Rangel\Desktop\FINTECH\venv38\lib\site-packages\django\db\models\query.py", line 642, in get
+    raise self.model.MultipleObjectsReturned(
+tasks.models.CatTerceros.MultipleObjectsReturned: get() returned more than one CatTerceros -- it returned 3!
+[2026-02-26 23:11:10,447] ERROR django.server: "GET /dashboard/ HTTP/1.1" 500 81858
+[2026-02-26 23:21:13,920] WARNING django.request: Unauthorized: /registro/
+[2026-02-26 23:21:13,929] WARNING django.server: "GET /registro/ HTTP/1.1" 401 27
+[2026-02-26 23:21:19,344] WARNING django.request: Unauthorized: /registro/
+[2026-02-26 23:21:19,346] WARNING django.server: "GET /registro/ HTTP/1.1" 401 27
+[2026-03-01 16:46:42,520] WARNING django.request: Not Found: /login/img/icono.ico
+[2026-03-01 16:46:42,535] WARNING django.server: "GET /login/img/icono.ico HTTP/1.1" 404 5948
+[2026-03-01 16:52:17,257] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-03-01 16:52:17,262] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6035
+[2026-03-01 16:52:59,384] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-03-01 16:52:59,451] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6035
+[2026-03-01 16:53:23,060] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-03-01 16:53:23,063] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6035
+[2026-03-01 16:58:16,061] WARNING django.server: "GET /static/js/highcharts.js HTTP/1.1" 404 1807
+[2026-03-01 16:58:16,132] WARNING django.server: "GET /static/js/exporting.js HTTP/1.1" 404 1804
+[2026-03-01 16:58:16,174] WARNING django.server: "GET /static/js/accessibility.js HTTP/1.1" 404 1816
+[2026-03-01 16:58:16,181] WARNING django.server: "GET /static/js/export-data.js HTTP/1.1" 404 1810
+[2026-03-01 16:58:16,384] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-03-01 16:58:17,203] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6035
+[2026-03-01 16:58:54,552] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-03-01 16:58:54,555] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6035
+[2026-03-01 16:58:54,589] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-03-01 16:58:54,591] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6035
+[2026-03-01 17:00:33,216] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-03-01 17:00:33,218] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6035
+[2026-03-01 17:03:36,643] WARNING django.server: "GET /static/js/export-data.js HTTP/1.1" 404 1810
+[2026-03-01 17:03:36,647] WARNING django.server: "GET /static/js/exporting.js HTTP/1.1" 404 1804
+[2026-03-01 17:03:36,652] WARNING django.server: "GET /static/js/accessibility.js HTTP/1.1" 404 1816
+[2026-03-01 17:03:42,762] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-03-01 17:03:42,778] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6035
+[2026-03-01 17:05:08,911] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-03-01 17:05:08,921] WARNING django.server: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6035

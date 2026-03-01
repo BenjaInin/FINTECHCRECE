@@ -48,10 +48,9 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'tasks.middleware.SessionIdleTimeout',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',  # Gestiona las sesiones
-    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Autenticación de usuario
 ]
 
 ROOT_URLCONF = 'FINTECH.urls'
@@ -200,5 +199,12 @@ SERVER_EMAIL = 'crecetulanaoficial@gmail.com'
 # Token expira en 30 minutos
 PASSWORD_RESET_TIMEOUT = 1800
 
+# Tiempo máximo de inactividad (en segundos)
+SESSION_COOKIE_AGE = 300  # 5 minutos = 300 segundos
 
+# Cierra sesión cuando el navegador se cierre
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Reinicia el contador en cada request
+SESSION_SAVE_EVERY_REQUEST = False 
 

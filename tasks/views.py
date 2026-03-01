@@ -353,6 +353,16 @@ def registrame(request):
     return render(request, 'registrarse.html')
 # ------------------------------------- FUNCION REGISTRO ----------------------------------------------
 def registro(request):
+    user_id = request.session.get('user_id')
+
+    if not user_id:
+        return JsonResponse({"error": "No autenticado"}, status=401)
+
+    usuario_logueado = Usuario.objects.get(COD_USUARIO=user_id)
+
+    if usuario_logueado.TIP_USUARIO != "ADM":
+        return JsonResponse({"error": "No autorizado"}, status=403)
+
     # Limpiar mensajes pendientes
     list(messages.get_messages(request))
 
@@ -366,7 +376,7 @@ def registro(request):
     if request.method == 'POST':
 
         # =====================================================
-        # 🟢 CARGA MASIVA DESDE EXCEL
+        # CARGA MASIVA DESDE EXCEL
         # =====================================================
         if request.FILES.get('archivo'):
             archivo = request.FILES['archivo']
@@ -479,6 +489,21 @@ def registro(request):
     })
 #-----------------------------------------Usuarios------------------------------------------------------------------------
 def usuarios_view(request):
+    
+    user_id = request.session.get('user_id')
+
+    if not user_id:
+        return redirect('login')
+
+    # Obtener usuario logueado
+    try:
+        usuario_logueado = Usuario.objects.get(COD_USUARIO=user_id)
+    except Usuario.DoesNotExist:
+        return redirect('login')
+
+    # Validar que sea ADMIN
+    if usuario_logueado.TIP_USUARIO != "ADM":
+        return redirect('dashboard')  # o return HttpResponseForbidden()
     query = request.GET.get('q', '')
     usuarios = CatTerceros.objects.select_related('COD_USUARIO')
     if query:
@@ -505,6 +530,15 @@ def movimientos_usuario(request, id_tercero):
     para mostrar en el modal.
     Funciona tanto si el ID viene con ceros a la izquierda como sin ellos.
     """
+    user_id = request.session.get('user_id')
+
+    if not user_id:
+        return JsonResponse({"error": "No autenticado"}, status=401)
+
+    usuario_logueado = Usuario.objects.get(COD_USUARIO=user_id)
+
+    if usuario_logueado.TIP_USUARIO != "ADM":
+        return JsonResponse({"error": "No autorizado"}, status=403)
 
     # Convertimos a string y generamos versión con ceros a la izquierda
     id_tercero_str = str(id_tercero)
@@ -530,6 +564,16 @@ def movimientos_usuario(request, id_tercero):
     return JsonResponse(data, safe=False)
 @require_POST
 def eliminar_movimiento(request, id):
+    user_id = request.session.get('user_id')
+
+    if not user_id:
+        return JsonResponse({"error": "No autenticado"}, status=401)
+
+    usuario_logueado = Usuario.objects.get(COD_USUARIO=user_id)
+
+    if usuario_logueado.TIP_USUARIO != "ADM":
+        return JsonResponse({"error": "No autorizado"}, status=403)
+
     mov = get_object_or_404(HisMovimientos, ID=id)
     mov.delete()
     return JsonResponse({'ok': True})
@@ -537,6 +581,15 @@ def eliminar_movimiento(request, id):
 
 @require_POST
 def eliminar_usuario(request, id):
+    user_id = request.session.get('user_id')
+
+    if not user_id:
+        return JsonResponse({"error": "No autenticado"}, status=401)
+
+    usuario_logueado = Usuario.objects.get(COD_USUARIO=user_id)
+
+    if usuario_logueado.TIP_USUARIO != "ADM":
+        return JsonResponse({"error": "No autorizado"}, status=403)
 
     try:
         tercero = get_object_or_404(CatTerceros, ID_TERCERO=id)
@@ -560,6 +613,16 @@ def eliminar_usuario(request, id):
 
 @require_POST
 def editar_usuario(request):
+    user_id = request.session.get('user_id')
+
+    if not user_id:
+        return JsonResponse({"error": "No autenticado"}, status=401)
+
+    usuario_logueado = Usuario.objects.get(COD_USUARIO=user_id)
+
+    if usuario_logueado.TIP_USUARIO != "ADM":
+        return JsonResponse({"error": "No autorizado"}, status=403)
+
     try:
         data = json.loads(request.body)
 
