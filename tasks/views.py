@@ -45,8 +45,6 @@ from decimal import Decimal, ROUND_HALF_UP
 from reportlab.lib.units import cm
 from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
 # ------------------------------------- FUNCION HOME ----------------------------------------------
 def home(request):
     """
@@ -489,7 +487,6 @@ def registro(request):
         'tiptercero': tiptercero
     })
 #-----------------------------------------Usuarios------------------------------------------------------------------------
-@method_decorator(login_required(login_url='/login/'), name='dispatch')
 def usuarios_view(request):
     
     user_id = request.session.get('user_id')
